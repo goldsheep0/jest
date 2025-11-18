@@ -1,4 +1,6 @@
-package fr.lo02.jest;
+package fr.lo02.jest.regle.calculepoint;
+
+import fr.lo02.jest.*;
 
 public interface Visitor {
 	

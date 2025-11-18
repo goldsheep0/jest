@@ -1,13 +1,22 @@
 package fr.lo02.jest;
+import fr.lo02.jest.regle.calculepoint.*;
+import fr.lo02.jest.enums.*;
+
 public class Carte {
 	
     private Couleur couleur;
     private Valeur valeur;
     private StrategyTrophee strategyTrophee;
-
+    
+    /**
+     * Constructeur de la classe Carte.
+     * @param valeur
+     * @param couleur
+     * @param strategyTrophee
+     */
     public Carte (Valeur valeur, Couleur couleur, StrategyTrophee strategyTrophee) {
-		this.setCouleur(couleur);
-		this.setValeur(valeur);
+		this.couleur=couleur;
+		this.valeur=valeur;
 		this.setStrategyTrophee(strategyTrophee);
     }
 
@@ -15,16 +24,8 @@ public class Carte {
     	return couleur;
     }
 
-    public void setCouleur(Couleur couleur) {
-    	this.couleur = couleur;
-	}
-
     public Valeur getValeur() {
     	return valeur;
-    }
-
-    public void setValeur(Valeur valeur) {
-	    this.valeur = valeur;
     }
     
     public void setStrategyTrophee(StrategyTrophee strategyTropheeArg) {
