@@ -21,7 +21,7 @@ public class RegleAsVisitor implements Visitor{
 	 */
 	public RegleAsVisitor(LinkedList<Carte> jestJoueur) {
 		this.totalPoint=0;
-		this.jest=jestJoueur;
+		this.jest=jestJoueur;//Copie le pointeur vers jestJoueur. Attention toute modification sur this.jest affectera jestJoueur
 	}
 	
 	public int getTotalPoint() {
@@ -82,10 +82,10 @@ public class RegleAsVisitor implements Visitor{
 		
 		LinkedList<Carte> jest1 = new LinkedList<Carte>();
 		
-		jest1.add(coeur2);
+		jest1.add(coeurAs);
 		jest1.add(carreau3);
 		jest1.add(trefle4);
-		jest1.add(coeurAs);
+		jest1.add(trefle3);
 		jest1.add(piqueAs);
 		
 		RegleAsVisitor regle = new RegleAsVisitor(jest1);
