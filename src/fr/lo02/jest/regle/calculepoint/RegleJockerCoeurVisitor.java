@@ -18,7 +18,7 @@ public class RegleJockerCoeurVisitor implements Visitor{
 
 	public RegleJockerCoeurVisitor(LinkedList<Carte> jestJoueur) {
 		this.totalPoint=0;
-		this.jest=jestJoueur;
+		this.jest=jestJoueur;//Copie le pointeur vers jestJoueur. Attention toute modification sur this.jest affectera jestJoueur
 	}
 	
 	public int getTotalPoint() {
