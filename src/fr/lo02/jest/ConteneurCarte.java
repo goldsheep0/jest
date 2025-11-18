@@ -18,8 +18,8 @@ public class ConteneurCarte {
 		Collections.shuffle(cartes);
 	}
 	
-	public int getQuantite() {
-		return cartes.size();
+	public boolean isEmpty() {
+		return cartes.isEmpty();
 	}
 	
 	public String toString() {
@@ -28,6 +28,10 @@ public class ConteneurCarte {
 	
 	public LinkedList<Carte> getCartes() {
 		return cartes;
+	}
+	
+	public void addCarte(Carte c) {
+		cartes.add(c);
 	}
 
 }
