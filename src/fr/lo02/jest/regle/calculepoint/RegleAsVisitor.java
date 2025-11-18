@@ -39,11 +39,14 @@ public class RegleAsVisitor implements Visitor{
 	 */
 	public void visitCarte(Carte carte) {
 		if(carte.getValeur()==Valeur.AS) {
-			this.jest.remove(carte);
-			boolean hasNoSameFace=true; //Tant que l'as est la seule carte de sa couleur dans le jest, cette variable reste à true
-			Iterator<Carte> it = this.jest.iterator();
-			while(it.hasNext()) {
-				if(it.next().getCouleur()==carte.getCouleur()) {
+			boolean hasNoSameFace; //Tant que l'as est la seule carte de sa couleur dans le jest, cette variable reste à true
+			Iterator<Carte> it1;
+			it1= this.jest.iterator();
+			hasNoSameFace=true;
+			Carte currentCarte;
+			while(it1.hasNext()) {
+				currentCarte = it1.next();
+				if(currentCarte.getCouleur()==carte.getCouleur()&&currentCarte!=carte) {
 					hasNoSameFace=false;
 				}
 			}
@@ -53,6 +56,14 @@ public class RegleAsVisitor implements Visitor{
 		}
 	}
 	
+	
+	/**
+	 * Permet de test la classe avec différents cas qui sont :
+	 * Un as et aucune carte de la même couleur : +4 point sur le jest
+	 * Un as et au moins une carte de la même couleur : 0 point
+	 * Aucun as : 0 point
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		StrategyTrophee strat= new StrategyTropheeNull();
@@ -71,11 +82,11 @@ public class RegleAsVisitor implements Visitor{
 		
 		LinkedList<Carte> jest1 = new LinkedList<Carte>();
 		
-		jest1.add(joker);
-		jest1.add(coeur4);
-		jest1.add(coeur3);
 		jest1.add(coeur2);
+		jest1.add(carreau3);
+		jest1.add(trefle4);
 		jest1.add(coeurAs);
+		jest1.add(piqueAs);
 		
 		RegleAsVisitor regle = new RegleAsVisitor(jest1);
 		
