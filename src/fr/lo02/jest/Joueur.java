@@ -8,6 +8,8 @@ public class Joueur {
 	
 	public Joueur(String nom) {
 		this.nom = nom;
+		this.offre = new ConteneurCarte();
+		this.jest = new ConteneurCarte();
 	}
 	
 	public ConteneurCarte getJest() {

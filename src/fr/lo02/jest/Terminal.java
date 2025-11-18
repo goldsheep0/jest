@@ -1,7 +1,6 @@
 package fr.lo02.jest;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,14 +17,21 @@ public class Terminal {
 	}
 	
 	public int lireEntier(){
+		/*
 		DataInputStream dos = new DataInputStream(entree);
 		int value=0;
 		try {
 			value =  dos.readInt();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}*/
+		int value = 0;
+		try {
+			value = Integer.parseInt(lireChaine());
+		} catch (NumberFormatException e) {
+			throw e;
 		}
-	return value;		
+		return value;		
 	}
 	
 	public String lireChaine(){

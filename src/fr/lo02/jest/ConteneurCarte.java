@@ -6,7 +6,9 @@ public class ConteneurCarte {
 	
 	private LinkedList<Carte> cartes;
 	
-	public ConteneurCarte() {}
+	public ConteneurCarte() {
+		cartes = new LinkedList<Carte>();
+	}
 	
 	public Carte distribuerCarte() {
 		Carte c;

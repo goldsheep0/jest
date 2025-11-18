@@ -6,6 +6,12 @@ import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
+import fr.lo02.jest.regle.calculepoint.RegleAsVisitor;
+import fr.lo02.jest.regle.calculepoint.RegleCouleurVisitor;
+import fr.lo02.jest.regle.calculepoint.RegleJockerCoeurVisitor;
+import fr.lo02.jest.regle.calculepoint.ReglePairesNoiresVisitor;
+import fr.lo02.jest.regle.calculepoint.RegleSavingDiamondsWithLove;
+import fr.lo02.jest.regle.calculepoint.Visitor;
 
 public class Partie {
 	
@@ -17,8 +23,9 @@ public class Partie {
 	
 	private Partie() {
 		terminal = new Terminal();
-		joueurs = null;
+		joueurs = new ArrayList<Joueur>();
 		deck = creerDeck();
+		stack = new ConteneurCarte();
 	}
 	/**
 	 * Méthode à utiliser pour récupérer le singleton Partie
@@ -92,6 +99,9 @@ public class Partie {
 		return stack;
 	}
 	
+	/**
+	 * Fait en sorte que chaque joueur prenne la derniere carte de son jest.
+	 */
 	public void joueursPrennentDerniereCarte() {
 		for (Iterator<Joueur> it = joueurs.iterator(); it.hasNext(); ) {
 			Joueur joueur = it.next();
@@ -104,8 +114,50 @@ public class Partie {
 		
 	}
 	
-	public HashMap<Joueur, Integer> compterScores() {
-		return null;
+	/**
+	 * Calcule le score de chaque joueur
+	 * @return HashMap de scores mappés à chaque joueur
+	 */
+	public HashMap<Integer, Joueur> compterScores() {
+		HashMap<Integer, Joueur> scores = new HashMap<Integer, Joueur>();
+		for (Iterator<Joueur> it = partie.joueurs.iterator(); it.hasNext(); ) {
+			Joueur joueur = it.next();
+			LinkedList<Carte> jest = joueur.getJest().getCartes();
+			Visitor regle1 = new RegleAsVisitor(jest);
+			Visitor regle2 = new RegleCouleurVisitor();
+			Visitor regle3 = new RegleJockerCoeurVisitor(jest);
+			Visitor regle4 = new ReglePairesNoiresVisitor();
+			Visitor regle5 = new RegleSavingDiamondsWithLove();
+			Iterator<Carte> itCarte = jest.iterator();
+			while(itCarte.hasNext()) {
+				itCarte.next().acceptVisitor(regle1);
+				itCarte.next().acceptVisitor(regle2);
+				itCarte.next().acceptVisitor(regle3);
+				itCarte.next().acceptVisitor(regle4);
+				itCarte.next().acceptVisitor(regle5);
+			}
+			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint() + regle5.getTotalPoint();
+			scores.put(joueurScore, joueur);
+		}
+		return scores;
+	}
+	
+	public void afficherScores(HashMap<Integer, Joueur> scores) {
+		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.keySet());
+		scoreValues.sort(new Comparator<Integer>() {
+			@Override
+			public int compare(Integer i1, Integer i2) {
+				return (int)((i1 - i2) / Math.abs(i1 - i2));
+			}
+		});
+		terminal.afficherChaine("Et le grand gagnant esssssst....");
+		terminal.afficherChaine(scores.get(scoreValues.get(0)).getNom()+" !!!!!");
+		terminal.afficherChaine("--------------------------------");
+		terminal.afficherChaine("Scores : ");
+		for (Iterator<Integer> it = scoreValues.iterator(); it.hasNext(); ) {
+			int scoreJoueur = it.next();
+			terminal.afficherChaine(scores.get(scoreJoueur).getNom()+" avec un score de "+Integer.toString(scoreJoueur)+" !");
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -125,7 +177,8 @@ public class Partie {
 		
 		partie.joueursPrennentDerniereCarte();
 		partie.distribuerTrophees();
-		HashMap<Joueur, Integer> scores = partie.compterScores();
+		HashMap<Integer, Joueur> scores = partie.compterScores();
+		partie.afficherScores(scores);
 		//TODO finirPartie()
 	}
 

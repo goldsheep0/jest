@@ -9,4 +9,6 @@ public interface Visitor {
 	 * @param carte
 	 */
 	public void visitCarte(Carte carte);
+	
+	public int getTotalPoint();
 }

@@ -31,11 +31,11 @@ public class Round {
 		} else {
 			for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
 				Joueur joueur = it.next();
-				Carte c = joueur.getOffre().distribuerCarte();
-				partie.getStack().addCarte(c);
+				Carte cJ = joueur.getOffre().distribuerCarte();
+				partie.getStack().addCarte(cJ);
 				
-				c = partie.getDeck().distribuerCarte();
-				partie.getStack().addCarte(c);
+				Carte cD = partie.getDeck().distribuerCarte();
+				partie.getStack().addCarte(cD);
 			}
 			partie.getStack().melanger();
 			for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
@@ -85,7 +85,23 @@ public class Round {
 	}
 	
 	/**
-	 * Chaque joueur prend une carte pour son jest.
+	 * Retourne la liste de joueurs sans le joueur sélectionné
+	 * @param joueurSelectionne Le joueur sélectionné
+	 * @return La liste de joueurs sans le joueur
+	 */
+	public LinkedList<Joueur> getAutresJoueurs(Joueur joueurSelectionne) {
+		LinkedList<Joueur> list = new LinkedList<Joueur>();
+		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
+			Joueur j = it.next();
+			if (!j.equals(joueurSelectionne)) {
+				list.add(j);
+			}
+		}
+		return list;
+	}
+	
+	/**
+	 * Chaque joueur prend une carte et l'ajoute à son jest
 	 */
 	public void prendreCartes() {
 		
@@ -96,25 +112,30 @@ public class Round {
 			Joueur joueur = partie.getJoueurs().get(joueurIndex);
 			Joueur joueurChoisi = null;
 			
+			// Si le joueur n'est pas le dernier, on lui propose de choisir l'offre d'un des joueurs
 			if (joueurIndex < partie.getJoueurs().size() - 1) {
 				terminal.afficherChaine("Affichage des offres des joueurs : ");
+				// Boucle à travers les joueurs restants
+				LinkedList<Joueur> autresJoueurs = getAutresJoueurs(joueur);
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
-				for (int joueurIndex2 = joueurIndex + 1; joueurIndex2 < partie.getJoueurs().size(); joueurIndex2++) {
-					if (partie.getJoueurs().get(joueurIndex2).getOffre().getCartes().size() == 2) {
-						indexes.add(joueurIndex2);
-						Carte carteVisible = partie.getJoueurs().get(joueurIndex2).getOffre().getCarteVisible();
-						String nomJoueur = partie.getJoueurs().get(joueurIndex2).getNom();
-						terminal.afficherChaine("Offre de "+nomJoueur+" : [Carte cachée], "+carteVisible.toString());
+				for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
+					// On vérifie que l'offre a bien 2 éléments
+					Joueur autre = it.next();
+					if (autre.getOffre().getCartes().size() == 2) {
+						indexes.add(partie.getJoueurs().indexOf(autre));
+						Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
+						String nomAutre = autre.getNom();
+						terminal.afficherChaine("Offre de "+nomAutre+" : [Carte cachée], "+carteVisibleAutre.toString());
 					}
 				}
 				
+				//Le joueur choisit un des joueurs
 				terminal.afficherChaine("Choisissez un joueur : (1 - "+String.valueOf(indexes.size())+")");
 				int saisie = terminal.lireEntier();
-				while (saisie < 0 || saisie >= indexes.size()) {
+				while (saisie < 1 || saisie > indexes.size()) {
 					terminal.afficherChaine("Mauvaise saisie, tapez un entier entre (1 - "+String.valueOf(indexes.size())+")");
 					saisie = terminal.lireEntier();
 				}
-				
 				
 				joueurChoisi = partie.getJoueurs().get(indexes.get(saisie - 1));
 				Carte carteVisible = joueurChoisi.getOffre().getCarteVisible();
@@ -123,9 +144,10 @@ public class Round {
 				
 			}
 			
+			//Sinon, le joueur a l'offre du joueur restant avec une offre à 2 élements
 			else {
 				
-				for (int joueurIndex2 = joueurIndex + 1; joueurIndex2 < partie.getJoueurs().size(); joueurIndex2++) {
+				for (int joueurIndex2 = 0; joueurIndex2 < partie.getJoueurs().size(); joueurIndex2++) {
 					if (partie.getJoueurs().get(joueurIndex2).getOffre().getCartes().size() == 2) {
 						Carte carteVisible = partie.getJoueurs().get(joueurIndex2).getOffre().getCarteVisible();
 						String nomJoueur = partie.getJoueurs().get(joueurIndex2).getNom();
@@ -136,7 +158,7 @@ public class Round {
 				}
 			}
 			
-			//Le joueur a été choisi
+			//Le joueur a été choisi, on choisit maintenant la carte de l'offre
 			terminal.afficherChaine("Choisissez entre la carte cachée (1) et la carte montrée (2) : ");
 			int saisie = terminal.lireEntier();
 			while (saisie != 1 && saisie != 2) {
