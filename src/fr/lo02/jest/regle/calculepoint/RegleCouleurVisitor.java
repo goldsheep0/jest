@@ -18,6 +18,14 @@ public class RegleCouleurVisitor implements Visitor{
 		return totalPoint;
 	}
 	
+	
+	/**
+	 * Cette fonction permet de rajouter de la valeur au jest en fonction de la couleur des cartes présente à l'intérieur :
+	 * Pique & tréfle : ajoute sa valeur à la valeur du jest
+	 * Carreau : retire sa valeur à la valeur du jest
+	 * 
+	 * @param carte
+	 */
 	public void visitCarte(Carte carte) {
 		/*
 		 * On utilise ordinal() car les enum sont placés dans un ordre qui leur donne les bonnes valeurs

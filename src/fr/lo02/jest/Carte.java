@@ -1,5 +1,6 @@
 package fr.lo02.jest;
 import fr.lo02.jest.regle.calculepoint.*;
+import fr.lo02.jest.regle.attributionTrophees.*;
 import fr.lo02.jest.enums.*;
 
 public class Carte {
@@ -7,7 +8,7 @@ public class Carte {
     private Couleur couleur;
     private Valeur valeur;
     private StrategyTrophee strategyTrophee;
-    private boolean faceVisible;
+    private boolean retournee;
     
     /**
      * Constructeur de la classe Carte.
@@ -19,7 +20,7 @@ public class Carte {
 		this.couleur=couleur;
 		this.valeur=valeur;
 		this.setStrategyTrophee(strategyTrophee);
-		this.faceVisible = false;
+		this.retournee = false;
     }
 
     public Couleur getCouleur() {
@@ -30,12 +31,12 @@ public class Carte {
     	return valeur;
     }
     
-    public boolean estFaceVisible() {
-    	return faceVisible;
+    public boolean estRetournee() {
+    	return retournee;
     }
     
-    public void setFaceVisible(boolean ret) {
-    	faceVisible = ret;
+    public void setRetournee(boolean ret) {
+    	retournee = ret;
     }
     
     public void setStrategyTrophee(StrategyTrophee strategyTropheeArg) {
@@ -83,19 +84,5 @@ public class Carte {
     public static void main(String[]args){
 
 
-    }
-    
-    public Carte compareTo(Carte c) {
-    	if (valeur.ordinal() > c.valeur.ordinal()) {
-    		return this;
-    	} else if(valeur.ordinal() < c.valeur.ordinal()) {
-    		return c;
-    	} else {
-    		if (couleur.ordinal() > c.couleur.ordinal()) {
-    			return this;
-    		} else {
-    			return c;
-    		}
-    	}
     }
 }

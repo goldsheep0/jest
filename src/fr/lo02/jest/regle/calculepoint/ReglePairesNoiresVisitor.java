@@ -22,6 +22,11 @@ public class ReglePairesNoiresVisitor implements Visitor{
 		return totalPoint;
 	}
 	
+	/**
+	 * Une paire de couleur noire rajoute 2 points à la valeur du jest
+	 * 
+	 * @param carte
+	 */
 	public void visitCarte(Carte carte) {
 		if(carte.getCouleur()==Couleur.PIQUE||carte.getCouleur()==Couleur.TREFLE) {
 			if(this.setValeursNoiresVisitees.contains(carte.getValeur())) {

@@ -4,6 +4,8 @@ import java.util.*;
 
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.enums.*;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
 
 public class RegleJockerCoeurVisitor implements Visitor{
 	/*
@@ -23,6 +25,17 @@ public class RegleJockerCoeurVisitor implements Visitor{
 		return totalPoint;
 	}
 	
+	
+	/**
+	 * La valeur des coeur et des joker sont interdépendantes :
+	 * 
+	 * Des coeurs sans joker ne font rien.
+	 * Un joker seul ajoute 4 points au jest.
+	 * Un joker et 1,2 ou 3 coeurs soustraient la valeur des coeurs au jest.
+	 * Un joker et 4 coeurs ajoutent la valeur des coeurs au jest.
+	 * 
+	 * @param carte
+	 */
 	public void visitCarte(Carte carte) {
 		if(carte.getCouleur()==Couleur.JOKER) {
 			int nombreCoeur=0;
@@ -40,25 +53,75 @@ public class RegleJockerCoeurVisitor implements Visitor{
 				}
 			}
 			switch(nombreCoeur) {
-			case 0:
-				this.totalPoint+=4;
-				break;
-			case 1:
-				if(lastHeartPicked==Valeur.AS) {
-					valeurCoeur+=4;
-				}
-				this.totalPoint-=valeurCoeur;
-			case 2:
-				this.totalPoint-=valeurCoeur;
-			case 3:
-				this.totalPoint-=valeurCoeur;
-			case 4:
-				this.totalPoint+=valeurCoeur;
-			
-				
+				case 0:
+					this.totalPoint+=4;
+					break;
+				case 1:
+					if(lastHeartPicked==Valeur.AS) {
+						valeurCoeur+=4;
+					}
+					this.totalPoint-=valeurCoeur;
+					break;
+				case 2:
+					this.totalPoint-=valeurCoeur;
+					break;
+				case 3:
+					this.totalPoint-=valeurCoeur;
+					break;
+				case 4:
+					this.totalPoint+=valeurCoeur;
+					break;
+				default:
+					break;
 			}
 			
 		}
+		
+	}
+	
+	/**
+	 * Permet de test la classe avec différents cas qui sont :
+	 * Aucun joker : expected 0
+	 * Un joker, aucun coeur : expected 4
+	 * Un joker, un as : expected -5
+	 * Un joker, 1,2 ou 3 coeur : expected -valeursAjoutesDesCartes
+	 * Un joker, les 4 coeurs : expected 10
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		/*
+		StrategyTrophee strat= new StrategyTropheeNull();
+		
+		Carte joker = new Carte(Valeur.JOKER,Couleur.JOKER,strat);
+		Carte coeurAs = new Carte(Valeur.AS,Couleur.COEUR,strat);;
+		Carte coeur2 = new Carte(Valeur.DEUX,Couleur.COEUR,strat);;
+		Carte coeur3 = new Carte(Valeur.TROIS,Couleur.COEUR,strat);;
+		Carte coeur4 = new Carte(Valeur.QUATRE,Couleur.COEUR,strat);;
+		
+		Carte piqueAs = new Carte(Valeur.AS,Couleur.PIQUE,strat);
+		Carte carreau3 = new Carte(Valeur.TROIS,Couleur.CARREAU,strat);
+		Carte trefle4 = new Carte(Valeur.QUATRE,Couleur.TREFLE,strat);
+		Carte pique2 = new Carte(Valeur.DEUX,Couleur.PIQUE,strat);
+		Carte trefle3 = new Carte(Valeur.TROIS,Couleur.TREFLE,strat);
+		
+		LinkedList<Carte> jest1 = new LinkedList<Carte>();
+		
+		jest1.add(joker);
+		jest1.add(coeur4);
+		jest1.add(coeur3);
+		jest1.add(coeur2);
+		jest1.add(coeurAs);
+		
+		RegleJockerCoeurVisitor regle = new RegleJockerCoeurVisitor(jest1);
+		
+		Iterator<Carte> it = jest1.iterator();
+		while(it.hasNext()) {
+			it.next().acceptVisitor(regle);
+		}
+		System.out.println(regle.getTotalPoint());
+		*/
+
+		
 		
 	}
 }
