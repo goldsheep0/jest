@@ -8,8 +8,11 @@ public class Partie {
 	private ArrayList<Joueur> joueurs;
 	private ConteneurCarte deck;
 	private ConteneurCarte stack;
+	private Terminal terminal;
 	
-	private Partie() {}
+	private Partie() {
+		terminal = new Terminal();
+	}
 	/**
 	 * Méthode à utiliser pour récupérer le singleton Partie
 	 * @return le singleton Partie
@@ -21,6 +24,10 @@ public class Partie {
 			partie = new Partie();
 			return partie;
 		}
+	}
+	
+	public Terminal getTerminal() {
+		return terminal;
 	}
 	
 	/**
@@ -62,6 +69,7 @@ public class Partie {
 			
 			round.distribuerCartes();
 			round.faireOffres();
+			round.prendreCartes();
 		}
 	}
 

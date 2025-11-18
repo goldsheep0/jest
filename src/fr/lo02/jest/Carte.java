@@ -7,7 +7,7 @@ public class Carte {
     private Couleur couleur;
     private Valeur valeur;
     private StrategyTrophee strategyTrophee;
-    private boolean retournee;
+    private boolean faceVisible;
     
     /**
      * Constructeur de la classe Carte.
@@ -19,7 +19,7 @@ public class Carte {
 		this.couleur=couleur;
 		this.valeur=valeur;
 		this.setStrategyTrophee(strategyTrophee);
-		this.retournee = false;
+		this.faceVisible = false;
     }
 
     public Couleur getCouleur() {
@@ -30,12 +30,12 @@ public class Carte {
     	return valeur;
     }
     
-    public boolean estRetournee() {
-    	return retournee;
+    public boolean estFaceVisible() {
+    	return faceVisible;
     }
     
-    public void setRetournee(boolean ret) {
-    	retournee = ret;
+    public void setFaceVisible(boolean ret) {
+    	faceVisible = ret;
     }
     
     public void setStrategyTrophee(StrategyTrophee strategyTropheeArg) {
@@ -83,5 +83,19 @@ public class Carte {
     public static void main(String[]args){
 
 
+    }
+    
+    public Carte compareTo(Carte c) {
+    	if (valeur.ordinal() > c.valeur.ordinal()) {
+    		return this;
+    	} else if(valeur.ordinal() < c.valeur.ordinal()) {
+    		return c;
+    	} else {
+    		if (couleur.ordinal() > c.couleur.ordinal()) {
+    			return this;
+    		} else {
+    			return c;
+    		}
+    	}
     }
 }

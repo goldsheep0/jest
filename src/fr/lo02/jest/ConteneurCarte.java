@@ -33,5 +33,16 @@ public class ConteneurCarte {
 	public void addCarte(Carte c) {
 		cartes.add(c);
 	}
+	
+	public Carte getCarteVisible() {
+		Carte carte = null;
+		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
+			Carte c = it.next();
+			if (c.estFaceVisible()) {
+				carte = c;
+			}
+		}
+		return carte;
+	}
 
 }

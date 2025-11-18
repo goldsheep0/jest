@@ -1,0 +1,54 @@
+package fr.lo02.jest;
+
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+
+public class Terminal {
+	
+	private InputStream entree;
+	private PrintStream sortie;
+	
+	public Terminal(){
+		entree = System.in;
+		sortie = System.out;		
+	}
+	
+	public int lireEntier(){
+		DataInputStream dos = new DataInputStream(entree);
+		int value=0;
+		try {
+			value =  dos.readInt();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	return value;		
+	}
+	
+	public String lireChaine(){
+		String laChaine = null;
+		BufferedReader br = new BufferedReader(new InputStreamReader(entree));
+		try {
+			laChaine = br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}		
+		return laChaine;
+	}
+	
+	public void afficherChaine(String laChaine){
+		sortie.println(laChaine);
+	}
+	
+	public void echo(){
+		String saisieClavier = new String();
+		while(saisieClavier.compareTo("exit") != 0){
+			saisieClavier=lireChaine();
+			afficherChaine(saisieClavier);			
+		}		
+	}
+	
+}
