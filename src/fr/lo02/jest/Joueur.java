@@ -4,9 +4,10 @@ public class Joueur {
 	
 	private ConteneurCarte jest;
 	private ConteneurCarte offre;
+	private String nom;
 	
-	public Joueur() {
-		
+	public Joueur(String nom) {
+		this.nom = nom;
 	}
 	
 	public ConteneurCarte getJest() {
@@ -15,6 +16,10 @@ public class Joueur {
 	
 	public ConteneurCarte getOffre() {
 		return offre;
+	}
+	
+	public String getNom() {
+		return nom;
 	}
 
 }

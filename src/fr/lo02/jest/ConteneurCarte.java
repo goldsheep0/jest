@@ -34,6 +34,18 @@ public class ConteneurCarte {
 		cartes.add(c);
 	}
 	
+	public Carte retirerCarteFaceVisible(boolean faceVisible) {
+		Carte c = null;
+		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
+			c = it.next();
+			if (c.estFaceVisible() == faceVisible) {
+				cartes.remove(c);
+				break;
+			}
+		}
+		return c;
+	}
+	
 	public Carte getCarteVisible() {
 		Carte carte = null;
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {

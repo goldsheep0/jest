@@ -71,6 +71,8 @@ public class Partie {
 			round.faireOffres();
 			round.prendreCartes();
 		}
+		
+		//TODO finirPartie()
 	}
 
 }
