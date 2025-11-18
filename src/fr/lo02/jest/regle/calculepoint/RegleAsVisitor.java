@@ -10,7 +10,7 @@ public class RegleAsVisitor implements Visitor{
 	 * n'est modifié que par les méthode de la règle.
 	 */
 	private int totalPoint;
-	private LinkedList<Carte> jest;//Un HashSet serait meilleur.
+	private LinkedList<Carte> jest;
 	
 	/**
 	 * Constructeur de la classe RegleAsVisitor
@@ -36,8 +36,17 @@ public class RegleAsVisitor implements Visitor{
 	 */
 	public void visitCarte(Carte carte) {
 		if(carte.getValeur()==Valeur.AS) {
-			
+			this.jest.remove(carte);
+			boolean hasNoSameFace=true; //Tant que l'as est la seule carte de sa couleur dans le jest, cette variable reste à true
+			Iterator<Carte> it = this.jest.iterator();
+			while(it.hasNext()) {
+				if(it.next().getCouleur()==carte.getCouleur()) {
+					hasNoSameFace=false;
+				}
+			}
+			if(hasNoSameFace) {
+				totalPoint+=4;
+			}
 		}
-		
 	}
 }
