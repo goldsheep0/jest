@@ -43,9 +43,9 @@ public class RegleJockerCoeurVisitor implements Visitor{
 			
 			Valeur lastHeartPicked=Valeur.AS;//Initialisé à As pour éviter les problèmes de compilateur
 			Carte currentCarte;
-			Iterator<Carte> it = this.jest.iterator();
-			while(it.hasNext()) {
-				currentCarte=it.next();
+			Iterator<Carte> it1 = this.jest.iterator();
+			while(it1.hasNext()) {
+				currentCarte=it1.next();
 				if(currentCarte.getCouleur()==Couleur.COEUR) {
 					nombreCoeur++;
 					valeurCoeur+=currentCarte.getValeur().ordinal();
@@ -89,7 +89,7 @@ public class RegleJockerCoeurVisitor implements Visitor{
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		/*
+		
 		StrategyTrophee strat= new StrategyTropheeNull();
 		
 		Carte joker = new Carte(Valeur.JOKER,Couleur.JOKER,strat);
@@ -119,7 +119,7 @@ public class RegleJockerCoeurVisitor implements Visitor{
 			it.next().acceptVisitor(regle);
 		}
 		System.out.println(regle.getTotalPoint());
-		*/
+		
 
 		
 		
