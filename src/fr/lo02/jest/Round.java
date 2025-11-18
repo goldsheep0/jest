@@ -46,8 +46,11 @@ public class Round {
 		}
 	}
 	
-	public void faireOffre() {
-		
+	public void faireOffres() {
+		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
+			Joueur joueur = it.next();
+			
+		}
 	}
 
 }

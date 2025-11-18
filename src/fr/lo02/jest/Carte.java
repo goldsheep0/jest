@@ -7,6 +7,7 @@ public class Carte {
     private Couleur couleur;
     private Valeur valeur;
     private StrategyTrophee strategyTrophee;
+    private boolean retournee;
     
     /**
      * Constructeur de la classe Carte.
@@ -18,6 +19,7 @@ public class Carte {
 		this.couleur=couleur;
 		this.valeur=valeur;
 		this.setStrategyTrophee(strategyTrophee);
+		this.retournee = false;
     }
 
     public Couleur getCouleur() {
@@ -26,6 +28,14 @@ public class Carte {
 
     public Valeur getValeur() {
     	return valeur;
+    }
+    
+    public boolean estRetournee() {
+    	return retournee;
+    }
+    
+    public void setRetournee(boolean ret) {
+    	retournee = ret;
     }
     
     public void setStrategyTrophee(StrategyTrophee strategyTropheeArg) {

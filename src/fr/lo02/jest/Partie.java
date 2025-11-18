@@ -8,9 +8,12 @@ public class Partie {
 	private ArrayList<Joueur> joueurs;
 	private ConteneurCarte deck;
 	private ConteneurCarte stack;
-	private Round round;
 	
 	private Partie() {}
+	/**
+	 * Méthode à utiliser pour récupérer le singleton Partie
+	 * @return le singleton Partie
+	 */
 	public static Partie getPartie() {
 		if (partie != null) {
 			return partie;
@@ -46,22 +49,19 @@ public class Partie {
 		return stack;
 	}
 	
-	/**
-	 * Crée le prochain round
-	 */
-	public void creerRound() {
-		
-	}
-	
 	public static void main(String[] args) {
 		partie = getPartie();
 		
 		partie.creerJoueurs();
 		partie.creerCartes();
 		
+		int round_counter = 0;
 		while (!partie.deck.isEmpty()) {
-			partie.creerRound();
+			round_counter ++;
+			Round round = new Round(round_counter == 1);
 			
+			round.distribuerCartes();
+			round.faireOffres();
 		}
 	}
 
