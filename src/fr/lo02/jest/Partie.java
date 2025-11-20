@@ -2,16 +2,9 @@ package fr.lo02.jest;
 
 import java.util.*;
 
-import fr.lo02.jest.enums.Couleur;
-import fr.lo02.jest.enums.Valeur;
-import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
-import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
-import fr.lo02.jest.regle.calculepoint.RegleAsVisitor;
-import fr.lo02.jest.regle.calculepoint.RegleCouleurVisitor;
-import fr.lo02.jest.regle.calculepoint.RegleJockerCoeurVisitor;
-import fr.lo02.jest.regle.calculepoint.ReglePairesNoiresVisitor;
-import fr.lo02.jest.regle.calculepoint.RegleSavingDiamondsWithLove;
-import fr.lo02.jest.regle.calculepoint.Visitor;
+import fr.lo02.jest.enums.*;
+import fr.lo02.jest.regle.attributionTrophees.*;
+import fr.lo02.jest.regle.calculepoint.*;
 
 public class Partie {
 	
@@ -88,6 +81,12 @@ public class Partie {
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull()));
+		cont.melanger();
+		
+		
+		for (int i=0; i<2; i++) {
+			cont.distribuerCarte(); //TODO implémenter trophées + retirer la classe quand les trophées sont implémentés
+		}
 		return cont;
 	}
 	
@@ -174,6 +173,7 @@ public class Partie {
 		
 		int round_counter = 0;
 		while (!partie.deck.isEmpty()) {
+			partie.terminal.afficherChaine(partie.deck.toString());
 			round_counter ++;
 			Round round = new Round(round_counter == 1);
 			

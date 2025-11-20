@@ -33,9 +33,8 @@ public class Round {
 		} else {
 			for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
 				Joueur joueur = it.next();
-				terminal.afficherChaine(joueur.getOffre().toString());
 				Carte cJ = joueur.getOffre().distribuerCarte();
-				
+				cJ.setFaceVisible(false);
 				partie.getStack().addCarte(cJ);
 				
 				Carte cD = partie.getDeck().distribuerCarte();

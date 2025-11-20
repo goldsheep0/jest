@@ -92,7 +92,7 @@ public class Carte {
     	} else if (valeur.ordinal() < c.valeur.ordinal()) {
     		return c;
     	} else {
-    		if (couleur.ordinal() > c.couleur.ordinal()) {
+    		if (couleur.ordinal() < c.couleur.ordinal()) {
     			return this;
     		} else {
     			return c;
