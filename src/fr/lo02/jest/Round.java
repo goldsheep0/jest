@@ -59,7 +59,7 @@ public class Round {
 			Joueur joueur = it.next();
 			terminal.afficherDivision();
 			terminal.afficherChaine(joueur.getNom()+", vous avez dans votre main : "+joueur.getOffre().toString());
-			terminal.afficherChaine("Quelle carte voulez-vous retourner ? (1 ou 2)");
+			terminal.afficherChaine("Quelle carte voulez-vous placer face visible ? (1 ou 2)");
 			int saisie = terminal.lireEntier();
 			while (saisie != 1 && saisie != 2) {
 				terminal.afficherChaine("Mauvaise saisie, tapez (1 ou 2)");

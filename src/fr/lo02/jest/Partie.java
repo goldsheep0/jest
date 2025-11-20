@@ -87,6 +87,7 @@ public class Partie {
 		for (int i=0; i<2; i++) {
 			cont.distribuerCarte(); //TODO implémenter trophées + retirer la classe quand les trophées sont implémentés
 		}
+		
 		return cont;
 	}
 	
@@ -150,7 +151,7 @@ public class Partie {
 		scoreValues.sort(new Comparator<Integer>() {
 			@Override
 			public int compare(Integer i1, Integer i2) {
-				return (int)((i1 - i2) / Math.abs(i1 - i2));
+				return -(int)((i1 - i2) / Math.abs(i1 - i2));
 			}
 		});
 		terminal.afficherChaine("Et le grand gagnant esssssst....");
