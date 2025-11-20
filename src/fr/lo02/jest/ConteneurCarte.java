@@ -37,26 +37,21 @@ public class ConteneurCarte {
 	}
 	
 	public Carte retirerCarteFaceVisible(boolean faceVisible) {
-		Carte c = null;
-		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
-			c = it.next();
-			if (c.estFaceVisible() == faceVisible) {
-				cartes.remove(c);
-				break;
+		for (int carteIndex = 0; carteIndex < cartes.size(); carteIndex++) {
+			if (cartes.get(carteIndex).estFaceVisible() == faceVisible) {
+				return cartes.remove(carteIndex);
 			}
 		}
-		return c;
+		return null;
 	}
 	
 	public Carte getCarteVisible() {
-		Carte carte = null;
-		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
-			Carte c = it.next();
-			if (c.estFaceVisible()) {
-				carte = c;
+		for (int carteIndex = 0; carteIndex < cartes.size(); carteIndex++) {
+			if (cartes.get(carteIndex).estFaceVisible()) {
+				return cartes.get(carteIndex);
 			}
 		}
-		return carte;
+		return null;
 	}
 
 }

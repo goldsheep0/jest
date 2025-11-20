@@ -26,10 +26,14 @@ public class Terminal {
 			e.printStackTrace();
 		}*/
 		int value = 0;
-		try {
-			value = Integer.parseInt(lireChaine());
-		} catch (NumberFormatException e) {
-			throw e;
+		boolean valide = false;
+		while(!valide) {
+			try {
+				value = Integer.parseInt(lireChaine());
+				valide = true;
+			} catch (NumberFormatException e) {
+				sortie.println("Mauvaise saisie. Veuillez écrire un entier :");
+			}
 		}
 		return value;		
 	}
@@ -47,6 +51,10 @@ public class Terminal {
 	
 	public void afficherChaine(String laChaine){
 		sortie.println(laChaine);
+	}
+	
+	public void afficherDivision() {
+		sortie.println("\n-------------------------------------------------\n");
 	}
 	
 	public void echo(){

@@ -12,6 +12,8 @@ public class Round {
 		this.partie = Partie.getPartie();
 		this.firstRound = firstRound;
 		this.terminal = partie.getTerminal();
+		terminal.afficherDivision();
+		terminal.afficherChaine("Nouveau round !");
 	}
 	
 	/**
@@ -31,7 +33,9 @@ public class Round {
 		} else {
 			for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
 				Joueur joueur = it.next();
+				terminal.afficherChaine(joueur.getOffre().toString());
 				Carte cJ = joueur.getOffre().distribuerCarte();
+				
 				partie.getStack().addCarte(cJ);
 				
 				Carte cD = partie.getDeck().distribuerCarte();
@@ -54,7 +58,8 @@ public class Round {
 	public void faireOffres() {
 		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
 			Joueur joueur = it.next();
-			terminal.afficherChaine("Vous avez dans votre main : "+joueur.getOffre().toString());
+			terminal.afficherDivision();
+			terminal.afficherChaine(joueur.getNom()+", vous avez dans votre main : "+joueur.getOffre().toString());
 			terminal.afficherChaine("Quelle carte voulez-vous retourner ? (1 ou 2)");
 			int saisie = terminal.lireEntier();
 			while (saisie != 1 && saisie != 2) {
@@ -112,6 +117,10 @@ public class Round {
 			Joueur joueur = partie.getJoueurs().get(joueurIndex);
 			Joueur joueurChoisi = null;
 			
+			terminal.afficherDivision();
+			terminal.afficherChaine("A "+joueur.getNom()+" de jouer !");
+			
+			
 			// Si le joueur n'est pas le dernier, on lui propose de choisir l'offre d'un des joueurs
 			if (joueurIndex < partie.getJoueurs().size() - 1) {
 				terminal.afficherChaine("Affichage des offres des joueurs : ");
@@ -149,10 +158,10 @@ public class Round {
 				
 				for (int joueurIndex2 = 0; joueurIndex2 < partie.getJoueurs().size(); joueurIndex2++) {
 					if (partie.getJoueurs().get(joueurIndex2).getOffre().getCartes().size() == 2) {
-						Carte carteVisible = partie.getJoueurs().get(joueurIndex2).getOffre().getCarteVisible();
-						String nomJoueur = partie.getJoueurs().get(joueurIndex2).getNom();
-						terminal.afficherChaine("Il ne reste que l'offre de "+nomJoueur+" : [Carte cachée], "+carteVisible.toString());
 						joueurChoisi = partie.getJoueurs().get(joueurIndex2);
+						Carte carteVisible = joueurChoisi.getOffre().getCarteVisible();
+						String nomJoueur = joueurChoisi.getNom();
+						terminal.afficherChaine("Il ne reste que l'offre de "+nomJoueur+" : [Carte cachée], "+carteVisible.toString());
 						break;
 					}
 				}
@@ -165,7 +174,7 @@ public class Round {
 				terminal.afficherChaine("Mauvaise saisie, tapez (1 ou 2)");
 				saisie = terminal.lireEntier();
 			}
-			Carte carteChoisie = null;
+			Carte carteChoisie;
 			if (saisie == 1) {
 				carteChoisie = joueurChoisi.getOffre().retirerCarteFaceVisible(false);
 			} else {

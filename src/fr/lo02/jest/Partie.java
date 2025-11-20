@@ -116,7 +116,7 @@ public class Partie {
 	
 	/**
 	 * Calcule le score de chaque joueur
-	 * @return HashMap de scores mappés à chaque joueur
+	 * @return Une HashMap associant les scores (entier) aux joueurs (Joueur)
 	 */
 	public HashMap<Integer, Joueur> compterScores() {
 		HashMap<Integer, Joueur> scores = new HashMap<Integer, Joueur>();
@@ -142,6 +142,10 @@ public class Partie {
 		return scores;
 	}
 	
+	/**
+	 * Affiche le score de chaque joueur dans le terminal.
+	 * @param scores Une HashMap associant les scores (entier) aux joueurs (Joueur)
+	 */
 	public void afficherScores(HashMap<Integer, Joueur> scores) {
 		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.keySet());
 		scoreValues.sort(new Comparator<Integer>() {
@@ -162,6 +166,9 @@ public class Partie {
 	
 	public static void main(String[] args) {
 		partie = getPartie();
+		
+		partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
+		partie.terminal.afficherDivision();
 		
 		partie.creerJoueurs();
 		
