@@ -2,6 +2,8 @@ package fr.lo02.jest;
 
 import java.util.*;
 
+import fr.lo02.jest.bots.StrategyJoueurBotBourrin;
+import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 import fr.lo02.jest.regle.calculepoint.*;
@@ -50,7 +52,12 @@ public class Partie {
 		for (int i = 0; i < saisie; i++) {
 			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i)+" : ");
 			String nom = terminal.lireChaine();
-			Joueur j = new Joueur(nom);
+			Joueur j;
+			if (i == 0) {
+				j = new Joueur(nom, new StrategyJoueurPhysique());
+			} else {
+				j = new Joueur(nom, new StrategyJoueurBotBourrin());
+			}
 			joueurs.add(j);
 		}
 	}
@@ -160,7 +167,7 @@ public class Partie {
 		terminal.afficherChaine("Scores : ");
 		for (Iterator<Integer> it = scoreValues.iterator(); it.hasNext(); ) {
 			int scoreJoueur = it.next();
-			terminal.afficherChaine(scores.get(scoreJoueur).getNom()+" avec un score de "+Integer.toString(scoreJoueur)+" !");
+			terminal.afficherChaine(String.valueOf(scoreValues.indexOf(scoreJoueur)+1)+" - " + scores.get(scoreJoueur).getNom()+" avec un score de "+Integer.toString(scoreJoueur)+" !");
 		}
 	}
 	
@@ -174,7 +181,6 @@ public class Partie {
 		
 		int round_counter = 0;
 		while (!partie.deck.isEmpty()) {
-			partie.terminal.afficherChaine(partie.deck.toString());
 			round_counter ++;
 			Round round = new Round(round_counter == 1);
 			
@@ -187,7 +193,6 @@ public class Partie {
 		partie.distribuerTrophees();
 		HashMap<Integer, Joueur> scores = partie.compterScores();
 		partie.afficherScores(scores);
-		//TODO finirPartie()
 	}
 
 }
