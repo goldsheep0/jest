@@ -149,8 +149,8 @@ public class Partie {
 	 * Calcule le score de chaque joueur
 	 * @return Une HashMap associant les scores (entier) aux joueurs (Joueur)
 	 */
-	public HashMap<Integer, Joueur> compterScores() {
-		HashMap<Integer, Joueur> scores = new HashMap<Integer, Joueur>();
+	public LinkedHashMap<Joueur, Integer> compterScores() {
+		LinkedHashMap<Joueur, Integer> scores = new LinkedHashMap<Joueur, Integer>();
 		for (Iterator<Joueur> it = partie.joueurs.iterator(); it.hasNext(); ) {
 			Joueur joueur = it.next();
 			LinkedList<Carte> jest = joueur.getJest().getCartes();
@@ -170,31 +170,47 @@ public class Partie {
 			}
 			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint();
 			if (variante == 2) { joueurScore += regle5.getTotalPoint(); }
-			scores.put(joueurScore, joueur);
+			scores.put(joueur, joueurScore);
 		}
-		return scores;
+		return sortScores(scores);
+	}
+	
+	/**
+	 * Sort la HashMap de scores en fonction du score du joueur.
+	 * @param scores la HashMap de scores.
+	 * @return La HashMap sorted.
+	 */
+	public LinkedHashMap<Joueur, Integer> sortScores(LinkedHashMap<Joueur, Integer> scores) {
+		ArrayList<Joueur> joueurs = new ArrayList<Joueur>(scores.keySet());
+		for (int j1 = 0; j1 < joueurs.size(); j1++) {
+			int max = j1;
+			for (int j2 = j1; j2 < joueurs.size(); j2++) {
+				if (scores.get(joueurs.get(j2)) > scores.get(joueurs.get(max))) {
+					max = j2;
+				}
+			}
+			joueurs.add(j1, joueurs.remove(max));
+		}
+		LinkedHashMap<Joueur, Integer> temp = new LinkedHashMap<Joueur, Integer>();
+		for (Iterator<Joueur> it = joueurs.iterator(); it.hasNext(); ) {
+			Joueur joueur = it.next();
+			temp.put(joueur, scores.get(joueur));
+		}
+		return temp;
 	}
 	
 	/**
 	 * Affiche le score de chaque joueur dans le terminal.
 	 * @param scores Une HashMap associant les scores (entier) aux joueurs (Joueur)
 	 */
-	public void afficherScores(HashMap<Integer, Joueur> scores) {
-		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.keySet());
-		scoreValues.sort(new Comparator<Integer>() {
-			public int compare(Integer i1, Integer i2) {
-				return -(int)((i1 - i2) / Math.abs(i1 - i2));
-			}
-		});
+	public void afficherScores(LinkedHashMap<Joueur, Integer> scores) {
 		terminal.afficherDivision();
-		terminal.afficherChaine("Et le grand gagnant esssssst....");
-		terminal.afficherChaine(scores.get(scoreValues.get(0)).getNom()+" !!!!!");
-		terminal.afficherChaine("--------------------------------");
 		terminal.afficherChaine("Scores : ");
-		for (Iterator<Integer> it = scoreValues.iterator(); it.hasNext(); ) {
-			int scoreJoueur = it.next();
-	
-			terminal.afficherChaine(String.valueOf(scoreValues.indexOf(scoreJoueur)+1)+" - " + scores.get(scoreJoueur).getNom()+" avec un score de "+Integer.toString(scoreJoueur)+" !");
+		int i = 0;
+		for (Iterator<Joueur> it = scores.keySet().iterator(); it.hasNext(); ) {
+			i++;
+			Joueur j = it.next();
+			terminal.afficherChaine(String.valueOf(i)+" - " + j.getNom() +" avec un score de "+Integer.toString(scores.get(j))+" !");
 		}
 	}
 	
@@ -219,7 +235,7 @@ public class Partie {
 		
 		partie.joueursPrennentDerniereCarte();
 		partie.distribuerTrophees();
-		HashMap<Integer, Joueur> scores = partie.compterScores();
+		LinkedHashMap<Joueur, Integer> scores = partie.compterScores();
 		partie.afficherScores(scores);
 	}
 

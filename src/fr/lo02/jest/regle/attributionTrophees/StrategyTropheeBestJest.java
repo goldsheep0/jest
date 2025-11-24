@@ -53,39 +53,33 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 		
 		Joueur joueurGagnant=new Joueur("Dummy Player",new StrategyJoueurPhysique());
 		
-		HashMap<Integer, Joueur> scores = Partie.getPartie().compterScores();
+		LinkedHashMap<Joueur, Integer> scores = Partie.getPartie().compterScores();
 		
-		Partie.getPartie().afficherScores(scores);
+		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.values());
 		
-		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.keySet());
-		scoreValues.sort(new Comparator<Integer>() {
-			public int compare(Integer i1, Integer i2) {
-				return -(int)((i1 - i2) / Math.abs(i1 - i2));
-			}
-		});
-		
-
-		
-		
-		if(scoreValues.get(0)==scoreValues.get(1)) {
+		int score1 = scoreValues.get(0);
+		int score2 = scoreValues.get(1);
+		if(score1==score2) {
 			ArrayList<Joueur> joueurExAequo = new ArrayList<Joueur>();
-			int it = 0;
-			int bestScore=scoreValues.get(it);
-			int currentScore=bestScore;
-			while(it<scoreValues.size() && currentScore==bestScore) {
-				joueurExAequo.add(scores.get(it));
-				it++;
-				currentScore=scoreValues.get(it);
-				
+			for (Iterator<Joueur> it = scores.keySet().iterator(); it.hasNext(); ) {
+				Joueur j = it.next();
+				if (scores.get(j) == score1) {
+					joueurExAequo.add(j);
+				}
 			}
 			joueurGagnant=departagerJoueurExAequo(joueurExAequo);
 			
 		}else {
-			joueurGagnant=scores.get(scoreValues.get(0));
+			for (Iterator<Joueur> it = scores.keySet().iterator(); it.hasNext(); ) {
+				Joueur j = it.next();
+				if (scores.get(j) == score1) {
+					joueurGagnant = j;
+					break;
+				}
+			};
 		}
 		
-		
-		
+		Partie.getPartie().afficherScores(scores);
 		return joueurGagnant;
 	}
 	
@@ -140,7 +134,6 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 		Partie.getPartie().setJoueurs(joueurs);
 
 		System.out.println(trophee.executeStrategyTrophee(joueurs).getNom());
-
 		
 		
 	}
