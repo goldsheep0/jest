@@ -66,7 +66,7 @@ public class Partie {
 			joueurs.add(j);
 		}
 		for (int i = 0; i < nombreBot; i++) {
-			String nomBot = "Bot " + String.valueOf(nombreBot);
+			String nomBot = "Bot " + String.valueOf(i+1);
 			joueurs.add(new Joueur(nomBot, new StrategyJoueurBotBourrin()));
 		}
 	}
