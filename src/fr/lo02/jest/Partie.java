@@ -183,6 +183,7 @@ public class Partie {
 				return -(int)((i1 - i2) / Math.abs(i1 - i2));
 			}
 		});
+		terminal.afficherDivision();
 		terminal.afficherChaine("Et le grand gagnant esssssst....");
 		terminal.afficherChaine(scores.get(scoreValues.get(0)).getNom()+" !!!!!");
 		terminal.afficherChaine("--------------------------------");
