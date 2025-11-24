@@ -53,5 +53,9 @@ public class ConteneurCarte {
 		}
 		return null;
 	}
+	
+	public void attribuerTropheesAleatoire() {
+		//TODO
+	}
 
 }

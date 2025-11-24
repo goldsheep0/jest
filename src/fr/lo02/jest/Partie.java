@@ -15,6 +15,7 @@ public class Partie {
 	private ConteneurCarte deck;
 	private ConteneurCarte stack;
 	private Terminal terminal;
+	private int variante;
 	
 	private Partie() {
 		terminal = new Terminal();
@@ -88,12 +89,23 @@ public class Partie {
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull()));
+		if (variante == 1) {
+			cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull())); //TODO lui mettre le trophée Suit Majority
+		} else if (variante == 2) {
+			cont.attribuerTropheesAleatoire();
+		}
 		cont.melanger();
 		
-		
-		for (int i=0; i<2; i++) {
-			cont.distribuerCarte(); //TODO implémenter trophées + retirer la classe quand les trophées sont implémentés
+		int nombreTrophees;
+		switch (variante) {
+		case 1:
+			nombreTrophees = 3;
+		default:
+			nombreTrophees = 2;
 		}
+		for (int i=0; i<nombreTrophees; i++) {
+			cont.distribuerCarte(); //TODO implémenter trophées + retirer la classe quand les trophées sont implémentés
+		}		
 		
 		return cont;
 	}
@@ -141,9 +153,10 @@ public class Partie {
 				itCarte.next().acceptVisitor(regle2);
 				itCarte.next().acceptVisitor(regle3);
 				itCarte.next().acceptVisitor(regle4);
-				itCarte.next().acceptVisitor(regle5);
+				if (variante == 2) { itCarte.next().acceptVisitor(regle5); }
 			}
-			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint() + regle5.getTotalPoint();
+			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint();
+			if (variante == 2) { joueurScore += regle5.getTotalPoint(); }
 			scores.put(joueurScore, joueur);
 		}
 		return scores;
@@ -173,6 +186,7 @@ public class Partie {
 	
 	public static void main(String[] args) {
 		partie = getPartie();
+		partie.variante = 0;
 		
 		partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
 		partie.terminal.afficherDivision();
