@@ -149,11 +149,12 @@ public class Partie {
 			Visitor regle5 = new RegleSavingDiamondsWithLove();
 			Iterator<Carte> itCarte = jest.iterator();
 			while(itCarte.hasNext()) {
-				itCarte.next().acceptVisitor(regle1);
-				itCarte.next().acceptVisitor(regle2);
-				itCarte.next().acceptVisitor(regle3);
-				itCarte.next().acceptVisitor(regle4);
-				if (variante == 2) { itCarte.next().acceptVisitor(regle5); }
+				Carte carte = itCarte.next();
+				carte.acceptVisitor(regle1);
+				carte.acceptVisitor(regle2);
+				carte.acceptVisitor(regle3);
+				carte.acceptVisitor(regle4);
+				if (variante == 2) { carte.acceptVisitor(regle5); }
 			}
 			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint();
 			if (variante == 2) { joueurScore += regle5.getTotalPoint(); }
