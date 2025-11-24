@@ -45,21 +45,29 @@ public class Partie {
 	 */
 	public void creerJoueurs() {
 		terminal.afficherChaine("Combien de joueurs y a-t-il ? (3 ou 4)");
-		int saisie = terminal.lireEntier();
-		while (saisie != 3 && saisie != 4) {
+		int nombreJoueur = terminal.lireEntier();
+		while (nombreJoueur != 3 && nombreJoueur != 4) {
 			terminal.afficherChaine("Mauvaise saisie, tapez (3 ou 4)");
-			saisie = terminal.lireEntier();
+			nombreJoueur = terminal.lireEntier();
 		}
-		for (int i = 0; i < saisie; i++) {
-			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i)+" : ");
+		
+		terminal.afficherChaine("Combien de bots y a-t-il ?");
+		int nombreBot = terminal.lireEntier();
+		while (nombreBot < 0 || nombreBot > nombreJoueur) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (0 - " + String.valueOf(nombreJoueur) + ")");
+			nombreBot = terminal.lireEntier();
+		}
+		
+		for (int i = 0; i < nombreJoueur - nombreBot; i++) {
+			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i+1)+" : ");
 			String nom = terminal.lireChaine();
 			Joueur j;
-			if (i == 0) {
-				j = new Joueur(nom, new StrategyJoueurPhysique());
-			} else {
-				j = new Joueur(nom, new StrategyJoueurBotBourrin());
-			}
+			j = new Joueur(nom, new StrategyJoueurPhysique());
 			joueurs.add(j);
+		}
+		for (int i = 0; i < nombreBot; i++) {
+			String nomBot = "Bot " + String.valueOf(nombreBot);
+			joueurs.add(new Joueur(nomBot, new StrategyJoueurBotBourrin()));
 		}
 	}
 	
