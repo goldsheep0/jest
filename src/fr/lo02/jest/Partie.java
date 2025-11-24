@@ -36,6 +36,10 @@ public class Partie {
 		}
 	}
 	
+	public void setJoueurs(ArrayList<Joueur> joueurs) {
+		this.joueurs=joueurs;
+	}
+	
 	public Terminal getTerminal() {
 		return terminal;
 	}
@@ -178,7 +182,6 @@ public class Partie {
 	public void afficherScores(HashMap<Integer, Joueur> scores) {
 		ArrayList<Integer> scoreValues = new ArrayList<Integer>(scores.keySet());
 		scoreValues.sort(new Comparator<Integer>() {
-			@Override
 			public int compare(Integer i1, Integer i2) {
 				return -(int)((i1 - i2) / Math.abs(i1 - i2));
 			}
@@ -190,6 +193,7 @@ public class Partie {
 		terminal.afficherChaine("Scores : ");
 		for (Iterator<Integer> it = scoreValues.iterator(); it.hasNext(); ) {
 			int scoreJoueur = it.next();
+	
 			terminal.afficherChaine(String.valueOf(scoreValues.indexOf(scoreJoueur)+1)+" - " + scores.get(scoreJoueur).getNom()+" avec un score de "+Integer.toString(scoreJoueur)+" !");
 		}
 	}

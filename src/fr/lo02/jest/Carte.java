@@ -1,6 +1,9 @@
 package fr.lo02.jest;
 import fr.lo02.jest.regle.calculepoint.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
+
+import java.util.ArrayList;
+
 import fr.lo02.jest.enums.*;
 
 public class Carte {
@@ -54,7 +57,7 @@ public class Carte {
      * @param joueurs
      * @return
      */
-    public Joueur executeStrategyTrophee(Joueur[] joueurs) {
+    public Joueur executeStrategyTrophee(ArrayList<Joueur> joueurs) {
     	
     	return this.strategyTrophee.execute(joueurs);
     }

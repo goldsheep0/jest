@@ -1,5 +1,7 @@
 package fr.lo02.jest.regle.attributionTrophees;
 
+import java.util.ArrayList;
+
 import fr.lo02.jest.Joueur;
 
 /**
@@ -11,7 +13,7 @@ public class StrategyTropheeNull implements StrategyTrophee{
 		
 	}
 	@Override
-	public Joueur execute(Joueur[] joueurs) {
+	public Joueur execute(ArrayList<Joueur> joueurs) {
 		// TODO Auto-generated method stub
 		return null;
 	}

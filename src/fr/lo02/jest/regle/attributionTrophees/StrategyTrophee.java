@@ -1,5 +1,7 @@
 package fr.lo02.jest.regle.attributionTrophees;
 
+import java.util.ArrayList;
+
 import fr.lo02.jest.Joueur;
 
 public interface StrategyTrophee {
@@ -10,7 +12,7 @@ public interface StrategyTrophee {
 	 * @param joueurs
 	 * @return
 	 */
-	public Joueur execute(Joueur[] joueurs);
+	public Joueur execute(ArrayList<Joueur> joueurs);
 
 
 }
