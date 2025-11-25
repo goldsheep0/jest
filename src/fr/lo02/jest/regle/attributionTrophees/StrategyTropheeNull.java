@@ -12,6 +12,12 @@ public class StrategyTropheeNull implements StrategyTrophee{
 	public StrategyTropheeNull() {
 		
 	}
+	public String toString() {
+		return null;
+		
+	}
+	
+	
 	@Override
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		// TODO Auto-generated method stub

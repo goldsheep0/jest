@@ -16,12 +16,14 @@ public class Partie {
 	private ConteneurCarte stack;
 	private Terminal terminal;
 	private int variante;
+	private ConteneurCarte trophees;
 	
 	private Partie() {
 		terminal = new Terminal();
 		joueurs = new ArrayList<Joueur>();
 		deck = creerDeck();
 		stack = new ConteneurCarte();
+		trophees = new ConteneurCarte();
 	}
 	/**
 	 * Méthode à utiliser pour récupérer le singleton Partie
@@ -84,40 +86,25 @@ public class Partie {
 	 */
 	public ConteneurCarte creerDeck() {
 		ConteneurCarte cont = new ConteneurCarte();
-		cont.addCarte(new Carte(Valeur.AS, Couleur.CARREAU, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.AS, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.AS, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.CARREAU, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.PIQUE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.TROIS, Couleur.CARREAU, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.TROIS, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.TROIS, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.CARREAU, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull()));
-		if (variante == 1) {
-			cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull())); //TODO lui mettre le trophée Suit Majority
-		} else if (variante == 2) {
-			cont.attribuerTropheesAleatoire();
-		}
+		cont.addCarte(new Carte(Valeur.AS, Couleur.CARREAU, new StrategyTropheeMajority(Valeur.QUATRE)));
+		cont.addCarte(new Carte(Valeur.AS, Couleur.COEUR, new StrategyTropheeJoker()));
+		cont.addCarte(new Carte(Valeur.AS, Couleur.TREFLE, new StrategyTropheeHighest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.TREFLE)));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.CARREAU, new StrategyTropheeHighest(Couleur.CARREAU)));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.COEUR, new StrategyTropheeJoker()));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.TREFLE, new StrategyTropheeLowest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.PIQUE, new StrategyTropheeMajority(Valeur.TROIS)));
+		cont.addCarte(new Carte(Valeur.TROIS, Couleur.CARREAU, new StrategyTropheeLowest(Couleur.CARREAU)));
+		cont.addCarte(new Carte(Valeur.TROIS, Couleur.COEUR, new StrategyTropheeJoker()));
+		cont.addCarte(new Carte(Valeur.TROIS, Couleur.TREFLE, new StrategyTropheeHighest(Couleur.COEUR)));
+		cont.addCarte(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeMajority(Valeur.DEUX)));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.CARREAU, new StrategyTropheeBestJestNoJoke()));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.COEUR, new StrategyTropheeJoker()));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeLowest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.TREFLE)));
+		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
 		cont.melanger();
-		
-		int nombreTrophees;
-		switch (variante) {
-		case 1:
-			nombreTrophees = 3;
-		default:
-			nombreTrophees = 2;
-		}
-		for (int i=0; i<nombreTrophees; i++) {
-			cont.distribuerCarte(); //TODO implémenter trophées + retirer la classe quand les trophées sont implémentés
-		}		
+				
 		
 		return cont;
 	}
@@ -141,7 +128,69 @@ public class Partie {
 		}
 	}
 	
+	public void creerTrophees() {
+		int nbtrophees=0;
+		
+		switch(this.variante) {
+			case 1:
+				this.trophees.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull())); //TODO lui mettre le trophée Suit Majority
+				break;
+			case 2:
+				this.deck.attribuerTropheesAleatoire();
+				break;
+			default:
+				break;
+		}
+		
+		switch(this.joueurs.size()) {
+			case 3:
+				nbtrophees+=2;
+				break;
+			case 4 :
+				nbtrophees++;
+				break;
+			default:
+				break;
+		}
+		
+		for(int i=0;i<nbtrophees;i++) {
+			this.trophees.addCarte(this.deck.distribuerCarte());
+		}
+		
+		this.terminal.afficherDivision();
+		
+		this.terminal.afficherChaine("Trophee pour cette partie : \n"+this.trophees.toStringTrophee());
+	}
+	
 	public void distribuerTrophees() {
+		
+		LinkedList<Carte> tropheeADistribuer = this.trophees.getCartes();
+		HashMap<Carte, Joueur> tropheeAvecJoueur = new HashMap<Carte, Joueur>();
+		
+		Iterator<Carte> itTrophee = tropheeADistribuer.iterator();
+		Carte c;
+		while(itTrophee.hasNext()) {
+			c = itTrophee.next();
+			tropheeAvecJoueur.put(c, c.executeStrategyTrophee(this.joueurs));
+		}
+		
+		itTrophee=tropheeADistribuer.iterator();
+		
+		terminal.afficherDivision();
+		terminal.afficherChaine("Trophée(s) à attribuer : \n"+this.trophees.toStringTrophee());
+
+		while(itTrophee.hasNext()) {
+			c = itTrophee.next();
+			tropheeAvecJoueur.get(c).getJest().addCarte(c);	
+			
+			if(tropheeAvecJoueur.get(c).getNom().contentEquals("Dummy Player")){
+				terminal.afficherChaine("Aucune joueur n'a obtenu le trophée : "+c.toString());
+			}else {
+				terminal.afficherChaine("Le joueur "+tropheeAvecJoueur.get(c).getNom()+" a obtenu la carte : "+c.toString());
+			}
+		}
+		
+		
 		
 	}
 	
@@ -222,6 +271,8 @@ public class Partie {
 		partie.terminal.afficherDivision();
 		
 		partie.creerJoueurs();
+		
+		partie.creerTrophees();
 		
 		int round_counter = 0;
 		while (!partie.deck.isEmpty()) {

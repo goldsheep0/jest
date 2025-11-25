@@ -11,6 +11,18 @@ public class StrategyTropheeHighest implements StrategyTrophee {
 	public StrategyTropheeHighest(Couleur couleur) {
 		this.couleur=couleur;		}
 
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Highest ");
+		str.append(this.couleur.toString());
+		
+		return str.toString();
+		
+	}
+	
+	
 	/**
 	 * Renvoie le joueur ayant la carte de plus haute valeur de la couleur indiquée dans son jest.
 	 */

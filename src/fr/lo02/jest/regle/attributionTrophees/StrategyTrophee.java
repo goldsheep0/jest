@@ -13,6 +13,8 @@ public interface StrategyTrophee {
 	 * @return
 	 */
 	public Joueur execute(ArrayList<Joueur> joueurs);
+	
+	public String toString();
 
 
 }

@@ -10,6 +10,18 @@ public class StrategyTropheeMajority implements StrategyTrophee {
 	
 	public StrategyTropheeMajority(Valeur valeur) {
 		this.valeur=valeur;		}
+	
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Majority ");
+		str.append(this.valeur.toString());
+		
+		return str.toString();
+		
+	}
+	
 
 	/**
 	 * Renvoie le joueur qui possède le plus de carte de la valeur indiquée.

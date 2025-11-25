@@ -17,6 +17,16 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee{
 	
 	public StrategyTropheeBestJestNoJoke() {}
 
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Best Jest No Joke");
+		
+		return str.toString();
+		
+	}
+	
 	
 	/**
 	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point. Le joueur ayant
@@ -111,8 +121,6 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee{
 				}
 			};
 		}
-		Partie.getPartie().afficherScores(scoresAvecJoker);
-		Partie.getPartie().afficherScores(scores);
 		return joueurGagnant;
 	}
 

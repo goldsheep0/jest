@@ -11,6 +11,18 @@ public class StrategyTropheeLowest implements StrategyTrophee {
 	public StrategyTropheeLowest(Couleur couleur) {
 		this.couleur=couleur;		}
 
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Lowest ");
+		str.append(this.couleur.toString());
+		
+		return str.toString();
+		
+	}
+	
+	
 	/*
 	 * Renvoie le joueur qui a la carte de plus faible valeur de la couleur indiquée dans son jest.
 	 */

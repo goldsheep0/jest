@@ -25,7 +25,8 @@ public class ConteneurCarte {
 	}
 	
 	public String toString() {
-		return cartes.toString();
+			
+		return this.cartes.toString();
 	}
 	
 	public LinkedList<Carte> getCartes() {
@@ -52,6 +53,23 @@ public class ConteneurCarte {
 			}
 		}
 		return null;
+	}
+	
+	public String toStringTrophee() {
+		
+		StringBuffer str = new StringBuffer();
+		
+		Iterator<Carte> it = this.cartes.iterator();
+		
+		
+		while(it.hasNext()) {
+			str.append(it.next().toStringTrophee());
+			str.append("\n");
+		}
+	
+		return str.toString();
+		
+		
 	}
 	
 	public void attribuerTropheesAleatoire() {

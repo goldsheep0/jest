@@ -8,6 +8,17 @@ import fr.lo02.jest.bots.*;
 public class StrategyTropheeJoker implements StrategyTrophee {
 	
 	public StrategyTropheeJoker() {}
+	
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Joker");
+		
+		return str.toString();
+		
+	}
+	
 
 	/**
 	 * Renvoie le joueur qui possède le Joker dans son jest.

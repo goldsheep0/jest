@@ -82,7 +82,14 @@ public class Carte {
 		sb.append(" de ");
 		sb.append(this.couleur);
 		return sb.toString();
-    }   
+    }  
+    
+    public String toStringTrophee() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.toString());
+		sb.append(this.strategyTrophee.toString());
+		return sb.toString();
+    }  
 	
     public static void main(String[]args){
 

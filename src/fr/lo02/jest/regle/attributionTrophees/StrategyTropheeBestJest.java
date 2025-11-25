@@ -84,8 +84,17 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 			};
 		}
 		
-		Partie.getPartie().afficherScores(scores);
 		return joueurGagnant;
+	}
+	
+	public String toString() {
+		StringBuffer str = new StringBuffer();
+		
+		str.append(", Trophee : ");
+		str.append("Best Jest");
+		
+		return str.toString();
+		
 	}
 	
 	
