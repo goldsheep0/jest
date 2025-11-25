@@ -11,7 +11,9 @@ public class StrategyTropheeHighest implements StrategyTrophee {
 	public StrategyTropheeHighest(Couleur couleur) {
 		this.couleur=couleur;		}
 
-	
+	/**
+	 * Renvoie le joueur ayant la carte de plus haute valeur de la couleur indiquée dans son jest.
+	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		Joueur joueurGagnant=joueurs.getFirst();
 		

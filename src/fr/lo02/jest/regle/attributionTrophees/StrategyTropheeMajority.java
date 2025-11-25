@@ -11,7 +11,10 @@ public class StrategyTropheeMajority implements StrategyTrophee {
 	public StrategyTropheeMajority(Valeur valeur) {
 		this.valeur=valeur;		}
 
-	
+	/**
+	 * Renvoie le joueur qui possède le plus de carte de la valeur indiquée.
+	 * Les égalités sont départagées en prenant la carte qui a la couleur de plus grande valeur.
+	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		Joueur joueurGagnant=joueurs.getFirst();
 		

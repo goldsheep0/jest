@@ -11,7 +11,9 @@ public class StrategyTropheeLowest implements StrategyTrophee {
 	public StrategyTropheeLowest(Couleur couleur) {
 		this.couleur=couleur;		}
 
-	
+	/*
+	 * Renvoie le joueur qui a la carte de plus faible valeur de la couleur indiquée dans son jest.
+	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		Joueur joueurGagnant=joueurs.getFirst();
 		
@@ -46,7 +48,7 @@ public class StrategyTropheeLowest implements StrategyTrophee {
 	
 	
 	/**
-	 * Test unitaire pour la règle Trophee lower, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.
+	 * Test unitaire pour la règle Trophee lowest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.
 	 * @param args
 	 */
 	public static void main(String[] args) {

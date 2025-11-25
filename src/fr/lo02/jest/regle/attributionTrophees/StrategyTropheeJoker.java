@@ -9,7 +9,9 @@ public class StrategyTropheeJoker implements StrategyTrophee {
 	
 	public StrategyTropheeJoker() {}
 
-	
+	/**
+	 * Renvoie le joueur qui possède le Joker dans son jest.
+	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		Joueur joueurGagnant=new Joueur("Dummy Player",new StrategyJoueurPhysique());
 		
@@ -41,7 +43,7 @@ public class StrategyTropheeJoker implements StrategyTrophee {
 	
 	
 	/**
-	 * Test unitaire pour la règle Trophee highest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.
+	 * Test unitaire pour la règle Trophee joker, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.
 	 * @param args
 	 */
 	public static void main(String[] args) {

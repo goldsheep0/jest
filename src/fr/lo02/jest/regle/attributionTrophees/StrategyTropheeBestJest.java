@@ -13,13 +13,19 @@ import fr.lo02.jest.enums.Valeur;
 public class StrategyTropheeBestJest implements StrategyTrophee{
 	
 	public StrategyTropheeBestJest() {}
-
+	
+	
+	/**
+	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point. Le joueur ayant
+	 * la carte de plus haute valeur parmi les joueurs ex aequo l'emporte.
+	 * @param joueurExAequo
+	 * @return
+	 */
 	private Joueur departagerJoueurExAequo(ArrayList<Joueur> joueurExAequo) {
 		
 		Joueur joueurGagnant=new Joueur("Dummy Player",new StrategyJoueurPhysique());
 		
-		Valeur valeurMax=Valeur.JOKER;
-		Couleur couleurMax=Couleur.JOKER;
+		Carte carteMax = new Carte(Valeur.JOKER,Couleur.JOKER,new StrategyTropheeBestJest());
 		
 		Iterator<Joueur> itJoueur = joueurExAequo.iterator();
 		Iterator<Carte> itJest;
@@ -34,13 +40,10 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 			itJest=currentJest.iterator();
 			while(itJest.hasNext()) {
 				currentCarte=itJest.next();
-				if(currentCarte.getValeur().ordinal()>valeurMax.ordinal()) {
-					valeurMax=currentCarte.getValeur();
+				if(currentCarte.equals(currentCarte.compareTo(carteMax))) {
+					carteMax=currentCarte;
 					joueurGagnant=currentJoueur;
 					
-				}else if (currentCarte.getValeur().ordinal()==valeurMax.ordinal()&&currentCarte.getCouleur().ordinal()<couleurMax.ordinal()) {
-					couleurMax=currentCarte.getCouleur();
-					joueurGagnant=currentJoueur;
 				}
 			}
 		}
@@ -48,7 +51,9 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 		return joueurGagnant;		
 	}
 	
-	
+	/**
+	 * Renvoie le joueur qui possède le meilleur jest. Les égalités sont gérées dans la fonction departagerJoueurExAequo().
+	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
 		
 		Joueur joueurGagnant=new Joueur("Dummy Player",new StrategyJoueurPhysique());
@@ -84,25 +89,44 @@ public class StrategyTropheeBestJest implements StrategyTrophee{
 	}
 	
 	
+	
+	/**
+	 * Test unitaire pour la règle Trophee best jest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant. 
+	 * On peut retirer la ligne cont.melanger() pour obtenir des résultats prévisibles en fonction de l'ordre des cartes dans le paquet.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ConteneurCarte cont = new ConteneurCarte();
 		
-		//cont.addCarte(new Carte(Valeur.AS, Couleur.CARREAU, new StrategyTropheeNull()));
+		
+		
+		
+		//Si on ne melange pas le deck, jest du joueur 3 :
+		cont.addCarte(new Carte(Valeur.AS, Couleur.CARREAU, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.AS, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.AS, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
 		cont.addCarte(new Carte(Valeur.DEUX, Couleur.CARREAU, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.DEUX, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
 		cont.addCarte(new Carte(Valeur.TROIS, Couleur.CARREAU, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.TROIS, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.TROIS, Couleur.TREFLE, new StrategyTropheeNull()));
+		
+		
+		//cont.addCarte(new Carte(Valeur.QUATRE, Couleur.CARREAU, new StrategyTropheeNull()));
+		
+		//Si on ne melange pas le deck, jest du joueur 2 :
 		cont.addCarte(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.CARREAU, new StrategyTropheeNull()));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.TREFLE, new StrategyTropheeNull()));
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.COEUR, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeNull()));
-		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeNull()));
+		
+		
+		//Si on ne melange pas le deck, jest du joueur 1 :
+		cont.addCarte(new Carte(Valeur.TROIS, Couleur.TREFLE, new StrategyTropheeNull()));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
+		cont.addCarte(new Carte(Valeur.DEUX, Couleur.COEUR, new StrategyTropheeNull()));
+		cont.addCarte(new Carte(Valeur.AS, Couleur.TREFLE, new StrategyTropheeNull()));
+		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.TREFLE, new StrategyTropheeHighest(Couleur.PIQUE)));
+		
+		
 		//cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull()));
 
 		cont.melanger();
