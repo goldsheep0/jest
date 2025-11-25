@@ -40,13 +40,13 @@ public class StrategyJoueurBotBourrin implements StrategyJoueur {
 	public int executeChoisirJoueur() {
 		// Boucle à travers les joueurs restants
 		LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);
-		Joueur bestJoueur = autresJoueurs.get(0);
+		Joueur bestJoueur = null;
 		for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
 			// On vérifie que l'offre a bien 2 éléments
 			Joueur autre = it.next();
 			if (autre.getOffre().getCartes().size() == 2) {
 				Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
-				if (bestJoueur.getOffre().getCarteVisible().compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
+				if (bestJoueur == null || bestJoueur.getOffre().getCarteVisible().compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
 					bestJoueur = autre;
 				}
 			}

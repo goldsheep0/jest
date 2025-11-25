@@ -117,6 +117,18 @@ public class Round {
 			if (joueurIndex < partie.getJoueurs().size() - 1) {
 				terminal.afficherChaine("Affichage des offres des joueurs : ");
 				
+				// Boucle à travers les joueurs restants
+				LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);
+				for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
+					// On vérifie que l'offre a bien 2 éléments
+					Joueur autre = it.next();
+					if (autre.getOffre().getCartes().size() == 2) {
+						Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
+						String nomAutre = autre.getNom();
+						terminal.afficherChaine("Offre de "+nomAutre+" : [Carte cachée], "+carteVisibleAutre.toString());
+					}
+				}
+				
 				int joueurChoisiIndex = joueur.choisirJoueur();
 				
 				joueurChoisi = partie.getJoueurs().get(joueurChoisiIndex);

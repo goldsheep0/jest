@@ -47,9 +47,6 @@ public class StrategyJoueurPhysique implements StrategyJoueur {
 			Joueur autre = it.next();
 			if (autre.getOffre().getCartes().size() == 2) {
 				indexes.add(partie.getJoueurs().indexOf(autre));
-				Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
-				String nomAutre = autre.getNom();
-				terminal.afficherChaine("Offre de "+nomAutre+" : [Carte cachée], "+carteVisibleAutre.toString());
 			}
 		}
 		
