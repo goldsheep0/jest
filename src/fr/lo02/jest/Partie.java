@@ -190,8 +190,10 @@ public class Partie {
 			}
 		}
 		
-		
-		
+	}
+	
+	public ConteneurCarte getTrophees() {
+		return this.trophees;
 	}
 	
 	/**

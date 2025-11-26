@@ -2,6 +2,8 @@ package fr.lo02.jest;
 
 import java.util.*;
 
+import fr.lo02.jest.enums.*;
+
 public class ConteneurCarte {
 	
 	private LinkedList<Carte> cartes;
@@ -70,6 +72,24 @@ public class ConteneurCarte {
 		return str.toString();
 		
 		
+	}
+	
+	public boolean hasCarte (Couleur couleur) {
+		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
+			if (it.next().getCouleur() == couleur) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean hasCarte (Valeur valeur) {
+		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
+			if (it.next().getValeur() == valeur) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void attribuerTropheesAleatoire() {
