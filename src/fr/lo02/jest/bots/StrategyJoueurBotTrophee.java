@@ -77,22 +77,44 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur {
 		// Boucle à travers les joueurs restants
 		LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);
 		Joueur targetJoueur = null;
+		Carte carteTarget = null;
 		for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
 			// On vérifie que l'offre a bien 2 éléments
 			Joueur autre = it.next();
 			if (autre.getOffre().getCartes().size() == 2) {
+				
 				Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
+				
 				if (targetJoueur == null) {
 					targetJoueur = autre;
+					continue;
 				}
 				
-				else if (targetTrophee instanceof StrategyTropheeHighest || targetTrophee instanceof StrategyTropheeBestJest || targetTrophee instanceof StrategyTropheeBestJestNoJoke) {
-					if (targetJoueur.getOffre().getCarteVisible().compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
+				carteTarget = targetJoueur.getOffre().getCarteVisible();
+				
+				if (targetTrophee instanceof StrategyTropheeHighest || targetTrophee instanceof StrategyTropheeBestJest || targetTrophee instanceof StrategyTropheeBestJestNoJoke) {
+					if (carteTarget.compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
 						targetJoueur = autre;
 					}
 				}
 				
-				else if (targetTrophee instanceof StrategyTropheeHighest)
+				else if (targetTrophee instanceof StrategyTropheeLowest) {
+					if (carteTarget.compareTo(carteVisibleAutre).equals(carteTarget)) {
+						targetJoueur = autre;
+					}
+				}
+				
+				else if (targetTrophee instanceof StrategyTropheeJoker) {
+					if (carteVisibleAutre.getCouleur() == Couleur.JOKER) {
+						targetJoueur = autre;
+					}
+				}
+				
+				else { // StrategyTropheeMajority
+					if (carteVisibleAutre.getValeur() == partie.getTrophees().hasCarte(StrategyTropheeMajority.class).getValeur()) {
+						targetJoueur = autre;
+					}
+				}
 				
 				
 			}

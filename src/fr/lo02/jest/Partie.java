@@ -3,6 +3,7 @@ package fr.lo02.jest;
 import java.util.*;
 
 import fr.lo02.jest.bots.StrategyJoueurBotBourrin;
+import fr.lo02.jest.bots.StrategyJoueurBotTrophee;
 import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
@@ -72,8 +73,13 @@ public class Partie {
 			joueurs.add(j);
 		}
 		for (int i = 0; i < nombreBot; i++) {
-			String nomBot = "Bot " + String.valueOf(i+1);
-			joueurs.add(new Joueur(nomBot, new StrategyJoueurBotBourrin()));
+			String nomBot = "Bot Bourrin " + String.valueOf(i+1);
+			if (Math.random() > .5) {
+				joueurs.add(new Joueur(nomBot + " (Bourrin)", new StrategyJoueurBotBourrin()));
+			} else {
+				joueurs.add(new Joueur(nomBot + " (Trophée)", new StrategyJoueurBotTrophee()));
+			}
+			
 		}
 	}
 	
