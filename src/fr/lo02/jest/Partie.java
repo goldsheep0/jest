@@ -139,7 +139,7 @@ public class Partie {
 		
 		switch(this.variante) {
 			case 1:
-				this.trophees.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeNull())); //TODO lui mettre le trophée Suit Majority
+				this.trophees.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeSuitMajority()));
 				break;
 			case 2:
 				this.deck.attribuerTropheesAleatoire();
@@ -215,7 +215,7 @@ public class Partie {
 			Visitor regle2 = new RegleCouleurVisitor();
 			Visitor regle3 = new RegleJockerCoeurVisitor(jest);
 			Visitor regle4 = new ReglePairesNoiresVisitor();
-			Visitor regle5 = new RegleSavingDiamondsWithLove();
+			Visitor regle5 = new RegleSavingDiamondsWithLove(jest);
 			Iterator<Carte> itCarte = jest.iterator();
 			while(itCarte.hasNext()) {
 				Carte carte = itCarte.next();

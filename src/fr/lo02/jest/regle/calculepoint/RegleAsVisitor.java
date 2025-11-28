@@ -46,7 +46,7 @@ public class RegleAsVisitor implements Visitor{
 			Carte currentCarte;
 			while(it1.hasNext()) {
 				currentCarte = it1.next();
-				if(currentCarte.getCouleur()==carte.getCouleur()&&currentCarte!=carte) {
+				if(currentCarte.getCouleur()==carte.getCouleur()&&currentCarte.getValeur()!=carte.getValeur()) {
 					hasNoSameFace=false;
 				}
 			}
