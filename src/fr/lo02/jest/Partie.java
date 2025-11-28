@@ -73,7 +73,7 @@ public class Partie {
 			joueurs.add(j);
 		}
 		for (int i = 0; i < nombreBot; i++) {
-			String nomBot = "Bot Bourrin " + String.valueOf(i+1);
+			String nomBot = "Bot " + String.valueOf(i+1);
 			if (Math.random() > .5) {
 				joueurs.add(new Joueur(nomBot + " (Bourrin)", new StrategyJoueurBotBourrin()));
 			} else {
