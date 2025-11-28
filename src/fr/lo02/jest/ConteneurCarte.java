@@ -3,6 +3,7 @@ package fr.lo02.jest;
 import java.util.*;
 
 import fr.lo02.jest.enums.*;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 
 public class ConteneurCarte {
 	
@@ -15,6 +16,11 @@ public class ConteneurCarte {
 	public Carte distribuerCarte() {
 		Carte c;
 		c = cartes.removeLast();
+		return c;
+	}
+	
+	public Carte distribuerCarte(Carte c) {
+		cartes.remove(c);
 		return c;
 	}
 	
@@ -74,22 +80,35 @@ public class ConteneurCarte {
 		
 	}
 	
-	public boolean hasCarte (Couleur couleur) {
+	public Carte hasCarte (Couleur couleur) {
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
-			if (it.next().getCouleur() == couleur) {
-				return true;
+			Carte c = it.next();
+			if (c.getCouleur() == couleur) {
+				return c;
 			}
 		}
-		return false;
+		return null;
 	}
 	
-	public boolean hasCarte (Valeur valeur) {
+	public Carte hasCarte (Valeur valeur) {
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
-			if (it.next().getValeur() == valeur) {
-				return true;
+			Carte c = it.next();
+			if (c.getValeur() == valeur) {
+				return c;
 			}
 		}
-		return false;
+		return null;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Carte hasCarte (Class strat) {
+		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
+			Carte c = it.next();
+			if (c.getStrategyTrophee().getClass().equals(strat)) {
+				return c;
+			}
+		}
+		return null;
 	}
 	
 	public void attribuerTropheesAleatoire() {

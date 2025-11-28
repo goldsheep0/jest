@@ -18,6 +18,7 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur {
 	
 	public StrategyJoueurBotTrophee() {
 		this.partie = Partie.getPartie();
+		this.targetTrophee = null;
 	}
 	
 	public void setJoueur(Joueur j) {
@@ -26,56 +27,81 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur {
 
 	/**
 	 * Le Bot Trophee montre la carte ayant de la valeur pour le trophée choisi
-	 * @return L'index de la carte avec la valeur la moins grande
+	 * @return L'index de la carte montrée
 	 */
 	public int executeRealiserOffre() {
 		
-		targetTrophee = partie.getTrophees().getCartes().get(0).getStrategyTrophee();
+		if (targetTrophee == null) {
+			targetTrophee = partie.getTrophees().getCartes().get(0).getStrategyTrophee();
+		}
 		
 		if (targetTrophee instanceof StrategyTropheeHighest || targetTrophee instanceof StrategyTropheeBestJest || targetTrophee instanceof StrategyTropheeBestJestNoJoke) {
-			if (joueur.getOffre().getCartes().get(0).compareTo(joueur.getOffre().getCartes().get(1)).equals(joueur.getOffre().getCartes().get(1))) {
-				return 0;
-			} else {
-				return 1;
-			}
+			return 1 - getHighestCard();
+			
 		} else if (targetTrophee instanceof StrategyTropheeLowest) {
-			if (joueur.getOffre().getCartes().get(0).compareTo(joueur.getOffre().getCartes().get(1)).equals(joueur.getOffre().getCartes().get(1))) {
-				return 1;
-			} else {
-				return 0;
-			}
+			return getHighestCard();
+			
 		} else if (targetTrophee instanceof StrategyTropheeJoker) {
-			if (joueur.getOffre().hasCarte(Couleur.JOKER)) {
-				//TODO
+			if (joueur.getOffre().hasCarte(Couleur.JOKER) != null) {
+				return 1 - joueur.getOffre().getCartes().indexOf(joueur.getOffre().hasCarte(Couleur.JOKER));
+			} else {
+				return 1 - getHighestCard();
+			}
+			
+		} else { //targetTrophee instanceof StrategyTropheeMajority
+			Carte carteTrophee = partie.getTrophees().hasCarte(StrategyTropheeMajority.class);
+			if (joueur.getOffre().hasCarte(carteTrophee.getValeur()) != null) {
+				return 1 - joueur.getOffre().getCartes().indexOf(joueur.getOffre().hasCarte(Couleur.JOKER));
+			} else {
+				return getHighestCard();
 			}
 		}
 		
 		
 	}
+	
+	private int getHighestCard() {
+		if (joueur.getOffre().getCartes().get(0).compareTo(joueur.getOffre().getCartes().get(1)).equals(joueur.getOffre().getCartes().get(1))) {
+			return 1;
+		} else {
+			return 0;
+		}
+	}
 
 	/**
-	 * Le Bot Bourrin choisit toujours le joueur avec la meilleure carte
-	 * @return L'index du joueur avec la carte avec la valeur la plus grande
+	 * Le Bot Trophee choisit un joueur avec une carte lui permettant de gagner un trophee, la meilleure carte si aucun
+	 * @return L'index du joueur avec la carte voulue
 	 */
 	public int executeChoisirJoueur() {
+		
 		// Boucle à travers les joueurs restants
 		LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);
-		Joueur bestJoueur = null;
+		Joueur targetJoueur = null;
 		for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
 			// On vérifie que l'offre a bien 2 éléments
 			Joueur autre = it.next();
 			if (autre.getOffre().getCartes().size() == 2) {
 				Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
-				if (bestJoueur == null || bestJoueur.getOffre().getCarteVisible().compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
-					bestJoueur = autre;
+				if (targetJoueur == null) {
+					targetJoueur = autre;
 				}
+				
+				else if (targetTrophee instanceof StrategyTropheeHighest || targetTrophee instanceof StrategyTropheeBestJest || targetTrophee instanceof StrategyTropheeBestJestNoJoke) {
+					if (targetJoueur.getOffre().getCarteVisible().compareTo(carteVisibleAutre).equals(carteVisibleAutre)) {
+						targetJoueur = autre;
+					}
+				}
+				
+				else if (targetTrophee instanceof StrategyTropheeHighest)
+				
+				
 			}
 		}
-		return partie.getJoueurs().indexOf(bestJoueur);
+		return partie.getJoueurs().indexOf(targetJoueur);
 	}
 
 	/**
-	 * Le Bot bourrin choisit toujours la carte visible
+	 * Le Bot Trophee choisit toujours la carte visible
 	 * @return 2 car la carte choisie est celle face visible
 	 */
 	public int executeChoisirCarte() {
