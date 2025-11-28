@@ -50,7 +50,7 @@ private int totalPoint;
 					}
 					
 					
-					this.totalPoint+=tempRegleAs.getTotalPoint()+1;
+					this.totalPoint+=2*(tempRegleAs.getTotalPoint()+1);
 					
 				}else {
 					this.totalPoint+=carte.getValeur().ordinal();
