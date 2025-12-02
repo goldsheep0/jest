@@ -4,6 +4,13 @@ import java.util.*;
 
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJest;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJestNoJoke;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeJoker;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeLowest;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeMajority;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeSuitMajority;
 
 public class ConteneurCarte {
 	
@@ -112,7 +119,83 @@ public class ConteneurCarte {
 	}
 	
 	public void attribuerTropheesAleatoire() {
-		//TODO
+		Iterator<Carte> it = this.cartes.iterator();
+		
+		Random pickTrophee = new Random();
+		Random pickCouleur = new Random();
+		Random pickValeur = new Random();
+		
+		while(it.hasNext()) {
+			switch(pickTrophee.nextInt(6)) {
+				case 0:
+					it.next().setStrategyTrophee(new StrategyTropheeBestJest());
+					break;
+				case 1:
+					it.next().setStrategyTrophee(new StrategyTropheeBestJestNoJoke());
+					break;
+				case 2:
+					it.next().setStrategyTrophee(new StrategyTropheeJoker());
+					break;
+				case 3:
+					switch(pickCouleur.nextInt(4)) {
+						case 0:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.PIQUE));
+							break;
+						case 1:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.TREFLE));
+							break;
+						case 2:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.CARREAU));
+							break;
+						case 3:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.COEUR));
+							break;
+					}
+					
+					break;
+				case 4:
+					switch(pickCouleur.nextInt(4)) {
+						case 0:
+							it.next().setStrategyTrophee(new StrategyTropheeLowest(Couleur.PIQUE));
+							break;
+						case 1:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.TREFLE));
+							break;
+						case 2:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.CARREAU));
+							break;
+						case 3:
+							it.next().setStrategyTrophee(new StrategyTropheeHighest(Couleur.COEUR));
+							break;
+						default:
+							break;
+					}
+					
+					break;
+				case 5:
+					switch(pickValeur.nextInt(4)) {
+					case 0:
+						it.next().setStrategyTrophee(new StrategyTropheeMajority(Valeur.AS));
+						break;
+					case 1:
+						it.next().setStrategyTrophee(new StrategyTropheeMajority(Valeur.DEUX));
+						break;
+					case 2:
+						it.next().setStrategyTrophee(new StrategyTropheeMajority(Valeur.TROIS));
+						break;
+					case 3:
+						it.next().setStrategyTrophee(new StrategyTropheeMajority(Valeur.QUATRE));
+						break;
+					default:
+						break;
+				}
+					break;
+				default:
+					break;
+				
+			}
+		}
+		//System.out.println(this.toStringTrophee());
 	}
 
 }

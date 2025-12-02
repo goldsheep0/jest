@@ -110,6 +110,8 @@ public class Partie {
 		cont.addCarte(new Carte(Valeur.QUATRE, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.TREFLE)));
 		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
 		cont.melanger();
+		
+		//System.out.println(cont.toStringTrophee());
 				
 		
 		return cont;
@@ -223,7 +225,10 @@ public class Partie {
 				carte.acceptVisitor(regle2);
 				carte.acceptVisitor(regle3);
 				carte.acceptVisitor(regle4);
-				if (variante == 2) { carte.acceptVisitor(regle5); }
+				if (variante == 2) { 
+					carte.acceptVisitor(regle5); 
+					//System.out.println("Ajout de la regle Saving Diamonds With Love.");
+				}
 			}
 			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint();
 			if (variante == 2) { joueurScore += regle5.getTotalPoint(); }
@@ -271,9 +276,19 @@ public class Partie {
 		}
 	}
 	
+	public int choisirVariante() {
+		terminal.afficherChaine("Variantes :\nVariante 1 : Un joker supplémentaire dans les trophées avec le trophée Suit Majority.\nVariante 2 : Ajout de la règle Save Diamonds With Love et Trophées aléatoires sur les cartes\n\nChoisir une variantes entre :\n0 : original\n1 :Variante 1\n2:Variante 2\n");
+		int variante = terminal.lireEntier();
+		while (variante != 0 && variante != 1 && variante != 2) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (0, 1 ou 2)");
+			variante = terminal.lireEntier();
+		}
+		return variante;
+	}
+	
 	public static void main(String[] args) {
 		partie = getPartie();
-		partie.variante = 0;
+		partie.variante = partie.choisirVariante();
 		
 		partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
 		partie.terminal.afficherDivision();
