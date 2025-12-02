@@ -277,7 +277,7 @@ public class Partie {
 	}
 	
 	public int choisirVariante() {
-		terminal.afficherChaine("Variantes :\nVariante 1 : Un joker supplémentaire dans les trophées avec le trophée Suit Majority.\nVariante 2 : Ajout de la règle Save Diamonds With Love et Trophées aléatoires sur les cartes\n\nChoisir une variantes entre :\n0 : original\n1 :Variante 1\n2:Variante 2\n");
+		terminal.afficherChaine("Variantes :\nVariante 1 : Un joker supplémentaire dans les trophées avec le trophée Suit Majority.\nVariante 2 : Ajout de la règle Save Diamonds With Love et Trophées aléatoires sur les cartes\n\nChoisir une variantes entre :\n0 : original\n1 :Variante 1\n2 : Variante 2\n");
 		int variante = terminal.lireEntier();
 		while (variante != 0 && variante != 1 && variante != 2) {
 			terminal.afficherChaine("Mauvaise saisie, tapez (0, 1 ou 2)");
