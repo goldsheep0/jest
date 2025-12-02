@@ -11,6 +11,10 @@ public class StrategyTropheeMajority implements StrategyTrophee {
 	public StrategyTropheeMajority(Valeur valeur) {
 		this.valeur=valeur;		}
 	
+	public Valeur getValeur() {
+		return valeur;
+	}
+	
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		

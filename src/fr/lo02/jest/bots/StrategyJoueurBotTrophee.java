@@ -48,10 +48,17 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur {
 				return 1 - getHighestCard();
 			}
 			
+		} else if (targetTrophee instanceof StrategyTropheeSuitMajority) {
+			if (joueur.getOffre().hasCarte(Couleur.COEUR) != null) {
+				return 1 - joueur.getOffre().getCartes().indexOf(joueur.getOffre().hasCarte(Couleur.COEUR));
+			} else {
+				return getHighestCard();
+			}
 		} else { //targetTrophee instanceof StrategyTropheeMajority
 			Carte carteTrophee = partie.getTrophees().hasCarte(StrategyTropheeMajority.class);
-			if (joueur.getOffre().hasCarte(carteTrophee.getValeur()) != null) {
-				return 1 - joueur.getOffre().getCartes().indexOf(joueur.getOffre().hasCarte(Couleur.JOKER));
+			Carte carteTarget = joueur.getOffre().hasCarte(((StrategyTropheeMajority)carteTrophee.getStrategyTrophee()).getValeur());
+			if (carteTarget != null) {
+				return 1 - joueur.getOffre().getCartes().indexOf(carteTarget);
 			} else {
 				return getHighestCard();
 			}
@@ -110,8 +117,14 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur {
 					}
 				}
 				
+				else if (targetTrophee instanceof StrategyTropheeSuitMajority) {
+					if (carteVisibleAutre.getCouleur() == Couleur.COEUR) {
+						targetJoueur = autre;
+					}
+				}
+				
 				else { // StrategyTropheeMajority
-					if (carteVisibleAutre.getValeur() == partie.getTrophees().hasCarte(StrategyTropheeMajority.class).getValeur()) {
+					if (carteVisibleAutre.getValeur() == ((StrategyTropheeMajority) partie.getTrophees().hasCarte(StrategyTropheeMajority.class).getStrategyTrophee()).getValeur()) {
 						targetJoueur = autre;
 					}
 				}
