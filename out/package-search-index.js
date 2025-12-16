@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"Jest","l":"fr.lo02.jest"},{"m":"Jest","l":"fr.lo02.jest.bots"},{"m":"Jest","l":"fr.lo02.jest.enums"},{"m":"Jest","l":"fr.lo02.jest.regle.attributionTrophees"},{"m":"Jest","l":"fr.lo02.jest.regle.calculepoint"}];updateSearchResults();
