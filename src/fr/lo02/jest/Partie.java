@@ -316,27 +316,33 @@ public class Partie implements Serializable{
 		terminal.afficherChaine("Entrer le nom du fichier à sauvergarder : ");
 		String fileName = terminal.lireChaine();
 		
-		while(existingSaveNames.contains(fileName)) {
-			terminal.afficherChaine("Le nom de fichier donné est déjà existant, voulez vous écraser cette sauvegarde ? (O/N)");
-			String choix = terminal.lireChaine();
-			while (!choix.equals("O") && !choix.equals("N")) {
-				terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
-				choix = terminal.lireChaine();
-			}
-			if(choix.equals("O")) {
-				File file = new File("./saves/"+fileName);
-				try {
-					Files.deleteIfExists(file.toPath());
-					existingSaveNames.remove(fileName);
-					
-					terminal.afficherChaine("Sauvegarde écrasée.");
-				} catch (IOException e) {
-					e.printStackTrace();
+		while(existingSaveNames.contains(fileName) && fileName.equals("keep_this_directory.gitignore")) {
+			if(!fileName.equals("keep_this_directory.gitignore")) {
+				terminal.afficherChaine("Le nom de fichier donné est déjà existant, voulez vous écraser cette sauvegarde ? (O/N)");
+				String choix = terminal.lireChaine();
+				while (!choix.equals("O") && !choix.equals("N")) {
+					terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
+					choix = terminal.lireChaine();
 				}
-			}else if(choix.equals("N")) {
+				if(choix.equals("O")) {
+					File file = new File("./saves/"+fileName);
+					try {
+						Files.deleteIfExists(file.toPath());
+						existingSaveNames.remove(fileName);
+						
+						terminal.afficherChaine("Sauvegarde écrasée.");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}else if(choix.equals("N")) {
+					terminal.afficherChaine("Tapez un nouveau nom de fichier");
+					fileName = terminal.lireChaine();
+				}
+			}else {
 				terminal.afficherChaine("Tapez un nouveau nom de fichier");
 				fileName = terminal.lireChaine();
 			}
+			
 		}
 		
 		File file = new File("./saves/"+fileName);
@@ -368,7 +374,7 @@ public class Partie implements Serializable{
 		
 		File[] existingSaveFiles = savesDirectory.listFiles();
 		
-		if (existingSaveFiles.length==0) {
+		if (existingSaveFiles.length==1) {
 			terminal.afficherChaine("Aucun fichier de sauvegarde existant, création d'une nouvelle partie.");
 			return null;
 		}
@@ -378,8 +384,10 @@ public class Partie implements Serializable{
 		
 		terminal.afficherChaine("Fichiers sauvegardes existants : ");
 		for( File f : existingSaveFiles) {
-			existingSaveNames.add(f.getName());
-			System.out.println(f.getName());
+			if(!f.getName().equals("keep_this_directory.gitignore")) {
+				existingSaveNames.add(f.getName());
+				System.out.println(f.getName());
+			}
 		}
 		
 			
@@ -445,6 +453,16 @@ public class Partie implements Serializable{
 				partie = chargerPartie();
 				if(partie==null) {
 					partie = getPartie();
+					partie.variante = partie.choisirVariante();
+					
+					Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
+					Partie.terminal.afficherDivision();
+					
+					partie.creerJoueurs();
+					
+					partie.creerTrophees();
+					
+					partie.roundCounter = 0;
 				}
 				break;
 			case 2 :
