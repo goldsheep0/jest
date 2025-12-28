@@ -1,5 +1,6 @@
 package fr.lo02.jest;
 
+import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.enums.*;
@@ -12,7 +13,7 @@ import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeLowest;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeMajority;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeSuitMajority;
 
-public class ConteneurCarte {
+public class ConteneurCarte implements Serializable{
 	
 	private LinkedList<Carte> cartes;
 	

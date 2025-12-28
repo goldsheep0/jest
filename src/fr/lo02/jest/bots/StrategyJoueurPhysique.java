@@ -1,5 +1,6 @@
 package fr.lo02.jest.bots;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -10,7 +11,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.Round;
 import fr.lo02.jest.Terminal;
 
-public class StrategyJoueurPhysique implements StrategyJoueur {
+public class StrategyJoueurPhysique implements StrategyJoueur,Serializable {
 	
 	private Joueur joueur;
 	private Partie partie;

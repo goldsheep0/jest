@@ -1,5 +1,6 @@
 package fr.lo02.jest.regle.calculepoint;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,7 +10,7 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
 
-public class RegleSavingDiamondsWithLove implements Visitor{
+public class RegleSavingDiamondsWithLove implements Visitor,Serializable{
 	/*
 	 * l'attribut totalPoint n'a pas besoin de setter car sa valeur
 	 * n'est modifié que par les méthode de la règle.

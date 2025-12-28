@@ -1,5 +1,6 @@
 package fr.lo02.jest.regle.attributionTrophees;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -13,7 +14,7 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 
-public class StrategyTropheeBestJestNoJoke implements StrategyTrophee{
+public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializable{
 	
 	public StrategyTropheeBestJestNoJoke() {}
 

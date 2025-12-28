@@ -1,11 +1,12 @@
 package fr.lo02.jest.regle.attributionTrophees;
+import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
-public class StrategyTropheeJoker implements StrategyTrophee {
+public class StrategyTropheeJoker implements StrategyTrophee,Serializable {
 	
 	public StrategyTropheeJoker() {}
 	

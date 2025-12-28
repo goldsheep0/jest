@@ -1,5 +1,6 @@
 package fr.lo02.jest.regle.attributionTrophees;
 
+import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.Carte;
@@ -10,7 +11,7 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 
-public class StrategyTropheeSuitMajority implements StrategyTrophee{
+public class StrategyTropheeSuitMajority implements StrategyTrophee,Serializable{
 	
 	public StrategyTropheeSuitMajority() {}
 	

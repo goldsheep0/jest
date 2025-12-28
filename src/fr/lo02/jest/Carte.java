@@ -2,11 +2,12 @@ package fr.lo02.jest;
 import fr.lo02.jest.regle.calculepoint.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import fr.lo02.jest.enums.*;
 
-public class Carte {
+public class Carte implements Serializable{
 	
     private Couleur couleur;
     private Valeur valeur;

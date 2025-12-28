@@ -1,5 +1,6 @@
 package fr.lo02.jest.bots;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -8,7 +9,7 @@ import fr.lo02.jest.Joueur;
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.Round;
 
-public class StrategyJoueurBotBourrin implements StrategyJoueur {
+public class StrategyJoueurBotBourrin implements StrategyJoueur,Serializable{
 	
 	private Joueur joueur;
 	private Partie partie;

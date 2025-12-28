@@ -1,8 +1,9 @@
 package fr.lo02.jest;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Round {
+public class Round implements Serializable{
 	
 	private Partie partie;
 	private boolean firstRound;

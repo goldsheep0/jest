@@ -1,11 +1,12 @@
 package fr.lo02.jest.regle.attributionTrophees;
+import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
-public class StrategyTropheeMajority implements StrategyTrophee {
+public class StrategyTropheeMajority implements StrategyTrophee,Serializable {
 	private Valeur valeur;
 	
 	public StrategyTropheeMajority(Valeur valeur) {

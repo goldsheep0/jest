@@ -1,11 +1,12 @@
 package fr.lo02.jest.regle.attributionTrophees;
+import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
-public class StrategyTropheeHighest implements StrategyTrophee {
+public class StrategyTropheeHighest implements StrategyTrophee,Serializable {
 	private Couleur couleur;
 	
 	public StrategyTropheeHighest(Couleur couleur) {

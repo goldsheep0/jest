@@ -1,8 +1,10 @@
 package fr.lo02.jest;
 
+import java.io.Serializable;
+
 import fr.lo02.jest.bots.StrategyJoueur;
 
-public class Joueur {
+public class Joueur implements Serializable{
 	
 	private ConteneurCarte jest;
 	private ConteneurCarte offre;

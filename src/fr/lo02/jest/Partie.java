@@ -1,5 +1,13 @@
 package fr.lo02.jest;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.nio.file.Files;
 import java.util.*;
 
 import fr.lo02.jest.bots.StrategyJoueurBotBourrin;
@@ -9,18 +17,24 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 import fr.lo02.jest.regle.calculepoint.*;
 
-public class Partie {
+public class Partie implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private static Partie partie = null;
 	private ArrayList<Joueur> joueurs;
 	private ConteneurCarte deck;
 	private ConteneurCarte stack;
-	private Terminal terminal;
+	private static Terminal terminal = new Terminal();
 	private int variante;
 	private ConteneurCarte trophees;
+	private int roundCounter;
+	private Boolean partieFinie;
+	private LinkedHashMap<Joueur, Integer> scores;
 	
-	private Partie() {
-		terminal = new Terminal();
+	
+	private Partie() { 
+		partieFinie=false;
+		roundCounter=0;
 		joueurs = new ArrayList<Joueur>();
 		deck = creerDeck();
 		stack = new ConteneurCarte();
@@ -165,9 +179,9 @@ public class Partie {
 			this.trophees.addCarte(this.deck.distribuerCarte());
 		}
 		
-		this.terminal.afficherDivision();
+		Partie.terminal.afficherDivision();
 		
-		this.terminal.afficherChaine("Trophee pour cette partie : \n"+this.trophees.toStringTrophee());
+		Partie.terminal.afficherChaine("Trophee pour cette partie : \n"+this.trophees.toStringTrophee());
 	}
 	
 	public void distribuerTrophees() {
@@ -286,31 +300,193 @@ public class Partie {
 		return variante;
 	}
 	
-	public static void main(String[] args) {
-		partie = getPartie();
-		partie.variante = partie.choisirVariante();
+	public String sauvegarderPartie(Partie partie) {
 		
-		partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
-		partie.terminal.afficherDivision();
+		File savesDirectory = new File("./saves");		
 		
-		partie.creerJoueurs();
+		File[] existingSaveFiles = savesDirectory.listFiles();
 		
-		partie.creerTrophees();
+		HashSet<String> existingSaveNames = new HashSet<String>();
 		
-		int round_counter = 0;
-		while (!partie.deck.isEmpty()) {
-			round_counter ++;
-			Round round = new Round(round_counter == 1);
-			
-			round.distribuerCartes();
-			round.faireOffres();
-			round.prendreCartes();
+		for( File f : existingSaveFiles) {
+			existingSaveNames.add(f.getName());
 		}
 		
-		partie.joueursPrennentDerniereCarte();
-		partie.distribuerTrophees();
-		LinkedHashMap<Joueur, Integer> scores = partie.compterScores();
-		partie.afficherScores(scores);
+			
+		terminal.afficherChaine("Entrer le nom du fichier à sauvergarder : ");
+		String fileName = terminal.lireChaine();
+		
+		while(existingSaveNames.contains(fileName)) {
+			terminal.afficherChaine("Le nom de fichier donné est déjà existant, voulez vous écraser cette sauvegarde ? (O/N)");
+			String choix = terminal.lireChaine();
+			while (!choix.equals("O") && !choix.equals("N")) {
+				terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
+				choix = terminal.lireChaine();
+			}
+			if(choix.equals("O")) {
+				File file = new File("./saves/"+fileName);
+				try {
+					Files.deleteIfExists(file.toPath());
+					existingSaveNames.remove(fileName);
+					
+					terminal.afficherChaine("Sauvegarde écrasée.");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}else if(choix.equals("N")) {
+				terminal.afficherChaine("Tapez un nouveau nom de fichier");
+				fileName = terminal.lireChaine();
+			}
+		}
+		
+		File file = new File("./saves/"+fileName);
+		
+		try {
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(partie);;
+			
+			oos.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		terminal.afficherChaine("Partie Sauvegardée !");
+		
+		return fileName;
+	}
+	
+	
+	public static Partie chargerPartie() {
+		Partie partie = null;
+		
+		File savesDirectory = new File("./saves");		
+		
+		File[] existingSaveFiles = savesDirectory.listFiles();
+		
+		if (existingSaveFiles.length==0) {
+			terminal.afficherChaine("Aucun fichier de sauvegarde existant, création d'une nouvelle partie.");
+			return null;
+		}
+		
+		HashSet<String> existingSaveNames = new HashSet<String>();
+		
+		
+		terminal.afficherChaine("Fichiers sauvegardes existants : ");
+		for( File f : existingSaveFiles) {
+			existingSaveNames.add(f.getName());
+			System.out.println(f.getName());
+		}
+		
+			
+		terminal.afficherChaine("Entrer le nom du fichier à charger : ");
+		String fileName = terminal.lireChaine();
+		
+		while(!existingSaveNames.contains(fileName)) {
+			terminal.afficherChaine("Le nom de fichier donné n'est pas dans la liste, veuillez en entrer un existant : ");
+			fileName = terminal.lireChaine();
+		}
+		
+		
+		File file = new File("./saves/"+fileName);
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);	
+					
+			try {
+				partie= (Partie) ois.readObject();
+			}catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			fis.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return partie;
+	}
+	
+	public static int menuDepart() {
+		terminal.afficherChaine("Charger partie (1)\nNouvelle Partie (2)");
+		int choix = terminal.lireEntier();
+		while (choix != 1 && choix != 2) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (1 ou 2)");
+			choix = terminal.lireEntier();
+		}
+		return choix;
+	}
+	
+	public static void menuSauvegarder(Partie partie) {
+		terminal.afficherChaine("Sauvegarder la partie ? (O/N)");
+		String choix = terminal.lireChaine();
+		while (!choix.equals("O") && !choix.equals("N")) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
+			choix = terminal.lireChaine();
+		}
+		
+		if(choix.equals("O")) {
+			partie.sauvegarderPartie(partie);
+		}
+		
+	}
+	
+	
+	public static void main(String[] args) {
+		
+		switch(Partie.menuDepart()) {
+			case 1 :
+				partie = chargerPartie();
+				if(partie==null) {
+					partie = getPartie();
+				}
+				break;
+			case 2 :
+				partie = getPartie();
+				partie.variante = partie.choisirVariante();
+				
+				Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
+				Partie.terminal.afficherDivision();
+				
+				partie.creerJoueurs();
+				
+				partie.creerTrophees();
+				
+				partie.roundCounter = 0;
+				break;
+			default :
+				break;
+		}
+		
+		if (!partie.partieFinie) {
+			while (!partie.deck.isEmpty()) {
+				partie.roundCounter ++;
+				Round round = new Round(partie.roundCounter == 1);
+				
+				round.distribuerCartes();
+				
+				round.faireOffres();
+				round.prendreCartes();
+				
+				Partie.menuSauvegarder(partie);
+			}
+			
+			partie.joueursPrennentDerniereCarte();
+			partie.distribuerTrophees();
+			partie.scores = partie.compterScores();
+			partie.partieFinie=true;
+			
+		}
+		
+		partie.afficherScores(partie.scores);
+		
+		Partie.menuSauvegarder(partie);
 	}
 
 }

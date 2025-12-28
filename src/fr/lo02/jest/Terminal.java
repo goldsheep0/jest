@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.Serializable;
 
-public class Terminal {
+public class Terminal implements Serializable{
 	
 	private InputStream entree;
 	private PrintStream sortie;
