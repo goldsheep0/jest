@@ -70,7 +70,7 @@ public class MainWindow {
 		selectCaracteristicsMenu.setVisible(false);
 		selectCaracteristicsMenu.setEnabled(false);
 		
-		selectBotMenu = new SelectBotMenu();
+		selectBotMenu = new SelectBotMenu(3); //ATTENTION, créer cette fenêtre apres avoir selectionner les caractéristiques de la partie.
 		selectBotMenu.setBounds(100, 100, 450, 300);
 		selectBotMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		selectBotMenu.setVisible(false);
