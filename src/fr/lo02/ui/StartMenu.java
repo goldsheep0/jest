@@ -3,14 +3,19 @@ package fr.lo02.ui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.JButton;
 import java.awt.Font;
+import javax.swing.JButton;
 
-public class StartMenu {
+public class StartMenu extends JFrame {
 
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -19,8 +24,8 @@ public class StartMenu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartMenu window = new StartMenu();
-					window.frame.setVisible(true);
+					StartMenu frame = new StartMenu();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -29,34 +34,48 @@ public class StartMenu {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public StartMenu() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
 		
-		JLabel lblJest = new JLabel("Jest");
-		lblJest.setFont(new Font("Dialog", Font.BOLD, 16));
+		JLabel lblJest = new JLabel("JEST");
+		lblJest.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblJest.setHorizontalAlignment(SwingConstants.CENTER);
-		lblJest.setBounds(190, 54, 70, 15);
-		frame.getContentPane().add(lblJest);
 		
 		JButton btnNouvellePartie = new JButton("Nouvelle partie");
-		btnNouvellePartie.setBounds(154, 111, 142, 25);
-		frame.getContentPane().add(btnNouvellePartie);
 		
 		JButton btnChargerPartie = new JButton("Charger partie");
-		btnChargerPartie.setBounds(154, 175, 142, 25);
-		frame.getContentPane().add(btnChargerPartie);
-	}
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(201)
+					.addComponent(lblJest, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(190))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(154)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnChargerPartie, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+						.addComponent(btnNouvellePartie, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(144))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(50)
+					.addComponent(lblJest, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+					.addGap(50)
+					.addComponent(btnNouvellePartie, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+					.addGap(50)
+					.addComponent(btnChargerPartie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(66))
+		);
+		contentPane.setLayout(gl_contentPane);
 
+	}
 }

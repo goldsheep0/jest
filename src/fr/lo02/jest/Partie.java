@@ -422,7 +422,7 @@ public class Partie implements Serializable{
 	}
 	
 	public static int menuDepart() {
-		terminal.afficherChaine("Charger partie (1)\nNouvelle Partie (2)");
+		terminal.afficherChaine("Nouvelle Partie (1)\nCharger partie (2)");
 		int choix = terminal.lireEntier();
 		while (choix != 1 && choix != 2) {
 			terminal.afficherChaine("Mauvaise saisie, tapez (1 ou 2)");
@@ -450,6 +450,19 @@ public class Partie implements Serializable{
 		
 		switch(Partie.menuDepart()) {
 			case 1 :
+				partie = getPartie();
+				partie.variante = partie.choisirVariante();
+				
+				Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
+				Partie.terminal.afficherDivision();
+				
+				partie.creerJoueurs();
+				
+				partie.creerTrophees();
+				
+				partie.roundCounter = 0;
+				break;
+			case 2 :
 				partie = chargerPartie();
 				if(partie==null) {
 					partie = getPartie();
@@ -464,19 +477,6 @@ public class Partie implements Serializable{
 					
 					partie.roundCounter = 0;
 				}
-				break;
-			case 2 :
-				partie = getPartie();
-				partie.variante = partie.choisirVariante();
-				
-				Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
-				Partie.terminal.afficherDivision();
-				
-				partie.creerJoueurs();
-				
-				partie.creerTrophees();
-				
-				partie.roundCounter = 0;
 				break;
 			default :
 				break;
