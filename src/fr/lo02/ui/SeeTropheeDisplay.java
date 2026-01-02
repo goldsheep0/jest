@@ -61,7 +61,7 @@ public class SeeTropheeDisplay extends JFrame {
 		//AffichageCarte
 		Iterator<Carte> it= trophees.iterator();
 		while(it.hasNext()) {
-			panel.add(new AffichageCarteVisible(it.next(), true));
+			panel.add(new AffichageCarteVisible(it.next(), true, false));
 		}
 		
 		

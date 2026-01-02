@@ -20,7 +20,7 @@ public class MainWindow {
 	private SelectBotMenu selectBotMenu;
 	private EnterPlayerNamesMenu enterPlayerNamesMenu;
 
-	private void afficherTrophee(LinkedList<Carte> trophees) {
+	public void afficherTrophee(LinkedList<Carte> trophees) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -41,6 +41,49 @@ public class MainWindow {
 		});
 	}
 	
+	public void afficherJest(LinkedList<Carte> jest) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeJestDisplay popupJestDisplay = new SeeJestDisplay(jest);
+					popupJestDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupJestDisplay.setVisible(true);
+					popupJestDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	public void afficherOffre(LinkedList<Carte> offre) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeOfferDisplay popupOfferDisplay = new SeeOfferDisplay(offre);
+					popupOfferDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupOfferDisplay.setVisible(true);
+					popupOfferDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -60,11 +103,13 @@ public class MainWindow {
 					window.enterPlayerNamesMenu.setVisible(true);
 					window.enterPlayerNamesMenu.setEnabled(true);
 					
-					//Pour faire apparaître la fenêtre popup pour l'affichage des trophees.
+					//Pour faire apparaître la fenêtre popup pour l'affichage des trophees. Identique pour l'affichage d'un jest ou d'une offre.
 					LinkedList<Carte> trophees = new LinkedList<Carte>();
 					trophees.add(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
 					trophees.add(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
 					trophees.add(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.PIQUE)));
+					
+					
 					window.afficherTrophee(trophees);
 					
 					

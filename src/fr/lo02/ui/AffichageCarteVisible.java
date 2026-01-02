@@ -10,7 +10,7 @@ public class AffichageCarteVisible extends JLabel{
 	public Carte carte;
 	public ImageIcon texture;
 	
-	public AffichageCarteVisible(Carte carte, boolean trophee) {
+	public AffichageCarteVisible(Carte carte, boolean trophee, boolean offer) {
 		super();
 		this.carte=carte;
 		
@@ -97,6 +97,19 @@ public class AffichageCarteVisible extends JLabel{
 			super.setText(this.carte.getStrategyTrophee().toString());
 			super.setHorizontalTextPosition(JLabel.CENTER);
 			super.setVerticalTextPosition(JLabel.BOTTOM);
+
+		}
+		
+		if(offer) {
+			if(this.carte.estFaceVisible()) {
+				super.setText("Face visible");
+				super.setHorizontalTextPosition(JLabel.CENTER);
+				super.setVerticalTextPosition(JLabel.BOTTOM);
+			}else {
+				super.setText("Face caché");
+				super.setHorizontalTextPosition(JLabel.CENTER);
+				super.setVerticalTextPosition(JLabel.BOTTOM);
+			}
 
 		}
 		
