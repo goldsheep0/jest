@@ -89,7 +89,7 @@ public class SeeOfferDisplay extends JFrame {
 		}
 		
 		
-		JLabel lblTrophes = new JLabel("Votre Jest");
+		JLabel lblTrophes = new JLabel("Votre Offre");
 		lblTrophes.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblTrophes, BorderLayout.NORTH);
 

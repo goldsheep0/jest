@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Random;
 
 import javax.swing.*;
 
@@ -21,6 +22,8 @@ public class ToggleButtonCarte extends JToggleButton{
 	public ToggleButtonCarte(Carte carte) {
 		super();
 		this.carte=carte;
+		
+		Random random = new Random();
 		
 		switch(carte.getCouleur()) {
 		case Couleur.PIQUE :
@@ -102,7 +105,11 @@ public class ToggleButtonCarte extends JToggleButton{
 		}
 		
 		super.setIcon(this.texture);
-		super.setSelectedIcon(new ImageIcon("./cardSprites/cardBackRed.png"));
+		if(random.nextBoolean()) {
+			super.setSelectedIcon(new ImageIcon("./cardSprites/cardBackRed.png"));
+		}else {
+			super.setSelectedIcon(new ImageIcon("./cardSprites/cardBackBlue.png"));
+		}
 		super.setBorderPainted(false);
 		super.setOpaque(true);
 		super.setPreferredSize(new Dimension(88, 124));

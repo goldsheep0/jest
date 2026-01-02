@@ -14,6 +14,7 @@ import javax.swing.border.EmptyBorder;
 
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
+import fr.lo02.jest.Partie;
 import fr.lo02.jest.bots.StrategyJoueur;
 import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
@@ -48,6 +49,8 @@ public class ConceptionOffreMenu extends JFrame {
 					jTest.getOffre().addCarte(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
 					jTest.getOffre().addCarte(new Carte(Valeur.TROIS, Couleur.CARREAU, new StrategyTropheeHighest(Couleur.PIQUE)));
 					jTest.getJest().addCarte(new Carte(Valeur.AS, Couleur.CARREAU, new StrategyTropheeHighest(Couleur.PIQUE)));
+					
+					Partie.getPartie().getTrophees().addCarte(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
 					
 					
 					ConceptionOffreMenu frame = new ConceptionOffreMenu(jTest);
@@ -88,7 +91,7 @@ public class ConceptionOffreMenu extends JFrame {
 		
 		
 		
-		JLabel lblTrophes = new JLabel("Choissez la carte à mettre face cachée");
+		JLabel lblTrophes = new JLabel("<html><body><div style=\"text-align:center\">"+joueur.getNom()+"</div>Choissez la carte à mettre face cachée</body></html>");
 		lblTrophes.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPane.add(lblTrophes, BorderLayout.NORTH);
 		
@@ -97,6 +100,11 @@ public class ConceptionOffreMenu extends JFrame {
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton btnNewButton = new JButton("Voir Trophées");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SeeTropheeDisplay.afficherTrophee(Partie.getPartie().getTrophees().getCartes());
+			}
+		});
 		panel_1.add(btnNewButton);
 		
 		JButton btnVoirJest = new JButton("Voir Jest");
