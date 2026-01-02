@@ -22,7 +22,28 @@ public class SeeTropheeDisplay extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	
+	public static void afficherTrophee(LinkedList<Carte> trophees) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeTropheeDisplay popupJestDisplay = new SeeTropheeDisplay(trophees);
+					popupJestDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupJestDisplay.setVisible(true);
+					popupJestDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Launch the application.
 	 */

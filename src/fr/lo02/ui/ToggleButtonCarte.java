@@ -1,12 +1,16 @@
 package fr.lo02.ui;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
+
+import java.awt.Color;
+import java.awt.Dimension;
+
+import javax.swing.*;
 
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.enums.*;
 
-public class AffichageCarteVisible extends JLabel{
+public class ToggleButtonCarte extends JToggleButton{
 	public Carte carte;
 	public ImageIcon texture;
 	
@@ -14,7 +18,7 @@ public class AffichageCarteVisible extends JLabel{
 		return this.carte;
 	}
 	
-	public AffichageCarteVisible(Carte carte, boolean trophee, boolean offer) {
+	public ToggleButtonCarte(Carte carte) {
 		super();
 		this.carte=carte;
 		
@@ -97,26 +101,11 @@ public class AffichageCarteVisible extends JLabel{
 			break;
 		}
 		
-		if(trophee) {
-			super.setText(this.carte.getStrategyTrophee().toString());
-			super.setHorizontalTextPosition(JLabel.CENTER);
-			super.setVerticalTextPosition(JLabel.BOTTOM);
-
-		}
-		
-		if(offer) {
-			if(this.carte.estFaceVisible()) {
-				super.setText("Face visible");
-				super.setHorizontalTextPosition(JLabel.CENTER);
-				super.setVerticalTextPosition(JLabel.BOTTOM);
-			}else {
-				super.setText("Face caché");
-				super.setHorizontalTextPosition(JLabel.CENTER);
-				super.setVerticalTextPosition(JLabel.BOTTOM);
-			}
-
-		}
-		
 		super.setIcon(this.texture);
+		super.setSelectedIcon(new ImageIcon("./cardSprites/cardBackRed.png"));
+		super.setBorderPainted(false);
+		super.setOpaque(true);
+		super.setPreferredSize(new Dimension(88, 124));
+		
 	}
 }

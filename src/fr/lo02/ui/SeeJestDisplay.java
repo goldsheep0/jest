@@ -23,6 +23,27 @@ public class SeeJestDisplay extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
+	public static void afficherJest(LinkedList<Carte> jest) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeJestDisplay popupJestDisplay = new SeeJestDisplay(jest);
+					popupJestDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupJestDisplay.setVisible(true);
+					popupJestDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Launch the application.
 	 */

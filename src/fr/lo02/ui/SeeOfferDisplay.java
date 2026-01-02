@@ -23,7 +23,28 @@ public class SeeOfferDisplay extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	
+	public static void afficherOffre(LinkedList<Carte> offre) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeOfferDisplay popupOfferDisplay = new SeeOfferDisplay(offre);
+					popupOfferDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupOfferDisplay.setVisible(true);
+					popupOfferDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Launch the application.
 	 */
