@@ -21,7 +21,7 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializab
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Best Jest No Joke");
 		
 		return str.toString();

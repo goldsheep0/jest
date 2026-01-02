@@ -88,6 +88,7 @@ public class Carte implements Serializable{
     public String toStringTrophee() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.toString());
+		sb.append(", ");
 		sb.append(this.strategyTrophee.toString());
 		return sb.toString();
     }  

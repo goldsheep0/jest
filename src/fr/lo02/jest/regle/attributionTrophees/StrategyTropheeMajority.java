@@ -19,7 +19,7 @@ public class StrategyTropheeMajority implements StrategyTrophee,Serializable {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Majority ");
 		str.append(this.valeur.toString());
 		

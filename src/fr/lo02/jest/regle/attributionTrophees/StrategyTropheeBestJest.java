@@ -91,7 +91,7 @@ public class StrategyTropheeBestJest implements StrategyTrophee,Serializable{
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Best Jest");
 		
 		return str.toString();

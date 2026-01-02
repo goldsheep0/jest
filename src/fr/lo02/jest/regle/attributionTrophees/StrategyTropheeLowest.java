@@ -15,7 +15,7 @@ public class StrategyTropheeLowest implements StrategyTrophee,Serializable {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Lowest ");
 		str.append(this.couleur.toString());
 		

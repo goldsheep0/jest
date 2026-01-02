@@ -15,7 +15,7 @@ public class StrategyTropheeHighest implements StrategyTrophee,Serializable {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Highest ");
 		str.append(this.couleur.toString());
 		

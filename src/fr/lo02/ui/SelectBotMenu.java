@@ -61,7 +61,7 @@ public class SelectBotMenu extends JFrame {
 		JLabel lblNewLabel = new JLabel("Bots trophées");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JButton btnValider = new JButton("Valider");
+		JButton btnValider = new JButton("Suivant");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

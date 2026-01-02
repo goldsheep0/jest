@@ -40,6 +40,11 @@ public class GroupSpinner
         }
     }
 
+    /**
+     * Permet d'obtenir le total des valeurs du groupe de JSpinner.
+     * 
+     * @return le total des valeurs des JSpinner combinées.
+     */
     public int getGroupValue()
     {
         int maximum = 0;

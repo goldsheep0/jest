@@ -1,8 +1,16 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
+import java.util.LinkedList;
 
 import javax.swing.JFrame;
+
+import fr.lo02.jest.Carte;
+import fr.lo02.jest.enums.Couleur;
+import fr.lo02.jest.enums.Valeur;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJest;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
+import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeLowest;
 
 public class MainWindow {
 
@@ -10,10 +18,31 @@ public class MainWindow {
 	private LoadSaveMenu loadSaveMenu;
 	private SelectCaracteristicsMenu selectCaracteristicsMenu;
 	private SelectBotMenu selectBotMenu;
+	private EnterPlayerNamesMenu enterPlayerNamesMenu;
 
+	private void afficherTrophee(LinkedList<Carte> trophees) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					
+					
+					SeeTropheeDisplay popupJestDisplay = new SeeTropheeDisplay(trophees);
+					popupJestDisplay.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					//To enable a window.
+					popupJestDisplay.setVisible(true);
+					popupJestDisplay.setEnabled(true);
+					
+					
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Launch the application.
-	 * @wbp.parser.entryPoint
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -28,8 +57,15 @@ public class MainWindow {
 					window.startMenu.setVisible(false);
 					
 					//To enable a window.
-					window.selectBotMenu.setVisible(true);
-					window.selectBotMenu.setEnabled(true);
+					window.enterPlayerNamesMenu.setVisible(true);
+					window.enterPlayerNamesMenu.setEnabled(true);
+					
+					//Pour faire apparaître la fenêtre popup pour l'affichage des trophees.
+					LinkedList<Carte> trophees = new LinkedList<Carte>();
+					trophees.add(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
+					trophees.add(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
+					trophees.add(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.PIQUE)));
+					window.afficherTrophee(trophees);
 					
 					
 					
@@ -75,6 +111,14 @@ public class MainWindow {
 		selectBotMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		selectBotMenu.setVisible(false);
 		selectBotMenu.setEnabled(false);
+		
+		enterPlayerNamesMenu = new EnterPlayerNamesMenu(3); //ATTENTION, créer cette fenêtre apres avoir selectionner les bots de la partie.
+		enterPlayerNamesMenu.setBounds(100, 100, 450, 300);
+		enterPlayerNamesMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		enterPlayerNamesMenu.setVisible(false);
+		enterPlayerNamesMenu.setEnabled(false);
+		
+		
 	}
 
 }

@@ -13,7 +13,7 @@ public class StrategyTropheeJoker implements StrategyTrophee,Serializable {
 	public String toString() {
 		StringBuffer str = new StringBuffer();
 		
-		str.append(", Trophee : ");
+		str.append("Trophee : ");
 		str.append("Joker");
 		
 		return str.toString();
