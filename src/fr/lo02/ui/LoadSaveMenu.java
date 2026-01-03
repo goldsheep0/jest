@@ -37,7 +37,7 @@ public class LoadSaveMenu extends JFrame {
 		});
 	}
 	
-	public String[] listAvailableSaves() {
+	public static String[] listAvailableSaves() {
 		File savesDirectory = new File("./saves");		
 		
 		File[] existingSaveFiles = savesDirectory.listFiles();
