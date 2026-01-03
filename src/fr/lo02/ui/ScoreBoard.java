@@ -17,6 +17,8 @@ import javax.swing.border.EmptyBorder;
 
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.bots.StrategyJoueurPhysique;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public class ScoreBoard extends JFrame {
 
@@ -54,40 +56,46 @@ public class ScoreBoard extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblEntrerLeNom = new JLabel("Scores");
-		lblEntrerLeNom.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel lblScores = new JLabel("Scores");
+		lblScores.setHorizontalAlignment(SwingConstants.CENTER);
+		contentPane.add(lblScores, BorderLayout.NORTH);
 		
 		JPanel panel = new JPanel();
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(125, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(125, Short.MAX_VALUE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(150)
-					.addComponent(lblEntrerLeNom, GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-					.addGap(150))
+		contentPane.add(panel, BorderLayout.CENTER);
+		
+		JPanel panel_1 = new JPanel();
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(130)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+					.addGap(130))
 		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(50)
-					.addComponent(lblEntrerLeNom, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
-					.addGap(30)
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-					.addGap(65))
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(84)
+					.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+					.addGap(50))
 		);
+		panel.setLayout(gl_panel);
+		
+		JPanel panel_2 = new JPanel();
+		contentPane.add(panel_2, BorderLayout.SOUTH);
+		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JButton btnSauvegarderLaPartie = new JButton("Sauvegarder la partie");
+		panel_2.add(btnSauvegarderLaPartie);
 		
 		Iterator<Joueur> it = sortScores.keySet().iterator();
 		Joueur currentJoueur;
 		while(it.hasNext()) {
 			currentJoueur=it.next();
-			panel.add(new JLabel(currentJoueur.getNom()+" : "+sortScores.get(currentJoueur)+" pts"));
+			panel_1.add(new JLabel(currentJoueur.getNom()+" : "+sortScores.get(currentJoueur)+" pts"));
 		}
-		contentPane.setLayout(gl_contentPane);
 	}
 
 }
