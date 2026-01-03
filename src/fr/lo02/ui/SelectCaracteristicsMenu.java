@@ -14,6 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
+import javax.swing.SwingConstants;
 
 public class SelectCaracteristicsMenu extends JFrame {
 
@@ -59,6 +60,7 @@ public class SelectCaracteristicsMenu extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel lblSlectionnerUneVariante = new JLabel("Caractéristiques de la partie");
+		lblSlectionnerUneVariante.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		scrollPane = new JScrollPane();
 		
