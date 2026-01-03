@@ -1,19 +1,24 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
+import fr.lo02.controlleur.CaracteristicsController;
+import fr.lo02.controlleur.SelectBotController;
+import fr.lo02.controlleur.StartMenuBoutons;
 import fr.lo02.jest.Carte;
-import fr.lo02.jest.enums.Couleur;
-import fr.lo02.jest.enums.Valeur;
-import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJest;
-import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
-import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeLowest;
+import fr.lo02.jest.Partie;
 
 public class MainWindow {
 
+	private Partie partie;
+	private int stepCount;
+	private List<String> steps;
+	
 	private StartMenu startMenu;
 	private LoadSaveMenu loadSaveMenu;
 	private SelectCaracteristicsMenu selectCaracteristicsMenu;
@@ -92,27 +97,13 @@ public class MainWindow {
 			public void run() {
 				try {
 					MainWindow window = new MainWindow();
-					window.startMenu.setVisible(true);
-					
-					
-					//To disable a window.
-					window.startMenu.setEnabled(false);
-					window.startMenu.setVisible(false);
-					
-					//To enable a window.
-					window.enterPlayerNamesMenu.setVisible(true);
-					window.enterPlayerNamesMenu.setEnabled(true);
 					
 					//Pour faire apparaître la fenêtre popup pour l'affichage des trophees. Identique pour l'affichage d'un jest ou d'une offre.
-					LinkedList<Carte> trophees = new LinkedList<Carte>();
-					trophees.add(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
-					trophees.add(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
-					trophees.add(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.PIQUE)));
-					
-					
-					window.afficherTrophee(trophees);
-					
-					
+					//LinkedList<Carte> trophees = new LinkedList<Carte>();
+					//trophees.add(new Carte(Valeur.TROIS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE)));
+					//trophees.add(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
+					//trophees.add(new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeLowest(Couleur.PIQUE)));
+					//window.afficherTrophee(trophees);
 					
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -126,6 +117,13 @@ public class MainWindow {
 	 * 
 	 */
 	public MainWindow() {
+		stepCount = -1; 
+		steps = new ArrayList<String>();
+		steps.add("start");
+		steps.add("save");
+		steps.add("caracteristics");
+		steps.add("bots");
+		steps.add("players");
 		initialize();
 	}
 
@@ -133,37 +131,119 @@ public class MainWindow {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		startMenu = new StartMenu();
-		startMenu.setBounds(100, 100, 450, 300);
-		startMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		startMenu.setVisible(true);
-		startMenu.setEnabled(true);
+		partie = Partie.getPartie();
+		next();
+	}
+	
+	public void next() {
+		stepCount++;
+		System.out.println(steps.get(stepCount));
+		nextStep();
+	}
+	
+	public void next(int count) {
+		stepCount += count;
+		nextStep();
+	}
+	
+	public void nextStep() {
+		MainWindow main = this;
 		
-		loadSaveMenu = new LoadSaveMenu();
-		loadSaveMenu.setBounds(100, 100, 450, 300);
-		loadSaveMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		loadSaveMenu.setVisible(false);
-		loadSaveMenu.setEnabled(false);
+		switch(steps.get(stepCount)) {
 		
-		selectCaracteristicsMenu = new SelectCaracteristicsMenu();
-		selectCaracteristicsMenu.setBounds(100, 100, 450, 300);
-		selectCaracteristicsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		selectCaracteristicsMenu.setVisible(false);
-		selectCaracteristicsMenu.setEnabled(false);
-		
-		selectBotMenu = new SelectBotMenu(3); //ATTENTION, créer cette fenêtre apres avoir selectionner les caractéristiques de la partie.
-		selectBotMenu.setBounds(100, 100, 450, 300);
-		selectBotMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		selectBotMenu.setVisible(false);
-		selectBotMenu.setEnabled(false);
-		
-		enterPlayerNamesMenu = new EnterPlayerNamesMenu(3); //ATTENTION, créer cette fenêtre apres avoir selectionner les bots de la partie.
-		enterPlayerNamesMenu.setBounds(100, 100, 450, 300);
-		enterPlayerNamesMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		enterPlayerNamesMenu.setVisible(false);
-		enterPlayerNamesMenu.setEnabled(false);
-		
-		
+		case "start":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						startMenu = new StartMenu();
+						startMenu.setBounds(100, 100, 450, 300);
+						startMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						startMenu.setVisible(true);
+						new StartMenuBoutons(startMenu, loadSaveMenu, selectCaracteristicsMenu, partie, main);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		case "save":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						startMenu.setVisible(false);
+						startMenu.setEnabled(false);
+						loadSaveMenu = new LoadSaveMenu();
+						loadSaveMenu.setBounds(100, 100, 450, 300);
+						loadSaveMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						loadSaveMenu.setVisible(true);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		case "caracteristics":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						if (loadSaveMenu != null) {
+							loadSaveMenu.setVisible(false);
+							loadSaveMenu.setEnabled(false);
+						} if (startMenu != null) {
+							startMenu.setVisible(false);
+							startMenu.setEnabled(false);
+						}
+						selectCaracteristicsMenu = new SelectCaracteristicsMenu();
+						selectCaracteristicsMenu.setBounds(100, 100, 450, 300);
+						selectCaracteristicsMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						selectCaracteristicsMenu.setVisible(true);
+						new CaracteristicsController(selectCaracteristicsMenu, selectBotMenu, partie, main);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		case "bots":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						selectCaracteristicsMenu.setVisible(false);
+						selectCaracteristicsMenu.setEnabled(false);
+						selectBotMenu = new SelectBotMenu(partie.getNombreJoueursTotal()); //ATTENTION, créer cette fenêtre apres avoir selectionner les caractéristiques de la partie.
+						selectBotMenu.setBounds(100, 100, 450, 300);
+						selectBotMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						selectBotMenu.setVisible(true);
+						new SelectBotController(selectBotMenu, enterPlayerNamesMenu, partie, main);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		case "players":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						selectBotMenu.setVisible(false);
+						selectBotMenu.setEnabled(false);
+						enterPlayerNamesMenu = new EnterPlayerNamesMenu(partie.getNombreJoueursTotal()); //ATTENTION, créer cette fenêtre apres avoir selectionner les bots de la partie.
+						enterPlayerNamesMenu.setBounds(100, 100, 450, 300);
+						enterPlayerNamesMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+						enterPlayerNamesMenu.setVisible(true);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		case "":
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						enterPlayerNamesMenu.setVisible(false);
+						enterPlayerNamesMenu.setEnabled(false);
+					} catch (Exception e) {e.printStackTrace();}
+				}
+			});
+			break;
+			
+		}
 	}
 
 }

@@ -12,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JSplitPane;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
 
@@ -21,6 +19,18 @@ public class SelectCaracteristicsMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	private JScrollPane scrollPane;
+	private JButton btnSuivant;
+	private ButtonGroup group;
+	private JRadioButton radioButton;
+	private JRadioButton radioButton_1;
+	
+	public JScrollPane getScrollPane() {return scrollPane;}
+	public JButton getBtnSuivant() {return btnSuivant;}
+	public ButtonGroup getGroup() {return group;}
+	public JRadioButton getJ3() {return radioButton;}
+	public JRadioButton getJ4() {return radioButton_1;}
 
 	/**
 	 * Launch the application.
@@ -50,9 +60,9 @@ public class SelectCaracteristicsMenu extends JFrame {
 		
 		JLabel lblSlectionnerUneVariante = new JLabel("Caractéristiques de la partie");
 		
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		
-		JButton btnSuivant = new JButton("Suivant");
+		btnSuivant = new JButton("Suivant");
 		
 		JLabel lblNombreJoueurs = new JLabel("Nombre joueurs");
 		
@@ -99,13 +109,13 @@ public class SelectCaracteristicsMenu extends JFrame {
 					.addGap(20))
 		);
 		
-		JRadioButton radioButton = new JRadioButton("3");
+		radioButton = new JRadioButton("3");
 		panel.add(radioButton);
 		
-		JRadioButton radioButton_1 = new JRadioButton("4");
+		radioButton_1 = new JRadioButton("4");
 		panel.add(radioButton_1);
 		
-		ButtonGroup group = new ButtonGroup();
+		group = new ButtonGroup();
 		group.add(radioButton);
 		group.add(radioButton_1);
 		

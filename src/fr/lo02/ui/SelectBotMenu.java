@@ -18,6 +18,13 @@ public class SelectBotMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private int nbJoueurs;
+	private JSpinner spinner;
+	private JSpinner spinner_1;
+	private JButton btnValider;
+	
+	public JSpinner getBourrins() {return spinner;}
+	public JSpinner getTrophees() {return spinner_1;}
+	public JButton getBouton() {return btnValider;}
 
 	/**
 	 * Launch the application.
@@ -52,8 +59,8 @@ public class SelectBotMenu extends JFrame {
 		lblChoisirLesBots.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		GroupSpinner group = new GroupSpinner(this.nbJoueurs);
-		JSpinner spinner = new JSpinner( group.createGroupModel(0, 0, this.nbJoueurs, 1) );		
-		JSpinner spinner_1 = new JSpinner( group.createGroupModel(0, 0, this.nbJoueurs, 1) );
+		spinner = new JSpinner( group.createGroupModel(0, 0, this.nbJoueurs, 1) );		
+		spinner_1 = new JSpinner( group.createGroupModel(0, 0, this.nbJoueurs, 1) );
 	
 		JLabel lblBotsBourrins = new JLabel("Bots bourrins");
 		lblBotsBourrins.setHorizontalAlignment(SwingConstants.CENTER);
@@ -61,7 +68,7 @@ public class SelectBotMenu extends JFrame {
 		JLabel lblNewLabel = new JLabel("Bots trophées");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JButton btnValider = new JButton("Suivant");
+		btnValider = new JButton("Suivant");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

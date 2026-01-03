@@ -30,6 +30,7 @@ public class Partie implements Serializable{
 	private int roundCounter;
 	private Boolean partieFinie;
 	private LinkedHashMap<Joueur, Integer> scores;
+	private int nombreJoueursTotal;
 	
 	
 	private Partie() { 
@@ -61,40 +62,55 @@ public class Partie implements Serializable{
 		return terminal;
 	}
 	
-	/**
-	 * Crée les joueurs dans l'array joueurs
-	 */
-	public void creerJoueurs() {
-		terminal.afficherChaine("Combien de joueurs y a-t-il ? (3 ou 4)");
-		int nombreJoueur = terminal.lireEntier();
-		while (nombreJoueur != 3 && nombreJoueur != 4) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (3 ou 4)");
-			nombreJoueur = terminal.lireEntier();
-		}
-		
-		terminal.afficherChaine("Combien de bots y a-t-il ?");
-		int nombreBot = terminal.lireEntier();
-		while (nombreBot < 0 || nombreBot > nombreJoueur) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (0 - " + String.valueOf(nombreJoueur) + ")");
-			nombreBot = terminal.lireEntier();
-		}
-		
-		for (int i = 0; i < nombreJoueur - nombreBot; i++) {
+	public void setNombreJoueursTotal(int nombreJ) {
+		nombreJoueursTotal = nombreJ;
+	}
+	
+	public int getNombreJoueursTotal() {return nombreJoueursTotal;}
+	
+	public void addJoueurs(int nombreJoueur) {
+		for (int i = 0; i < nombreJoueur; i++) {
 			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i+1)+" : ");
 			String nom = terminal.lireChaine();
 			Joueur j;
 			j = new Joueur(nom, new StrategyJoueurPhysique());
 			joueurs.add(j);
 		}
+	}
+	
+	public void addBots(int nombreBot, int botType) {
 		for (int i = 0; i < nombreBot; i++) {
 			String nomBot = "Bot " + String.valueOf(i+1);
-			if (Math.random() > .5) {
+			if (botType == 0) {
 				joueurs.add(new Joueur(nomBot + " (Bourrin)", new StrategyJoueurBotBourrin()));
 			} else {
 				joueurs.add(new Joueur(nomBot + " (Trophée)", new StrategyJoueurBotTrophee()));
 			}
 			
 		}
+	}
+	
+	/**
+	 * Crée les joueurs dans l'array joueurs
+	 */
+	public void creerJoueurs() {
+		terminal.afficherChaine("Combien de joueurs y a-t-il ? (3 ou 4)");
+		nombreJoueursTotal = terminal.lireEntier();
+		while (nombreJoueursTotal != 3 && nombreJoueursTotal != 4) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (3 ou 4)");
+			nombreJoueursTotal = terminal.lireEntier();
+		}
+		
+		terminal.afficherChaine("Combien de bots y a-t-il ?");
+		int nombreBot = terminal.lireEntier();
+		while (nombreBot < 0 || nombreBot > nombreJoueursTotal) {
+			terminal.afficherChaine("Mauvaise saisie, tapez (0 - " + String.valueOf(nombreJoueursTotal) + ")");
+			nombreBot = terminal.lireEntier();
+		}
+		
+		addJoueurs(nombreJoueursTotal - nombreBot);
+		//addBots(nombreBot);
+		
 	}
 	
 	public ArrayList<Joueur> getJoueurs() {
@@ -290,6 +306,10 @@ public class Partie implements Serializable{
 		}
 	}
 	
+	public void setVariante(int newVariante) {
+		variante = newVariante;
+	}
+	
 	public int choisirVariante() {
 		terminal.afficherChaine("Variantes :\nVariante 1 : Un joker supplémentaire dans les trophées avec le trophée Suit Majority.\nVariante 2 : Ajout de la règle Save Diamonds With Love et Trophées aléatoires sur les cartes\n\nChoisir une variantes entre :\n0 : original\n1 :Variante 1\n2 : Variante 2\n");
 		int variante = terminal.lireEntier();
@@ -367,8 +387,8 @@ public class Partie implements Serializable{
 	}
 	
 	
-	public static Partie chargerPartie() {
-		Partie partie = null;
+	public Partie chargerPartie() {
+		partie = null;
 		
 		File savesDirectory = new File("./saves");		
 		
@@ -376,7 +396,9 @@ public class Partie implements Serializable{
 		
 		if (existingSaveFiles.length==1) {
 			terminal.afficherChaine("Aucun fichier de sauvegarde existant, création d'une nouvelle partie.");
-			return null;
+			partie = getPartie();
+			partie.lancerPartie();
+			return partie;
 		}
 		
 		HashSet<String> existingSaveNames = new HashSet<String>();
@@ -418,6 +440,8 @@ public class Partie implements Serializable{
 			e.printStackTrace();
 		}
 		
+		partie.analyserPartie();
+		
 		return partie;
 	}
 	
@@ -445,66 +469,67 @@ public class Partie implements Serializable{
 		
 	}
 	
+	public void lancerPartie() {
+		partie = getPartie();
+		
+		//partie.variante = partie.choisirVariante();
+		
+		Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
+		Partie.terminal.afficherDivision();
+		
+		//partie.creerJoueurs();
+		
+		partie.creerTrophees();
+		
+		partie.roundCounter = 0;
+		
+		partie.analyserPartie();
+		
+	}
 	
-	public static void main(String[] args) {
-		
-		switch(Partie.menuDepart()) {
-			case 1 :
-				partie = getPartie();
-				partie.variante = partie.choisirVariante();
-				
-				Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
-				Partie.terminal.afficherDivision();
-				
-				partie.creerJoueurs();
-				
-				partie.creerTrophees();
-				
-				partie.roundCounter = 0;
-				break;
-			case 2 :
-				partie = chargerPartie();
-				if(partie==null) {
-					partie = getPartie();
-					partie.variante = partie.choisirVariante();
-					
-					Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
-					Partie.terminal.afficherDivision();
-					
-					partie.creerJoueurs();
-					
-					partie.creerTrophees();
-					
-					partie.roundCounter = 0;
-				}
-				break;
-			default :
-				break;
-		}
-		
+	public void analyserPartie() {
 		if (!partie.partieFinie) {
-			while (!partie.deck.isEmpty()) {
-				partie.roundCounter ++;
-				Round round = new Round(partie.roundCounter == 1);
-				
-				round.distribuerCartes();
-				
-				round.faireOffres();
-				round.prendreCartes();
-				
-				Partie.menuSauvegarder(partie);
-			}
-			
-			partie.joueursPrennentDerniereCarte();
-			partie.distribuerTrophees();
-			partie.scores = partie.compterScores();
-			partie.partieFinie=true;
+			partie.jouer();
 			
 		}
 		
 		partie.afficherScores(partie.scores);
 		
 		Partie.menuSauvegarder(partie);
+	}
+	
+	public void jouer() {
+		while (!partie.deck.isEmpty()) {
+			partie.roundCounter ++;
+			Round round = new Round(partie.roundCounter == 1);
+			
+			round.distribuerCartes();
+			
+			round.faireOffres();
+			round.prendreCartes();
+			
+			Partie.menuSauvegarder(partie);
+		}
+		
+		partie.joueursPrennentDerniereCarte();
+		partie.distribuerTrophees();
+		partie.scores = partie.compterScores();
+		partie.partieFinie=true;
+	}
+	
+	public static void main(String[] args) {
+		
+		switch(Partie.menuDepart()) {
+			case 1 :
+				getPartie().lancerPartie();
+				break;
+			case 2 :
+				getPartie().chargerPartie();
+				break;
+			default :
+				break;
+		}
+		
 	}
 
 }

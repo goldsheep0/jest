@@ -16,6 +16,11 @@ public class StartMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnNouvellePartie;
+	private JButton btnChargerPartie;
+	
+	public JButton getNouvellePartie() {return btnNouvellePartie;}
+	public JButton getChargerPartie() {return btnChargerPartie;}
 
 	/**
 	 * Launch the application.
@@ -38,7 +43,7 @@ public class StartMenu extends JFrame {
 	 */
 	public StartMenu() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,9 +52,9 @@ public class StartMenu extends JFrame {
 		lblJest.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblJest.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		JButton btnNouvellePartie = new JButton("Nouvelle partie");
+		btnNouvellePartie = new JButton("Nouvelle partie");
 		
-		JButton btnChargerPartie = new JButton("Charger partie");
+		btnChargerPartie = new JButton("Charger partie");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
