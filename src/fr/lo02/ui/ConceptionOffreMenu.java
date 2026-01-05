@@ -27,9 +27,10 @@ import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
-public class ConceptionOffreMenu extends JFrame {
+public class ConceptionOffreMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

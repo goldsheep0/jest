@@ -2,13 +2,14 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.ui.ButtonCarte;
 import fr.lo02.ui.ChoisirOffreMenu;
 
-public class ChoisirOffreController {
+public class ChoisirOffreController implements Serializable {
 	
 	public ChoisirOffreController(ChoisirOffreMenu menu, Partie partie) {
 		

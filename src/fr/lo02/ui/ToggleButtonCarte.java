@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import javax.swing.*;
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.enums.*;
 
-public class ToggleButtonCarte extends JToggleButton{
+public class ToggleButtonCarte extends JToggleButton implements Serializable{
 	public Carte carte;
 	public ImageIcon texture;
 	

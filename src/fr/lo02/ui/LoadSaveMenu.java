@@ -2,6 +2,7 @@ package fr.lo02.ui;
 
 import java.awt.EventQueue;
 import java.io.File;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 
-public class LoadSaveMenu extends JFrame {
+public class LoadSaveMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

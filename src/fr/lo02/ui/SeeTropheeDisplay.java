@@ -12,13 +12,14 @@ import fr.lo02.jest.regle.attributionTrophees.*;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class SeeTropheeDisplay extends JFrame {
+public class SeeTropheeDisplay extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

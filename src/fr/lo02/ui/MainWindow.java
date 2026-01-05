@@ -1,6 +1,7 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;
@@ -12,7 +13,7 @@ import fr.lo02.jest.*;
 import fr.lo02.jest.enums.*;
 
 @SuppressWarnings("deprecation")
-public class MainWindow extends Thread implements Observer {
+public class MainWindow extends Thread implements Observer, Serializable {
 
 	private Partie partie;
 	

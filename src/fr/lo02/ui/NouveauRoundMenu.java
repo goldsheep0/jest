@@ -10,9 +10,11 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
+import java.io.Serializable;
+
 import javax.swing.JButton;
 
-public class NouveauRoundMenu extends JFrame {
+public class NouveauRoundMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

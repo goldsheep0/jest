@@ -3,6 +3,7 @@ package fr.lo02.ui;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -18,7 +19,7 @@ import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJest;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 
-public class SeeJestDisplay extends JFrame {
+public class SeeJestDisplay extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

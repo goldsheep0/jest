@@ -2,6 +2,7 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,7 +11,7 @@ import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.ConceptionOffreMenu;
 import fr.lo02.ui.ToggleButtonCarte;
 
-public class ConceptionOffreController {
+public class ConceptionOffreController implements Serializable {
 	
 	public ConceptionOffreController(ConceptionOffreMenu menu, Partie partie) {
 		

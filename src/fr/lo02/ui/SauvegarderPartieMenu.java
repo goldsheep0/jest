@@ -9,6 +9,8 @@ import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
+import java.io.Serializable;
+
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
@@ -16,7 +18,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class SauvegarderPartieMenu extends JFrame {
+public class SauvegarderPartieMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

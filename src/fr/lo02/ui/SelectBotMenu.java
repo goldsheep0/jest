@@ -1,6 +1,7 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,7 +14,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
-public class SelectBotMenu extends JFrame {
+public class SelectBotMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

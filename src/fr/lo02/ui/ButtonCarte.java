@@ -4,6 +4,7 @@ import javax.swing.ImageIcon;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.enums.*;
 
-public class ButtonCarte extends JButton{
+public class ButtonCarte extends JButton implements Serializable{
 	public Joueur joueur;
 	public Carte carte;
 	public ImageIcon texture;

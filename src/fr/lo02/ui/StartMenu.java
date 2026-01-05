@@ -10,9 +10,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.io.Serializable;
+
 import javax.swing.JButton;
 
-public class StartMenu extends JFrame {
+public class StartMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

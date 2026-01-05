@@ -2,12 +2,13 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.LoadSaveMenu;
 
-public class LoadMenuController {
+public class LoadMenuController implements Serializable {
 	
 	public LoadMenuController (LoadSaveMenu menu) {
 		

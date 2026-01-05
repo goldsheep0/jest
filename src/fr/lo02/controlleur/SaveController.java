@@ -2,6 +2,7 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.JList;
 
@@ -9,7 +10,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.SauvegarderPartieMenu;
 
-public class SaveController {
+public class SaveController implements Serializable {
 	
 	public SaveController (SauvegarderPartieMenu menu) {
 		

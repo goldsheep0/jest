@@ -2,6 +2,7 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 
 import javax.swing.*;
 
@@ -10,7 +11,7 @@ import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.StartMenu;
 
-public class StartMenuBoutons {
+public class StartMenuBoutons implements Serializable {
 	
 	public StartMenuBoutons(StartMenu startMenu, Partie partie) {
 		

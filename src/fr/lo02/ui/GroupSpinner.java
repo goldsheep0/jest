@@ -1,11 +1,12 @@
 package fr.lo02.ui;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class GroupSpinner
+public class GroupSpinner implements Serializable
 {
     private int groupMaximum;
 

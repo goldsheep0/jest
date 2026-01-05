@@ -1,6 +1,7 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
+import java.io.Serializable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 
-public class SelectCaracteristicsMenu extends JFrame {
+public class SelectCaracteristicsMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

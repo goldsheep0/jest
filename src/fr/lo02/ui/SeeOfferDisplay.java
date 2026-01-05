@@ -2,6 +2,7 @@ package fr.lo02.ui;
 
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -19,7 +20,7 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class SeeOfferDisplay extends JFrame {
+public class SeeOfferDisplay extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

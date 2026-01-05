@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -24,7 +25,7 @@ import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 
-public class ChoisirOffreMenu extends JFrame {
+public class ChoisirOffreMenu extends JFrame implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
