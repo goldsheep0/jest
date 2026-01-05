@@ -109,9 +109,12 @@ public class Round implements Serializable{
 		LinkedList<Joueur> list = new LinkedList<Joueur>();
 		for (Iterator<Joueur> it = Partie.getPartie().getJoueurs().iterator(); it.hasNext(); ) {
 			Joueur j = it.next();
-			if (!j.equals(joueurSelectionne)) {
+			if (!j.equals(joueurSelectionne) && j.getOffre().getCartes().size() == 2) {
 				list.add(j);
 			}
+		}
+		if (list.size() == 0) {
+			list.add(joueurSelectionne);
 		}
 		return list;
 	}
@@ -125,7 +128,6 @@ public class Round implements Serializable{
 			if (joueur.getOffre().getCartes().contains(c)) {
 				joueur.getOffre().distribuerCarte(c);
 				partie.getJoueurFocus().getJest().addCarte(c);
-				System.out.println("Transfert de cartes reussi");
 				break;
 			}
 		}
@@ -137,6 +139,7 @@ public class Round implements Serializable{
 	public void prendreCarteSuivante() {
 		if (it.hasNext()) {
 			Joueur j = it.next();
+			partie.setJoueurFocus(j);
 			if (j.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
 				partie.changeState(PartieState.CHOISIR_OFFRE);
 			} else {

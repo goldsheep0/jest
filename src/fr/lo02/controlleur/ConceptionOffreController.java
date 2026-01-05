@@ -25,11 +25,10 @@ public class ConceptionOffreController {
 				for (Iterator<ToggleButtonCarte> it = userChoice.iterator(); it.hasNext(); ) {
 					ToggleButtonCarte tbc = it.next();
 					if (!tbc.isSelected()) {
+						if (carteRetournee != null) {return;}
 						carteRetournee = tbc.getCarte();
-						break;
 					}
 				}
-				if (carteRetournee == null) {return;}
 				carteRetournee.setFaceVisible(true);
 				partie.getRound().faireOffres();
 			}

@@ -88,12 +88,19 @@ public class MainWindow extends Thread implements Observer {
 		if (window != null) {
 			window.setVisible(enabled);
 			window.setEnabled(enabled);
-			window = null;
+			if (!enabled) {
+				window.dispose();
+				window = null;
+			}
 		}
 	}
 	
 	public void initializeWindow (JFrame window) {
-		window.setBounds(100, 100, 500, 500);
+		if (window instanceof ChoisirOffreMenu) {
+			window.setBounds(100, 100, 800, 500);
+		} else {
+			window.setBounds(100, 100, 500, 500);
+		}
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 	}
@@ -198,7 +205,7 @@ public class MainWindow extends Thread implements Observer {
 					enableWindow(nouveauRoundMenu, false);
 					enableWindow(choisirOffreMenu, false);
 					enableWindow(choisirOffreBotMenu, false);
-					LinkedList<Joueur> listeJoueur = new LinkedList<Joueur>(partie.getJoueurs());
+					LinkedList<Joueur> listeJoueur = Round.getAutresJoueurs(partie.getJoueurFocus());
 					choisirOffreMenu = new ChoisirOffreMenu(partie.getJoueurFocus(), listeJoueur);
 					initializeWindow(choisirOffreMenu);
 					new ChoisirOffreController(choisirOffreMenu, partie);
@@ -214,7 +221,7 @@ public class MainWindow extends Thread implements Observer {
 					enableWindow(nouveauRoundMenu, false);
 					enableWindow(choisirOffreMenu, false);
 					enableWindow(choisirOffreBotMenu, false);
-					LinkedList<Joueur> listeJoueur = new LinkedList<Joueur>(partie.getJoueurs());
+					LinkedList<Joueur> listeJoueur = Round.getAutresJoueurs(partie.getJoueurFocus());
 					choisirOffreBotMenu = new ChoixOffreBotMenu(partie.getJoueurFocus(), listeJoueur, partie.getRound().getCarteChoisieBot());
 					initializeWindow(choisirOffreBotMenu);
 					new ChoisirOffreBotController(choisirOffreBotMenu, partie);
