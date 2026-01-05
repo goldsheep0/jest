@@ -11,7 +11,7 @@ public class Round implements Serializable{
 	private Partie partie;
 	private boolean firstRound;
 	private Terminal terminal;
-	private Iterator<Joueur> it;
+	private Iterator<Joueur> itJ;
 	private Carte carteChoisieBot;
 	
 	public Carte getCarteChoisieBot() {return carteChoisieBot;}
@@ -20,7 +20,7 @@ public class Round implements Serializable{
 		this.partie = Partie.getPartie();
 		this.firstRound = firstRound;
 		this.terminal = partie.getTerminal();
-		this.it = partie.getJoueurs().iterator();
+		this.itJ = partie.getJoueurs().iterator();
 		terminal.afficherDivision();
 		terminal.afficherChaine("Nouveau round !");
 	}
@@ -64,19 +64,22 @@ public class Round implements Serializable{
 	 * Chaque joueur retourne une de ses cartes pour faire son offre.
 	 */
 	public void faireOffres() {
-		if (it.hasNext()) {
-			Joueur joueur = it.next();
+		if (itJ.hasNext()) {
+			Joueur joueur = itJ.next();
 			if(joueur.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
 				partie.changeState(PartieState.FAIRE_OFFRE);
 				partie.setJoueurFocus(joueur);
 			} else {
 				int carteIndex = joueur.realiserOffre();
+				for (Iterator<Carte> itCartes = joueur.getOffre().getCartes().iterator(); itCartes.hasNext(); ) {
+					itCartes.next().setFaceVisible(true);
+				}
 				joueur.getOffre().getCartes().get(carteIndex).setFaceVisible(false);
 				faireOffres();
 			}
 		} else {
 			calculerOrdrePassage();
-			it = partie.getJoueurs().iterator();
+			itJ = partie.getJoueurs().iterator();
 			prendreCarteSuivante();
 		}		
 	}
@@ -113,7 +116,7 @@ public class Round implements Serializable{
 				list.add(j);
 			}
 		}
-		if (list.size() == 0) {
+		if (list.size() == 0 && joueurSelectionne.getOffre().getCartes().size() == 2) {
 			list.add(joueurSelectionne);
 		}
 		return list;
@@ -137,22 +140,22 @@ public class Round implements Serializable{
 	 * 
 	 */
 	public void prendreCarteSuivante() {
-		if (it.hasNext()) {
-			Joueur j = it.next();
+		if (itJ.hasNext()) {
+			Joueur j = itJ.next();
 			partie.setJoueurFocus(j);
 			if (j.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
 				partie.changeState(PartieState.CHOISIR_OFFRE);
 			} else {
 				
-				Joueur joueurChoisi = partie.getJoueurs().get(j.choisirJoueur());
+				Joueur joueurChoisiBot = partie.getJoueurs().get(j.choisirJoueur());
 				int carteChoisieVisible = j.choisirCarte();
 				
 				if (carteChoisieVisible == 1) {
-					carteChoisieBot = joueurChoisi.getOffre().retirerCarteFaceVisible(false);
+					carteChoisieBot = joueurChoisiBot.getOffre().retirerCarteFaceVisible(false);
 				} else {
-					carteChoisieBot = joueurChoisi.getOffre().retirerCarteFaceVisible(true);
+					carteChoisieBot = joueurChoisiBot.getOffre().retirerCarteFaceVisible(true);
 				}
-				j.getJest().addCarte(carteChoisieBot);
+				joueurChoisiBot.getOffre().addCarte(carteChoisieBot);
 				
 				partie.changeState(PartieState.CHOISIR_OFFRE_BOT);
 			}

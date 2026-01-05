@@ -20,6 +20,10 @@ public class NouvelleSauvegardeMenu extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
+	private JButton btnSauvegarder;
+	
+	public JTextField getTextField() {return textField;}
+	public JButton getBtnSauvegarder() {return btnSauvegarder;}
 
 	/**
 	 * Launch the application.
@@ -105,7 +109,7 @@ public class NouvelleSauvegardeMenu extends JFrame {
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnSauvegarder = new JButton("Sauvegarder");
+		btnSauvegarder = new JButton("Sauvegarder");
 		panel_2.add(btnSauvegarder);
 
 	}

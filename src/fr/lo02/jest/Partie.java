@@ -36,6 +36,7 @@ public class Partie extends Observable implements Serializable{
 	private PartieState state;
 	private Joueur joueurFocus;
 	private Round round;
+	private HashMap<Carte, Joueur> tropheeAvecJoueur;
 	
 	private Partie() { 
 		partieFinie=false;
@@ -80,6 +81,10 @@ public class Partie extends Observable implements Serializable{
 	}
 	public void setJoueurFocus(Joueur newJoueur) {
 		joueurFocus = newJoueur;
+	}
+	
+	public HashMap<Carte, Joueur> getTropheesJoueurs() {
+		return tropheeAvecJoueur;
 	}
 	
 	public int getNombreJoueursTotal() {return nombreJoueursTotal;}
@@ -196,7 +201,7 @@ public class Partie extends Observable implements Serializable{
 				break;
 		}
 		
-		switch(this.joueurs.size()) {
+		switch(this.nombreJoueursTotal) {
 			case 3:
 				nbtrophees+=2;
 				break;
@@ -219,7 +224,7 @@ public class Partie extends Observable implements Serializable{
 	public void distribuerTrophees() {
 		
 		LinkedList<Carte> tropheeADistribuer = this.trophees.getCartes();
-		HashMap<Carte, Joueur> tropheeAvecJoueur = new HashMap<Carte, Joueur>();
+		tropheeAvecJoueur = new HashMap<Carte, Joueur>();
 		
 		Iterator<Carte> itTrophee = tropheeADistribuer.iterator();
 		Carte c;
@@ -401,7 +406,58 @@ public class Partie extends Observable implements Serializable{
 		
 		return fileName;
 	}
+	public void sauvegarderPartie (Partie partie, String nomFichier) {
+		
+		File file = new File("./saves/"+nomFichier);
+		try {
+			Files.deleteIfExists(file.toPath());
+			
+			terminal.afficherChaine("Sauvegarde écrasée.");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(partie);
+			
+			oos.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
+	public void chargerFichier(String nom_fichier) {
+		partie = null;
+		
+		File file = new File("./saves/"+nom_fichier);
+		try {
+			FileInputStream fis = new FileInputStream(file);
+			ObjectInputStream ois = new ObjectInputStream(fis);	
+					
+			try {
+				partie= (Partie) ois.readObject();
+				
+				if (partie.getDeck().isEmpty()) {
+					partie.changeState(PartieState.SCOREBOARD);
+				} else {
+					partie.changeState(PartieState.NEW_ROUND);
+				}
+			} catch(ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			fis.close();
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public Partie chargerPartie() {
 		partie = null;
@@ -550,6 +606,9 @@ public class Partie extends Observable implements Serializable{
 	
 	public void changeState (PartieState newState) {
 		state = newState;
+		if (state == PartieState.C_BOTS) {
+			creerTrophees();
+		}
 		this.setChanged();
 		this.notifyObservers(state);
 	}
@@ -557,6 +616,7 @@ public class Partie extends Observable implements Serializable{
 	public static void main(String[] args) {
 		
 		partie = getPartie();
+		partie.roundCounter = 0;
 		
 		MainWindow mw = new MainWindow();
 		partie.addObserver(mw);

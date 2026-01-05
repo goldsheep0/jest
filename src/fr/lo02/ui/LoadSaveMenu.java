@@ -2,7 +2,6 @@ package fr.lo02.ui;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.util.HashSet;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -20,7 +19,12 @@ public class LoadSaveMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private JButton btnNewButton;
+	private JList<String> list;
+	
+	public JButton getBtnCharger() {return btnNewButton;}
+	public JList<String> getListe() {return list;}
+	
 	/**
 	 * Launch the application.
 	 */
@@ -74,7 +78,7 @@ public class LoadSaveMenu extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
-		JButton btnNewButton = new JButton("Charger");
+		btnNewButton = new JButton("Charger");
 		
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
@@ -109,7 +113,7 @@ public class LoadSaveMenu extends JFrame {
 		String[] listOfFiles = listAvailableSaves();
 		
 		if(listOfFiles!=null) {
-			JList<String> list = new JList<String>(listOfFiles);
+			list = new JList<String>(listOfFiles);
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(list);
 			

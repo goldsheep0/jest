@@ -24,6 +24,9 @@ public class ScoreBoard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnSauvegarderLaPartie;
+	
+	public JButton getBtnSave() {return btnSauvegarderLaPartie;}
 
 	/**
 	 * Launch the application.
@@ -87,7 +90,7 @@ public class ScoreBoard extends JFrame {
 		contentPane.add(panel_2, BorderLayout.SOUTH);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnSauvegarderLaPartie = new JButton("Sauvegarder la partie");
+		btnSauvegarderLaPartie = new JButton("Sauvegarder la partie");
 		panel_2.add(btnSauvegarderLaPartie);
 		
 		Iterator<Joueur> it = sortScores.keySet().iterator();

@@ -3,6 +3,7 @@ package fr.lo02.controlleur;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import fr.lo02.jest.Carte;
 import fr.lo02.jest.Partie;
 import fr.lo02.ui.ChoixOffreBotMenu;
 
@@ -14,6 +15,7 @@ public class ChoisirOffreBotController {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				partie.getRound().prendreCarte(partie.getRound().getCarteChoisieBot());
 				partie.getRound().prendreCarteSuivante();
 			}
 			

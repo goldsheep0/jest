@@ -25,6 +25,10 @@ public class MainWindow extends Thread implements Observer {
 	private ConceptionOffreMenu conceptionOffreMenu;
 	private ChoisirOffreMenu choisirOffreMenu;
 	private ChoixOffreBotMenu choisirOffreBotMenu;
+	private AttributionTropheesDisplay tropheesMenu;
+	private ScoreBoard scoreboard;
+	private SauvegarderPartieMenu saveMenu;
+	private NouvelleSauvegardeMenu newSaveMenu;
 
 	public void afficherTrophee(LinkedList<Carte> trophees) {
 		EventQueue.invokeLater(new Runnable() {
@@ -96,10 +100,10 @@ public class MainWindow extends Thread implements Observer {
 	}
 	
 	public void initializeWindow (JFrame window) {
-		if (window instanceof ChoisirOffreMenu) {
-			window.setBounds(100, 100, 800, 500);
+		if (window instanceof ChoisirOffreMenu || window instanceof ChoixOffreBotMenu) {
+			window.setBounds(250, 150, 1000, 500);
 		} else {
-			window.setBounds(100, 100, 500, 500);
+			window.setBounds(500, 150, 500, 500);
 		}
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
@@ -112,18 +116,6 @@ public class MainWindow extends Thread implements Observer {
 					startMenu = new StartMenu();
 					initializeWindow(startMenu);
 					new StartMenuBoutons(startMenu, partie);
-				} catch (Exception e) {e.printStackTrace();}
-			}
-		});
-	}
-	
-	public void load_menu() { //TODO
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					enableWindow(startMenu, false);
-					loadSaveMenu = new LoadSaveMenu();
-					initializeWindow(loadSaveMenu);
 				} catch (Exception e) {e.printStackTrace();}
 			}
 		});
@@ -177,6 +169,8 @@ public class MainWindow extends Thread implements Observer {
 			public void run() {
 				try {
 					enableWindow(enterPlayerNamesMenu, false);
+					enableWindow(choisirOffreMenu, false);
+					enableWindow(choisirOffreBotMenu, false);
 					nouveauRoundMenu = new NouveauRoundMenu();
 					initializeWindow(nouveauRoundMenu);
 					new NewRoundController(nouveauRoundMenu, partie);
@@ -190,6 +184,7 @@ public class MainWindow extends Thread implements Observer {
 			public void run() {
 				try {
 					enableWindow(nouveauRoundMenu, false);
+					enableWindow(conceptionOffreMenu, false);
 					conceptionOffreMenu = new ConceptionOffreMenu(partie.getJoueurFocus());
 					initializeWindow(conceptionOffreMenu);
 					new ConceptionOffreController(conceptionOffreMenu, partie);
@@ -202,7 +197,7 @@ public class MainWindow extends Thread implements Observer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					enableWindow(nouveauRoundMenu, false);
+					enableWindow(conceptionOffreMenu, false);
 					enableWindow(choisirOffreMenu, false);
 					enableWindow(choisirOffreBotMenu, false);
 					LinkedList<Joueur> listeJoueur = Round.getAutresJoueurs(partie.getJoueurFocus());
@@ -218,13 +213,82 @@ public class MainWindow extends Thread implements Observer {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					enableWindow(nouveauRoundMenu, false);
+					enableWindow(conceptionOffreMenu, false);
 					enableWindow(choisirOffreMenu, false);
 					enableWindow(choisirOffreBotMenu, false);
 					LinkedList<Joueur> listeJoueur = Round.getAutresJoueurs(partie.getJoueurFocus());
 					choisirOffreBotMenu = new ChoixOffreBotMenu(partie.getJoueurFocus(), listeJoueur, partie.getRound().getCarteChoisieBot());
 					initializeWindow(choisirOffreBotMenu);
 					new ChoisirOffreBotController(choisirOffreBotMenu, partie);
+				} catch (Exception e) {e.printStackTrace();}
+			}
+		});
+	}
+	
+	public void trophees_menu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					enableWindow(conceptionOffreMenu, false);
+					enableWindow(choisirOffreMenu, false);
+					enableWindow(choisirOffreBotMenu, false);
+					tropheesMenu = new AttributionTropheesDisplay(partie.getTropheesJoueurs());
+					initializeWindow(tropheesMenu);
+					new TropheesController(tropheesMenu);
+				} catch (Exception e) {e.printStackTrace();}
+			}
+		});
+	}
+	
+	public void scoreboard_menu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					enableWindow(tropheesMenu, false);
+					scoreboard = new ScoreBoard(partie.compterScores());
+					initializeWindow(scoreboard);
+					new ScoreBoardController(scoreboard);
+				} catch (Exception e) {e.printStackTrace();}
+			}
+		});
+	}
+	
+	public void load_menu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					enableWindow(scoreboard, false);
+					enableWindow(startMenu, false);
+					loadSaveMenu = new LoadSaveMenu();
+					initializeWindow(loadSaveMenu);
+					new LoadMenuController(loadSaveMenu);
+				} catch (Exception e) {e.printStackTrace();}
+			}
+		});
+	}
+	
+	public void save_menu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					enableWindow(scoreboard, false);
+					enableWindow(nouveauRoundMenu, false);
+					saveMenu = new SauvegarderPartieMenu();
+					initializeWindow(saveMenu);
+					new SaveController(saveMenu);
+				} catch (Exception e) {e.printStackTrace();}
+			}
+		});
+	}
+	
+	public void new_save_menu() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					enableWindow(saveMenu, false);
+					newSaveMenu = new NouvelleSauvegardeMenu();
+					initializeWindow(newSaveMenu);
+					new NewSaveController(newSaveMenu);
 				} catch (Exception e) {e.printStackTrace();}
 			}
 		});
@@ -265,6 +329,18 @@ public class MainWindow extends Thread implements Observer {
 				break;
 			case CHOISIR_OFFRE_BOT:
 				choisir_offre_bot_menu();
+				break;
+			case TROPHEES:
+				trophees_menu();
+				break;
+			case SCOREBOARD:
+				scoreboard_menu();
+				break;
+			case SAVE:
+				save_menu();
+				break;
+			case NEW_SAVE:
+				new_save_menu();
 				break;
 			default:
 				break;

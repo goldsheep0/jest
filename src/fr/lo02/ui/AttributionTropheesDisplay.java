@@ -28,6 +28,9 @@ public class AttributionTropheesDisplay extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnVoirScores;
+	
+	public JButton getBtnScores() {return btnVoirScores;}
 
 	/**
 	 * Launch the application.
@@ -83,7 +86,7 @@ public class AttributionTropheesDisplay extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnVoirScores = new JButton("Voir scores");
+		btnVoirScores = new JButton("Voir scores");
 		panel_1.add(btnVoirScores);
 
 	}

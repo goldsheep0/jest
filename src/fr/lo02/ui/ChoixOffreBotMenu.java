@@ -46,11 +46,11 @@ public class ChoixOffreBotMenu extends JFrame {
 				try {
 					
 					Carte carteFaceVisible1 = new Carte(Valeur.AS, Couleur.COEUR, new StrategyTropheeHighest(Couleur.PIQUE));
-					carteFaceVisible1.setFaceVisible(true);
+					carteFaceVisible1.setFaceVisible(false);
 					Carte carteFaceVisible2 = new Carte(Valeur.AS, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE));
-					carteFaceVisible2.setFaceVisible(true);
+					carteFaceVisible2.setFaceVisible(false);
 					Carte carteFaceVisible3 = new Carte(Valeur.DEUX, Couleur.PIQUE, new StrategyTropheeHighest(Couleur.PIQUE));
-					carteFaceVisible3.setFaceVisible(true);
+					carteFaceVisible3.setFaceVisible(false);
 					
 					Joueur jTest = new Joueur("Bot Test", new StrategyJoueurBotBourrin());
 					

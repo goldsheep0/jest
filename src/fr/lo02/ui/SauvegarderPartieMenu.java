@@ -10,9 +10,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JButton;
@@ -22,6 +20,13 @@ public class SauvegarderPartieMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnNouvelleSauvegarde;
+	private JButton btnEcraserSauvegarde;
+	private JList<String> list;
+	
+	public JButton getBtnNouvelleSauvegarde() {return btnNouvelleSauvegarde;}
+	public JButton getBtnEcraserSauvegarde() {return btnEcraserSauvegarde;}
+	public JList<String> getListe() {return list;}
 
 	/**
 	 * Launch the application.
@@ -54,10 +59,10 @@ public class SauvegarderPartieMenu extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNouvelleSauvegarde = new JButton("Nouvelle sauvegarde");
+		btnNouvelleSauvegarde = new JButton("Nouvelle sauvegarde");
 		panel_1.add(btnNouvelleSauvegarde);
 		
-		JButton btnEcraserSauvegarde = new JButton("Ecraser sauvegarde");
+		btnEcraserSauvegarde = new JButton("Ecraser sauvegarde");
 		panel_1.add(btnEcraserSauvegarde);
 		
 		JPanel panel_2 = new JPanel();
@@ -95,7 +100,7 @@ public class SauvegarderPartieMenu extends JFrame {
 		String[] listOfFiles = LoadSaveMenu.listAvailableSaves();
 		
 		if(listOfFiles!=null) {
-			JList<String> list = new JList<String>(listOfFiles);
+			list = new JList<String>(listOfFiles);
 			list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 			scrollPane.setViewportView(list);
 			
