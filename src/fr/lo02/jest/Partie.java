@@ -16,6 +16,7 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 import fr.lo02.jest.regle.calculepoint.*;
+import fr.lo02.texte.VueTexte;
 import fr.lo02.ui.MainWindow;
 
 @SuppressWarnings("deprecation")
@@ -234,19 +235,10 @@ public class Partie extends Observable implements Serializable{
 		}
 		
 		itTrophee=tropheeADistribuer.iterator();
-		
-		terminal.afficherDivision();
-		terminal.afficherChaine("Trophée(s) à attribuer : \n"+this.trophees.toStringTrophee());
 
 		while(itTrophee.hasNext()) {
 			c = itTrophee.next();
 			tropheeAvecJoueur.get(c).getJest().addCarte(c);	
-			
-			if(tropheeAvecJoueur.get(c).getNom().contentEquals("Dummy Player")){
-				terminal.afficherChaine("Aucune joueur n'a obtenu le trophée : "+c.toString());
-			}else {
-				terminal.afficherChaine("Le joueur "+tropheeAvecJoueur.get(c).getNom()+" a obtenu la carte : "+c.toString());
-			}
 		}
 		
 	}
@@ -310,21 +302,6 @@ public class Partie extends Observable implements Serializable{
 			temp.put(joueur, scores.get(joueur));
 		}
 		return temp;
-	}
-	
-	/**
-	 * Affiche le score de chaque joueur dans le terminal.
-	 * @param scores Une HashMap associant les scores (entier) aux joueurs (Joueur)
-	 */
-	public void afficherScores(LinkedHashMap<Joueur, Integer> scores) {
-		terminal.afficherDivision();
-		terminal.afficherChaine("Scores : ");
-		int i = 0;
-		for (Iterator<Joueur> it = scores.keySet().iterator(); it.hasNext(); ) {
-			i++;
-			Joueur j = it.next();
-			terminal.afficherChaine(String.valueOf(i)+" - " + j.getNom() +" avec un score de "+Integer.toString(scores.get(j))+" !");
-		}
 	}
 	
 	public void setVariante(int newVariante) {
@@ -619,8 +596,13 @@ public class Partie extends Observable implements Serializable{
 		partie.roundCounter = 0;
 		
 		MainWindow mw = new MainWindow();
+		VueTexte vt = new VueTexte();
+		
 		partie.addObserver(mw);
+		partie.addObserver(vt);
+		
 		mw.start();
+		vt.start();
 		
 		partie.changeState(PartieState.START);
 		
