@@ -32,6 +32,8 @@ public class ChoisirOffreMenu extends JFrame {
 	private LinkedList<ButtonCarte> userChoice = new LinkedList<ButtonCarte>();
 	private LinkedList<JPanel> listePanel = new LinkedList<JPanel>();
 	
+	public LinkedList<ButtonCarte> getUserChoice() {return userChoice;}
+	
 	/**
 	 * Launch the application.
 	 */

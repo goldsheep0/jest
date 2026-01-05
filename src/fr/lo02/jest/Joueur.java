@@ -31,6 +31,10 @@ public class Joueur implements Serializable{
 		return nom;
 	}
 	
+	public StrategyJoueur getStrategyJoueur() {
+		return strategy;
+	}
+	
 	public int realiserOffre() {
 		return strategy.executeRealiserOffre();
 	}

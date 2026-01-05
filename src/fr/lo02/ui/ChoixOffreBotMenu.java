@@ -33,6 +33,9 @@ public class ChoixOffreBotMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnSuivant;
+	
+	public JButton getBtnSuivant() {return btnSuivant;}
 
 	/**
 	 * Launch the application.
@@ -139,7 +142,7 @@ public class ChoixOffreBotMenu extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnSuivant = new JButton("Suivant");
+		btnSuivant = new JButton("Suivant");
 		panel_1.add(btnSuivant);
 
 	}

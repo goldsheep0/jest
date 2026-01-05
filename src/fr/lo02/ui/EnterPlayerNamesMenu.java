@@ -9,20 +9,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 
 public class EnterPlayerNamesMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
 	private int nbJoueurPhysiques;
-	private LinkedList<JTextField> listeEntrees = new LinkedList<JTextField>(); 
+	private LinkedList<JTextField> listeEntrees = new LinkedList<JTextField>();
+	private JButton btnCrerPartie;
+	
+	public JButton getBtn() {return btnCrerPartie;}
+	public LinkedList<JTextField> getListe() {return listeEntrees;}
 
 	/**
 	 * Launch the application.
@@ -59,7 +59,7 @@ public class EnterPlayerNamesMenu extends JFrame {
 		
 		
 		
-		JButton btnCrerPartie = new JButton("Créer partie");
+		btnCrerPartie = new JButton("Créer partie");
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)

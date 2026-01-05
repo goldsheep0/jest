@@ -6,12 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import fr.lo02.jest.Partie;
+import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.SelectCaracteristicsMenu;
 
 public class CaracteristicsController {
 	
-	public CaracteristicsController(SelectCaracteristicsMenu menu, JFrame nextMenu, Partie partie, MainWindow main) {
+	public CaracteristicsController(SelectCaracteristicsMenu menu, Partie partie) {
 		
 		JScrollPane scrollPane = menu.getScrollPane();
 		ButtonGroup radioButtons = menu.getGroup();
@@ -36,7 +37,7 @@ public class CaracteristicsController {
 						
 						partie.setVariante(((JList)scrollPane.getViewport().getView()).getSelectedIndex());
 						
-						main.next();
+						partie.changeState(PartieState.C_BOTS);
 						
 					}
 					

@@ -59,7 +59,7 @@ public class GroupSpinner
 
     private void groupValueUpdated(int value)
     {
-        System.out.println(value);
+        
     }
 
     public class GroupSpinnerNumberModel extends SpinnerNumberModel

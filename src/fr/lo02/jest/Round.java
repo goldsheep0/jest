@@ -3,16 +3,24 @@ package fr.lo02.jest;
 import java.io.Serializable;
 import java.util.*;
 
+import fr.lo02.jest.bots.StrategyJoueurPhysique;
+import fr.lo02.jest.enums.PartieState;
+
 public class Round implements Serializable{
 	
 	private Partie partie;
 	private boolean firstRound;
 	private Terminal terminal;
+	private Iterator<Joueur> it;
+	private Carte carteChoisieBot;
+	
+	public Carte getCarteChoisieBot() {return carteChoisieBot;}
 	
 	public Round(boolean firstRound) {
 		this.partie = Partie.getPartie();
 		this.firstRound = firstRound;
 		this.terminal = partie.getTerminal();
+		this.it = partie.getJoueurs().iterator();
 		terminal.afficherDivision();
 		terminal.afficherChaine("Nouveau round !");
 	}
@@ -56,11 +64,21 @@ public class Round implements Serializable{
 	 * Chaque joueur retourne une de ses cartes pour faire son offre.
 	 */
 	public void faireOffres() {
-		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
+		if (it.hasNext()) {
 			Joueur joueur = it.next();
-			int carteIndex = joueur.realiserOffre();
-			joueur.getOffre().getCartes().get(carteIndex).setFaceVisible(true);
-		}
+			if(joueur.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
+				partie.changeState(PartieState.FAIRE_OFFRE);
+				partie.setJoueurFocus(joueur);
+			} else {
+				int carteIndex = joueur.realiserOffre();
+				joueur.getOffre().getCartes().get(carteIndex).setFaceVisible(false);
+				faireOffres();
+			}
+		} else {
+			calculerOrdrePassage();
+			it = partie.getJoueurs().iterator();
+			prendreCarteSuivante();
+		}		
 	}
 	
 	/**
@@ -99,9 +117,51 @@ public class Round implements Serializable{
 	}
 	
 	/**
+	 * 
+	 */
+	public void prendreCarte(Carte c) {
+		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
+			Joueur joueur = it.next();
+			if (joueur.getOffre().getCartes().contains(c)) {
+				joueur.getOffre().distribuerCarte(c);
+				partie.getJoueurFocus().getJest().addCarte(c);
+				System.out.println("Transfert de cartes reussi");
+				break;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	public void prendreCarteSuivante() {
+		if (it.hasNext()) {
+			Joueur j = it.next();
+			if (j.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
+				partie.changeState(PartieState.CHOISIR_OFFRE);
+			} else {
+				
+				Joueur joueurChoisi = partie.getJoueurs().get(j.choisirJoueur());
+				int carteChoisieVisible = j.choisirCarte();
+				
+				if (carteChoisieVisible == 1) {
+					carteChoisieBot = joueurChoisi.getOffre().retirerCarteFaceVisible(false);
+				} else {
+					carteChoisieBot = joueurChoisi.getOffre().retirerCarteFaceVisible(true);
+				}
+				j.getJest().addCarte(carteChoisieBot);
+				
+				partie.changeState(PartieState.CHOISIR_OFFRE_BOT);
+			}
+		} else {
+			partie.nouveauRound();
+		}
+	}
+	
+	/**
 	 * Chaque joueur prend une carte et l'ajoute à son jest
 	 */
-	public void prendreCartes() {
+	/*public void prendreCartes() {
 		
 		calculerOrdrePassage();
 		
@@ -164,6 +224,6 @@ public class Round implements Serializable{
 			joueur.getJest().addCarte(carteChoisie);
 			terminal.afficherChaine("Vous avez ajouté "+carteChoisie.toString()+" à votre jest.");
 		}
-	}
+	}*/
 
 }

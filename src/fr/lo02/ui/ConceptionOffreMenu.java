@@ -35,6 +35,14 @@ public class ConceptionOffreMenu extends JFrame {
 	private JPanel contentPane;
 	private LinkedList<ToggleButtonCarte> userChoice = new LinkedList<ToggleButtonCarte>();
 	private Joueur joueur;
+	private JButton btnValiderChoix;
+	
+	public JButton getBtn() {
+		return btnValiderChoix;
+	}
+	public LinkedList<ToggleButtonCarte> getUserChoice() {
+		return userChoice;
+	}
 	
 	/**
 	 * Launch the application.
@@ -115,7 +123,7 @@ public class ConceptionOffreMenu extends JFrame {
 		});
 		panel_1.add(btnVoirJest);
 		
-		JButton btnValiderChoix = new JButton("Valider choix");
+		btnValiderChoix = new JButton("Valider choix");
 		panel_1.add(btnValiderChoix);
 	}
 }

@@ -16,8 +16,10 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 import fr.lo02.jest.regle.calculepoint.*;
+import fr.lo02.ui.MainWindow;
 
-public class Partie implements Serializable{
+@SuppressWarnings("deprecation")
+public class Partie extends Observable implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private static Partie partie = null;
@@ -31,7 +33,9 @@ public class Partie implements Serializable{
 	private Boolean partieFinie;
 	private LinkedHashMap<Joueur, Integer> scores;
 	private int nombreJoueursTotal;
-	
+	private PartieState state;
+	private Joueur joueurFocus;
+	private Round round;
 	
 	private Partie() { 
 		partieFinie=false;
@@ -40,6 +44,7 @@ public class Partie implements Serializable{
 		deck = creerDeck();
 		stack = new ConteneurCarte();
 		trophees = new ConteneurCarte();
+		state = PartieState.START;
 	}
 	/**
 	 * Méthode à utiliser pour récupérer le singleton Partie
@@ -54,6 +59,10 @@ public class Partie implements Serializable{
 		}
 	}
 	
+	public Round getRound () {
+		return round;
+	}
+	
 	public void setJoueurs(ArrayList<Joueur> joueurs) {
 		this.joueurs=joueurs;
 	}
@@ -66,16 +75,24 @@ public class Partie implements Serializable{
 		nombreJoueursTotal = nombreJ;
 	}
 	
+	public Joueur getJoueurFocus() {
+		return joueurFocus;
+	}
+	public void setJoueurFocus(Joueur newJoueur) {
+		joueurFocus = newJoueur;
+	}
+	
 	public int getNombreJoueursTotal() {return nombreJoueursTotal;}
 	
-	public void addJoueurs(int nombreJoueur) {
-		for (int i = 0; i < nombreJoueur; i++) {
+	public void addJoueur(String nom) {
+		/*for (int i = 0; i < nombreJoueur; i++) {
 			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i+1)+" : ");
 			String nom = terminal.lireChaine();
 			Joueur j;
 			j = new Joueur(nom, new StrategyJoueurPhysique());
 			joueurs.add(j);
-		}
+		}*/
+		joueurs.add(new Joueur(nom, new StrategyJoueurPhysique()));
 	}
 	
 	public void addBots(int nombreBot, int botType) {
@@ -86,7 +103,6 @@ public class Partie implements Serializable{
 			} else {
 				joueurs.add(new Joueur(nomBot + " (Trophée)", new StrategyJoueurBotTrophee()));
 			}
-			
 		}
 	}
 	
@@ -108,7 +124,7 @@ public class Partie implements Serializable{
 			nombreBot = terminal.lireEntier();
 		}
 		
-		addJoueurs(nombreJoueursTotal - nombreBot);
+		//addJoueurs(nombreJoueursTotal - nombreBot);
 		//addBots(nombreBot);
 		
 	}
@@ -371,7 +387,7 @@ public class Partie implements Serializable{
 			FileOutputStream fos = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
-			oos.writeObject(partie);;
+			oos.writeObject(partie);
 			
 			oos.close();
 			
@@ -397,7 +413,7 @@ public class Partie implements Serializable{
 		if (existingSaveFiles.length==1) {
 			terminal.afficherChaine("Aucun fichier de sauvegarde existant, création d'une nouvelle partie.");
 			partie = getPartie();
-			partie.lancerPartie();
+			//partie.lancerPartie();
 			return partie;
 		}
 		
@@ -440,7 +456,7 @@ public class Partie implements Serializable{
 			e.printStackTrace();
 		}
 		
-		partie.analyserPartie();
+		//partie.analyserPartie();
 		
 		return partie;
 	}
@@ -469,7 +485,7 @@ public class Partie implements Serializable{
 		
 	}
 	
-	public void lancerPartie() {
+	/*public void lancerPartie() {
 		partie = getPartie();
 		
 		//partie.variante = partie.choisirVariante();
@@ -485,9 +501,9 @@ public class Partie implements Serializable{
 		
 		partie.analyserPartie();
 		
-	}
+	}*/
 	
-	public void analyserPartie() {
+	/*public void analyserPartie() {
 		if (!partie.partieFinie) {
 			partie.jouer();
 			
@@ -496,9 +512,24 @@ public class Partie implements Serializable{
 		partie.afficherScores(partie.scores);
 		
 		Partie.menuSauvegarder(partie);
+	}*/
+	
+	public void nouveauRound() {
+		if (deck.isEmpty()) {
+			joueursPrennentDerniereCarte();
+			distribuerTrophees();
+			scores = compterScores();
+			partieFinie=true;
+			changeState(PartieState.TROPHEES);
+		} else {
+			roundCounter ++;
+			round = new Round(roundCounter == 1);
+			round.distribuerCartes();
+			partie.changeState(PartieState.NEW_ROUND);
+		}
 	}
 	
-	public void jouer() {
+	/*public void jouer() {
 		while (!partie.deck.isEmpty()) {
 			partie.roundCounter ++;
 			Round round = new Round(partie.roundCounter == 1);
@@ -515,11 +546,25 @@ public class Partie implements Serializable{
 		partie.distribuerTrophees();
 		partie.scores = partie.compterScores();
 		partie.partieFinie=true;
+	}*/
+	
+	public void changeState (PartieState newState) {
+		state = newState;
+		this.setChanged();
+		this.notifyObservers(state);
 	}
 	
 	public static void main(String[] args) {
 		
-		switch(Partie.menuDepart()) {
+		partie = getPartie();
+		
+		MainWindow mw = new MainWindow();
+		partie.addObserver(mw);
+		mw.start();
+		
+		partie.changeState(PartieState.START);
+		
+		/*switch(Partie.menuDepart()) {
 			case 1 :
 				getPartie().lancerPartie();
 				break;
@@ -528,7 +573,7 @@ public class Partie implements Serializable{
 				break;
 			default :
 				break;
-		}
+		}*/
 		
 	}
 

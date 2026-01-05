@@ -16,6 +16,11 @@ public class NouveauRoundMenu extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JButton btnSauvegarderLaPartie;
+	private JButton btnSuivant;
+	
+	public JButton getBtnSauvegarder() {return btnSauvegarderLaPartie;}
+	public JButton getBtnSuivant() {return btnSuivant;}
 
 	/**
 	 * Launch the application.
@@ -69,10 +74,10 @@ public class NouveauRoundMenu extends JFrame {
 		contentPane.add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnSauvegarderLaPartie = new JButton("Sauvegarder la partie");
+		btnSauvegarderLaPartie = new JButton("Sauvegarder la partie");
 		panel_1.add(btnSauvegarderLaPartie);
 		
-		JButton btnSuivant = new JButton("Suivant");
+		btnSuivant = new JButton("Suivant");
 		panel_1.add(btnSuivant);
 
 	}

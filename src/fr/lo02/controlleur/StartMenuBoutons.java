@@ -6,12 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import fr.lo02.jest.Partie;
+import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.StartMenu;
 
 public class StartMenuBoutons {
 	
-	public StartMenuBoutons(StartMenu startMenu, JFrame loadSaveMenu, JFrame caracteristicsMenu, Partie partie, MainWindow main) {
+	public StartMenuBoutons(StartMenu startMenu, Partie partie) {
 		
 		JButton btnNouvellePartie = startMenu.getNouvellePartie();
 		JButton btnChargerPartie = startMenu.getChargerPartie();
@@ -20,7 +21,7 @@ public class StartMenuBoutons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//partie.lancerPartie();
-				main.next(2);
+				partie.changeState(PartieState.C_VARIANTE);
 			}
 		});
 		
@@ -28,7 +29,7 @@ public class StartMenuBoutons {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//partie.chargerPartie();
-				main.next();
+				partie.changeState(PartieState.LOAD);
 			}
 		});
 		
