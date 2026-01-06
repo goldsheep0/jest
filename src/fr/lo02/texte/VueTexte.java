@@ -139,6 +139,9 @@ public class VueTexte extends Thread implements Observer, Serializable {
 			i = terminal.lireEntier();
 		}
 		if (i == 1 || i == 2) {
+			partie.getJoueurFocus().getOffre().getCartes().forEach((carte) -> {
+				carte.setFaceVisible(true);
+			});
 			partie.getJoueurFocus().getOffre().getCartes().get(i-1).setFaceVisible(false);
 			partie.getRound().faireOffres();
 		}
@@ -195,6 +198,7 @@ public class VueTexte extends Thread implements Observer, Serializable {
 				break;
 			}
 		}
+		partie.getRound().prendreCarte(partie.getRound().getCarteChoisieBot());
 		String carteStr;
 		if (partie.getRound().getCarteChoisieBot().estFaceVisible()) {
 			carteStr = partie.getRound().getCarteChoisieBot().toString();
