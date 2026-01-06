@@ -198,7 +198,6 @@ public class VueTexte extends Thread implements Observer, Serializable {
 				break;
 			}
 		}
-		partie.getRound().prendreCarte(partie.getRound().getCarteChoisieBot());
 		String carteStr;
 		if (partie.getRound().getCarteChoisieBot().estFaceVisible()) {
 			carteStr = partie.getRound().getCarteChoisieBot().toString();
@@ -208,6 +207,7 @@ public class VueTexte extends Thread implements Observer, Serializable {
 		terminal.afficherChaine("Le bot "+partie.getJoueurFocus().getNom()+" a pris "+carteStr+" de "+target.getNom());
 		terminal.afficherChaine("Appuyez sur entrer pour continuer...");
 		terminal.lireChaine();
+		partie.getRound().prendreCarte(partie.getRound().getCarteChoisieBot());
 		partie.getRound().prendreCarteSuivante();
 	}
 	
@@ -217,8 +217,8 @@ public class VueTexte extends Thread implements Observer, Serializable {
 		terminal.afficherChaine("La partie est finie ! Remise des trophées...");
 		terminal.afficherChaine("Trophée(s) à attribuer : \n"+partie.getTrophees().toStringTrophee());
 		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
+			Joueur j = it.next();
 			for (Iterator<Carte> itC = partie.getTrophees().getCartes().iterator(); itC.hasNext(); ) {
-				Joueur j = it.next();
 				Carte c = itC.next();
 				if (j.getJest().getCartes().contains(c)) {
 					terminal.afficherChaine("Le joueur "+j.getNom()+" a obtenu la carte : "+c.toString());
