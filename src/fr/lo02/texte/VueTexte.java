@@ -100,13 +100,14 @@ public class VueTexte extends Thread implements Observer, Serializable {
 		next = false;
 		terminal.afficherDivision();
 		int i = 0;
-		while ((i < partie.getNombreJoueursTotal() - partie.getJoueurs().size()) && !next) {
+		int joueursPhysiques = partie.getNombreJoueursTotal() - partie.getJoueurs().size();
+		while ((i < joueursPhysiques) && !next) {
 			i++;
 			terminal.afficherChaine("Entrez le nom du joueur "+i+" : ");
 			String nom = terminal.lireChaine();
 			partie.addJoueur(nom);
 		}
-		if (i == partie.getNombreJoueursTotal() - partie.getJoueurs().size()) {
+		if (i == joueursPhysiques) {
 			partie.nouveauRound();
 		}
 	}
@@ -200,7 +201,7 @@ public class VueTexte extends Thread implements Observer, Serializable {
 		} else {
 			carteStr = "[Carte cachée]";
 		}
-		terminal.afficherChaine("Le bot "+partie.getJoueurFocus()+" a pris "+carteStr+" de "+target.getNom());
+		terminal.afficherChaine("Le bot "+partie.getJoueurFocus().getNom()+" a pris "+carteStr+" de "+target.getNom());
 		terminal.afficherChaine("Appuyez sur entrer pour continuer...");
 		terminal.lireChaine();
 		partie.getRound().prendreCarteSuivante();

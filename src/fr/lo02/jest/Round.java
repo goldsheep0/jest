@@ -11,7 +11,7 @@ public class Round implements Serializable{
 	private Partie partie;
 	private boolean firstRound;
 	private Terminal terminal;
-	private Iterator<Joueur> itJ;
+	private transient Iterator<Joueur> itJ;
 	private Carte carteChoisieBot;
 	
 	public Carte getCarteChoisieBot() {return carteChoisieBot;}
@@ -67,8 +67,8 @@ public class Round implements Serializable{
 		if (itJ.hasNext()) {
 			Joueur joueur = itJ.next();
 			if(joueur.getStrategyJoueur() instanceof StrategyJoueurPhysique) {
-				partie.changeState(PartieState.FAIRE_OFFRE);
 				partie.setJoueurFocus(joueur);
+				partie.changeState(PartieState.FAIRE_OFFRE);
 			} else {
 				int carteIndex = joueur.realiserOffre();
 				for (Iterator<Carte> itCartes = joueur.getOffre().getCartes().iterator(); itCartes.hasNext(); ) {

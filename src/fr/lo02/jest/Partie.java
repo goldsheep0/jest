@@ -24,7 +24,7 @@ public class Partie extends Observable implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private static Partie partie = null;
-	private ArrayList<Joueur> joueurs;
+	private static ArrayList<Joueur> joueurs;
 	private ConteneurCarte deck;
 	private ConteneurCarte stack;
 	private static Terminal terminal = new Terminal();
