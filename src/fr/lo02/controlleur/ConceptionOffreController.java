@@ -11,7 +11,7 @@ import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.ConceptionOffreMenu;
 import fr.lo02.ui.ToggleButtonCarte;
 
-public class ConceptionOffreController implements Serializable {
+public class ConceptionOffreController {
 	
 	public ConceptionOffreController(ConceptionOffreMenu menu, Partie partie) {
 		

@@ -8,7 +8,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.AttributionTropheesDisplay;
 
-public class TropheesController implements Serializable {
+public class TropheesController {
 	
 	public TropheesController (AttributionTropheesDisplay menu) {
 		

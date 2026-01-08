@@ -10,7 +10,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.SauvegarderPartieMenu;
 
-public class SaveController implements Serializable {
+public class SaveController {
 	
 	public SaveController (SauvegarderPartieMenu menu) {
 		

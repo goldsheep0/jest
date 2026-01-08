@@ -13,7 +13,8 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.enums.*;
 
-public class ButtonCarte extends JButton implements Serializable{
+public class ButtonCarte extends JButton{
+	private static final long serialVersionUID = 1L;
 	public Joueur joueur;
 	public Carte carte;
 	public ImageIcon texture;

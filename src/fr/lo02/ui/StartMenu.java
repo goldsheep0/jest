@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 import javax.swing.JButton;
 
-public class StartMenu extends JFrame implements Serializable {
+public class StartMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

@@ -11,7 +11,7 @@ import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.StartMenu;
 
-public class StartMenuBoutons implements Serializable {
+public class StartMenuBoutons {
 	
 	public StartMenuBoutons(StartMenu startMenu, Partie partie) {
 		

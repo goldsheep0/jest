@@ -14,7 +14,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
-public class EnterPlayerNamesMenu extends JFrame implements Serializable {
+public class EnterPlayerNamesMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

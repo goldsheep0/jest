@@ -8,7 +8,7 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Partie;
 import fr.lo02.ui.ChoixOffreBotMenu;
 
-public class ChoisirOffreBotController implements Serializable{
+public class ChoisirOffreBotController{
 	
 	public ChoisirOffreBotController(ChoixOffreBotMenu menu, Partie partie) {
 	

@@ -20,27 +20,95 @@ import fr.lo02.texte.VueTexte;
 import fr.lo02.ui.MainWindow;
 
 @SuppressWarnings("deprecation")
+/**
+ * Point d'entrée du programme.<br>
+ * La classe partie contient des références aux éléments principaux du jeu.<br>
+ * Elle permet d'initialiser l'interface graphique et l'interface texte.<br>
+ * Elle contient la plupart des méthodes qui permettent à une partie de se dérouler du début à la fin.<br>
+ * La classe Partie est un singleton.<br>
+ * Elle supporte la sérialisation.<br>
+ * Observable, observée par une VueTexte et une MainWindow 
+ */
 public class Partie extends Observable implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Référence à l'instance unique de Partie
+	 */
 	private static Partie partie = null;
+	
+	/**
+	 * Liste des joueurs de la partie.
+	 */
 	private static ArrayList<Joueur> joueurs;
+	
+	/**
+	 * Référence au deck contenant toutes les cartes.
+	 */
 	private ConteneurCarte deck;
+	
+	/**
+	 * Référence au stack qui permet de stocker temporairement les cartes à redistribuer entre les rounds.
+	 */
 	private ConteneurCarte stack;
+	
+	/**
+	 * Référence au terminal utilisé pour la vue texte.
+	 */
 	private static Terminal terminal = new Terminal();
+	
+	/**
+	 * Variante utilisée lors de la partie :<br>
+	 * 0 : règles originales.<br>
+	 * 1 : variante 1 : un joker supplémentaire ajouté dans les trophées avec la règle Suit Majority.<br>
+	 * 2 : variante 2 : les trophées sont attribués aléatoirement et la règle Save Diamonds with love est ajoutée.<br>
+	 */
 	private int variante;
+	
+	/**
+	 * Référence au trophées qui contient la liste des trophées utilisés lors de la partie.
+	 */
 	private ConteneurCarte trophees;
+	
+	/**
+	 * Nombre de rounds effectués.
+	 */
 	private int roundCounter;
-	private Boolean partieFinie;
+	
+	/**
+	 * LinkedHashMap des scores des joueurs, triée par score.<br>
+	 * Les références vers les joueurs servent de clé.
+	 */
 	private LinkedHashMap<Joueur, Integer> scores;
+	
+	/**
+	 * Nombre de joueurs dans la partie.
+	 */
 	private int nombreJoueursTotal;
+	
+	/**
+	 * Etat de la partie qui permet de déterminer quelles vues afficher et quelles actions effectuer.
+	 */
 	private PartieState state;
+	
+	/**
+	 * Référence au joueur dont le tour est en cours.
+	 */
 	private Joueur joueurFocus;
+	
+	/**
+	 * Référence au round en cours.
+	 */
 	private Round round;
+	
+	/**
+	 * HashMap des Joueurs ayant reçu un trophée.<br>
+	 * Les références vers les trophées servent de clé.
+	 */
 	private HashMap<Carte, Joueur> tropheeAvecJoueur;
 	
-	private Partie() { 
-		partieFinie=false;
+	private Partie() {
 		roundCounter=0;
 		joueurs = new ArrayList<Joueur>();
 		deck = creerDeck();
@@ -66,7 +134,7 @@ public class Partie extends Observable implements Serializable{
 	}
 	
 	public void setJoueurs(ArrayList<Joueur> joueurs) {
-		this.joueurs=joueurs;
+		Partie.joueurs=joueurs;
 	}
 	
 	public Terminal getTerminal() {
@@ -90,17 +158,19 @@ public class Partie extends Observable implements Serializable{
 	
 	public int getNombreJoueursTotal() {return nombreJoueursTotal;}
 	
+	/**
+	 * Ajoute un nouveau joueur avec la stratégie StrategyJoueurPhysique à la liste de joueurs de Partie.
+	 * @param nom - nom du joueur
+	 */
 	public void addJoueur(String nom) {
-		/*for (int i = 0; i < nombreJoueur; i++) {
-			terminal.afficherChaine("Entrer un nom pour le joueur "+Integer.toString(i+1)+" : ");
-			String nom = terminal.lireChaine();
-			Joueur j;
-			j = new Joueur(nom, new StrategyJoueurPhysique());
-			joueurs.add(j);
-		}*/
 		joueurs.add(new Joueur(nom, new StrategyJoueurPhysique()));
 	}
 	
+	/**
+	 * Ajoute un nombre bot avec la stratégie sélectionnée à la liste de joueur de Partie.
+	 * @param nombreBot - nombre de bot à ajouter
+	 * @param botType - 0 : StrategyJoueurBotBourrin ; >0 : StrategyJoueurBotTrophee
+	 */
 	public void addBots(int nombreBot, int botType) {
 		for (int i = 0; i < nombreBot; i++) {
 			String nomBot = "Bot " + String.valueOf(i+1);
@@ -112,35 +182,15 @@ public class Partie extends Observable implements Serializable{
 		}
 	}
 	
-	/**
-	 * Crée les joueurs dans l'array joueurs
-	 */
-	public void creerJoueurs() {
-		terminal.afficherChaine("Combien de joueurs y a-t-il ? (3 ou 4)");
-		nombreJoueursTotal = terminal.lireEntier();
-		while (nombreJoueursTotal != 3 && nombreJoueursTotal != 4) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (3 ou 4)");
-			nombreJoueursTotal = terminal.lireEntier();
-		}
-		
-		terminal.afficherChaine("Combien de bots y a-t-il ?");
-		int nombreBot = terminal.lireEntier();
-		while (nombreBot < 0 || nombreBot > nombreJoueursTotal) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (0 - " + String.valueOf(nombreJoueursTotal) + ")");
-			nombreBot = terminal.lireEntier();
-		}
-		
-		//addJoueurs(nombreJoueursTotal - nombreBot);
-		//addBots(nombreBot);
-		
-	}
-	
+
 	public ArrayList<Joueur> getJoueurs() {
 		return joueurs;
 	}
 	
 	/**
-	 * Crée les cartes et les mets dans le deck
+	 * Créer un deck de carte selon les cartes présentes dans les règles du jeu, avec les trophées correspondant.
+	 * 
+	 * @return type : ConteneurCarte - ConteneurCarte avec le deck complet
 	 */
 	public ConteneurCarte creerDeck() {
 		ConteneurCarte cont = new ConteneurCarte();
@@ -163,9 +213,6 @@ public class Partie extends Observable implements Serializable{
 		cont.addCarte(new Carte(Valeur.JOKER, Couleur.JOKER, new StrategyTropheeBestJest()));
 		cont.melanger();
 		
-		//System.out.println(cont.toStringTrophee());
-				
-		
 		return cont;
 	}
 	
@@ -178,7 +225,7 @@ public class Partie extends Observable implements Serializable{
 	}
 	
 	/**
-	 * Fait en sorte que chaque joueur prenne la derniere carte de son jest.
+	 * Fait en sorte que chaque joueur prenne la derniere carte de son jest lorsque le dernier round est terminée.
 	 */
 	public void joueursPrennentDerniereCarte() {
 		for (Iterator<Joueur> it = joueurs.iterator(); it.hasNext(); ) {
@@ -188,6 +235,12 @@ public class Partie extends Observable implements Serializable{
 		}
 	}
 	
+	/**
+	 * En fonction de la variante choisie et du nombre de joueurs :<br>
+	 * Original : distribue deux des cartes du deck dans le conteneur des trophees de Partie si il y a 3 joueurs, une seule sinon<br>
+	 * Variante 1 : fait comme l'original et rajoute en plus un joker avec le trophée SuitMajority<br>
+	 * Variante 2 : attribue des trophées aléatoire à chaque carte du deck puis fait comme l'original
+	 */
 	public void creerTrophees() {
 		int nbtrophees=0;
 		
@@ -222,6 +275,10 @@ public class Partie extends Observable implements Serializable{
 		Partie.terminal.afficherChaine("Trophee pour cette partie : \n"+this.trophees.toStringTrophee());
 	}
 	
+	/**
+	 * A la fin de la partie. Permet de distribuer les trophées aux joueurs qui les remportent.
+	 * Place les paires Carte-Joueur dans l'attribut tropheeAvecJoueur de Partie.
+	 */
 	public void distribuerTrophees() {
 		
 		LinkedList<Carte> tropheeADistribuer = this.trophees.getCartes();
@@ -231,7 +288,7 @@ public class Partie extends Observable implements Serializable{
 		Carte c;
 		while(itTrophee.hasNext()) {
 			c = itTrophee.next();
-			tropheeAvecJoueur.put(c, c.executeStrategyTrophee(this.joueurs));
+			tropheeAvecJoueur.put(c, c.executeStrategyTrophee(Partie.joueurs));
 		}
 		
 		itTrophee=tropheeADistribuer.iterator();
@@ -253,7 +310,7 @@ public class Partie extends Observable implements Serializable{
 	 */
 	public LinkedHashMap<Joueur, Integer> compterScores() {
 		LinkedHashMap<Joueur, Integer> scores = new LinkedHashMap<Joueur, Integer>();
-		for (Iterator<Joueur> it = partie.joueurs.iterator(); it.hasNext(); ) {
+		for (Iterator<Joueur> it = Partie.joueurs.iterator(); it.hasNext(); ) {
 			Joueur joueur = it.next();
 			LinkedList<Carte> jest = joueur.getJest().getCartes();
 			Visitor regle1 = new RegleAsVisitor(jest);
@@ -269,8 +326,7 @@ public class Partie extends Observable implements Serializable{
 				carte.acceptVisitor(regle3);
 				carte.acceptVisitor(regle4);
 				if (variante == 2) { 
-					carte.acceptVisitor(regle5); 
-					//System.out.println("Ajout de la regle Saving Diamonds With Love.");
+					carte.acceptVisitor(regle5);
 				}
 			}
 			int joueurScore = regle1.getTotalPoint() + regle2.getTotalPoint() + regle3.getTotalPoint() + regle4.getTotalPoint();
@@ -281,9 +337,9 @@ public class Partie extends Observable implements Serializable{
 	}
 	
 	/**
-	 * Sort la HashMap de scores en fonction du score du joueur.
+	 * Trie la HashMap de scores en fonction du score du joueur.
 	 * @param scores la HashMap de scores.
-	 * @return La HashMap sorted.
+	 * @return La HashMap triée.
 	 */
 	public LinkedHashMap<Joueur, Integer> sortScores(LinkedHashMap<Joueur, Integer> scores) {
 		ArrayList<Joueur> joueurs = new ArrayList<Joueur>(scores.keySet());
@@ -308,81 +364,11 @@ public class Partie extends Observable implements Serializable{
 		variante = newVariante;
 	}
 	
-	public int choisirVariante() {
-		terminal.afficherChaine("Variantes :\nVariante 1 : Un joker supplémentaire dans les trophées avec le trophée Suit Majority.\nVariante 2 : Ajout de la règle Save Diamonds With Love et Trophées aléatoires sur les cartes\n\nChoisir une variantes entre :\n0 : original\n1 :Variante 1\n2 : Variante 2\n");
-		int variante = terminal.lireEntier();
-		while (variante != 0 && variante != 1 && variante != 2) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (0, 1 ou 2)");
-			variante = terminal.lireEntier();
-		}
-		return variante;
-	}
-	
-	public String sauvegarderPartie(Partie partie) {
-		
-		File savesDirectory = new File("./saves");		
-		
-		File[] existingSaveFiles = savesDirectory.listFiles();
-		
-		HashSet<String> existingSaveNames = new HashSet<String>();
-		
-		for( File f : existingSaveFiles) {
-			existingSaveNames.add(f.getName());
-		}
-		
-			
-		terminal.afficherChaine("Entrer le nom du fichier à sauvergarder : ");
-		String fileName = terminal.lireChaine();
-		
-		while(existingSaveNames.contains(fileName) && fileName.equals("keep_this_directory.gitignore")) {
-			if(!fileName.equals("keep_this_directory.gitignore")) {
-				terminal.afficherChaine("Le nom de fichier donné est déjà existant, voulez vous écraser cette sauvegarde ? (O/N)");
-				String choix = terminal.lireChaine();
-				while (!choix.equals("O") && !choix.equals("N")) {
-					terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
-					choix = terminal.lireChaine();
-				}
-				if(choix.equals("O")) {
-					File file = new File("./saves/"+fileName);
-					try {
-						Files.deleteIfExists(file.toPath());
-						existingSaveNames.remove(fileName);
-						
-						terminal.afficherChaine("Sauvegarde écrasée.");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}else if(choix.equals("N")) {
-					terminal.afficherChaine("Tapez un nouveau nom de fichier");
-					fileName = terminal.lireChaine();
-				}
-			}else {
-				terminal.afficherChaine("Tapez un nouveau nom de fichier");
-				fileName = terminal.lireChaine();
-			}
-			
-		}
-		
-		File file = new File("./saves/"+fileName);
-		
-		try {
-			FileOutputStream fos = new FileOutputStream(file);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			
-			oos.writeObject(partie);
-			
-			oos.close();
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		
-		terminal.afficherChaine("Partie Sauvegardée !");
-		
-		return fileName;
-	}
+	/**
+	 * Permet de sauvegarder la partie en cours dans un fichier en utilisant la sérialisation.
+	 * @param partie - référence vers la partie à sauvegarder
+	 * @param nomFichier - nom à utiliser pour le fichier
+	 */
 	public void sauvegarderPartie (Partie partie, String nomFichier) {
 		
 		File file = new File("./saves/"+nomFichier);
@@ -407,6 +393,13 @@ public class Partie extends Observable implements Serializable{
 		
 	}
 	
+	/**
+	 * Permet de charger un fichier d'une sauvegarder précédente.<br>
+	 * Non fonctionnel dans la version actuelle :<br>
+	 * La fonction essaie d'attribuer l'objet Partie chargé au singleton Partie mais celui-ci est déjà créé<br>
+	 * Cela créer un conflit entre les références vers Partie déjà passées en argument d'autre classe et méthode et la valeur actuelle attribuée au singleton Partie.
+	 * @param nom_fichier - nom du fichier à charger, doit être un fichier existant en mémoire.
+	 */
 	public void chargerFichier(String nom_fichier) {
 		partie = null;
 		
@@ -430,129 +423,19 @@ public class Partie extends Observable implements Serializable{
 			
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public Partie chargerPartie() {
-		partie = null;
-		
-		File savesDirectory = new File("./saves");		
-		
-		File[] existingSaveFiles = savesDirectory.listFiles();
-		
-		if (existingSaveFiles.length==1) {
-			terminal.afficherChaine("Aucun fichier de sauvegarde existant, création d'une nouvelle partie.");
-			partie = getPartie();
-			//partie.lancerPartie();
-			return partie;
-		}
-		
-		HashSet<String> existingSaveNames = new HashSet<String>();
-		
-		
-		terminal.afficherChaine("Fichiers sauvegardes existants : ");
-		for( File f : existingSaveFiles) {
-			if(!f.getName().equals("keep_this_directory.gitignore")) {
-				existingSaveNames.add(f.getName());
-				System.out.println(f.getName());
-			}
-		}
-		
-			
-		terminal.afficherChaine("Entrer le nom du fichier à charger : ");
-		String fileName = terminal.lireChaine();
-		
-		while(!existingSaveNames.contains(fileName)) {
-			terminal.afficherChaine("Le nom de fichier donné n'est pas dans la liste, veuillez en entrer un existant : ");
-			fileName = terminal.lireChaine();
-		}
-		
-		
-		File file = new File("./saves/"+fileName);
-		try {
-			FileInputStream fis = new FileInputStream(file);
-			ObjectInputStream ois = new ObjectInputStream(fis);	
-					
-			try {
-				partie= (Partie) ois.readObject();
-			}catch(ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			fis.close();
-			
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//partie.analyserPartie();
-		
-		return partie;
-	}
-	
-	public static int menuDepart() {
-		terminal.afficherChaine("Nouvelle Partie (1)\nCharger partie (2)");
-		int choix = terminal.lireEntier();
-		while (choix != 1 && choix != 2) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (1 ou 2)");
-			choix = terminal.lireEntier();
-		}
-		return choix;
-	}
-	
-	public static void menuSauvegarder(Partie partie) {
-		terminal.afficherChaine("Sauvegarder la partie ? (O/N)");
-		String choix = terminal.lireChaine();
-		while (!choix.equals("O") && !choix.equals("N")) {
-			terminal.afficherChaine("Mauvaise saisie, tapez (O ou N)");
-			choix = terminal.lireChaine();
-		}
-		
-		if(choix.equals("O")) {
-			partie.sauvegarderPartie(partie);
-		}
-		
-	}
-	
-	/*public void lancerPartie() {
-		partie = getPartie();
-		
-		//partie.variante = partie.choisirVariante();
-		
-		Partie.terminal.afficherChaine("Bienvenue au jeu de Jest !");
-		Partie.terminal.afficherDivision();
-		
-		//partie.creerJoueurs();
-		
-		partie.creerTrophees();
-		
-		partie.roundCounter = 0;
-		
-		partie.analyserPartie();
-		
-	}*/
-	
-	/*public void analyserPartie() {
-		if (!partie.partieFinie) {
-			partie.jouer();
-			
-		}
-		
-		partie.afficherScores(partie.scores);
-		
-		Partie.menuSauvegarder(partie);
-	}*/
-	
+	/**
+	 * Permet de créer un nouveau round ou d'initialiser la séquence de fin de partie si la partie est finie.
+	 */
 	public void nouveauRound() {
 		if (deck.isEmpty()) {
 			joueursPrennentDerniereCarte();
 			distribuerTrophees();
-			scores = compterScores();
-			partieFinie=true;
+			this.scores = compterScores();
 			changeState(PartieState.TROPHEES);
 		} else {
 			roundCounter ++;
@@ -562,25 +445,10 @@ public class Partie extends Observable implements Serializable{
 		}
 	}
 	
-	/*public void jouer() {
-		while (!partie.deck.isEmpty()) {
-			partie.roundCounter ++;
-			Round round = new Round(partie.roundCounter == 1);
-			
-			round.distribuerCartes();
-			
-			round.faireOffres();
-			round.prendreCartes();
-			
-			Partie.menuSauvegarder(partie);
-		}
-		
-		partie.joueursPrennentDerniereCarte();
-		partie.distribuerTrophees();
-		partie.scores = partie.compterScores();
-		partie.partieFinie=true;
-	}*/
-	
+	/**
+	 * Change l'état de la partie vers l'état passé en argument. Notifie les observers de Partie du changement d'état.
+	 * @param newState - état vers lequel changer l'état de la partie
+	 */
 	public void changeState (PartieState newState) {
 		state = newState;
 		if (state == PartieState.C_BOTS) {
@@ -589,6 +457,7 @@ public class Partie extends Observable implements Serializable{
 		this.setChanged();
 		this.notifyObservers(state);
 	}
+	
 	
 	public static void main(String[] args) {
 		
@@ -605,17 +474,6 @@ public class Partie extends Observable implements Serializable{
 		vt.start();
 		
 		partie.changeState(PartieState.START);
-		
-		/*switch(Partie.menuDepart()) {
-			case 1 :
-				getPartie().lancerPartie();
-				break;
-			case 2 :
-				getPartie().chargerPartie();
-				break;
-			default :
-				break;
-		}*/
 		
 	}
 

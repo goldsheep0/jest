@@ -8,9 +8,26 @@ import fr.lo02.jest.enums.PartieState;
 
 public class Round implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Référence vers le singleton Partie
+	 */
 	private Partie partie;
+	
+	/**
+	 * Si le round est le premier de la partie, initialisé à true, sinon false
+	 */
 	private boolean firstRound;
-	private Terminal terminal;
+	
+	/**
+	 * Référence vers le terminal de la partie.
+	 */
+	private static Terminal terminal;
+	
+	/**
+	 * Iterateur à travers les joueurs de la partie. Permet de parcourir la liste des joueurs indépendemment de
+	 */
 	private transient Iterator<Joueur> itJ;
 	private Carte carteChoisieBot;
 	
@@ -26,7 +43,8 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * Distribue les cartes à chaque joueur
+	 * Distribue 2 cartes à l'offre de chaque joueurs.<br>
+	 * Si le round n'est pas le premier. Récupère aussi la carte qui n'a pas été prise de l'offre des joueurs au round d'avant.
 	 */
 	public void distribuerCartes() {
 		if (firstRound) {
@@ -61,7 +79,7 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * Chaque joueur retourne une de ses cartes pour faire son offre.
+	 * Chaque joueur retourne une des cartes de son offre.
 	 */
 	public void faireOffres() {
 		if (itJ.hasNext()) {
@@ -85,7 +103,7 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * Calcule l'ordre de passage des joueurs, et sort la liste de joueurs dans le bon ordre
+	 * Calcule l'ordre de passage des joueurs, et sort une liste des joueurs ordonnée
 	 */
 	public void calculerOrdrePassage() {
 		Comparator<Joueur> meilleureCarte = new Comparator<Joueur>() {
@@ -104,7 +122,7 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * Retourne la liste de joueurs sans le joueur sélectionné
+	 * Retourne la liste de joueurs parmi lesquels le joueur, dont c'est le tour, peut choisir une carte.
 	 * @param joueurSelectionne Le joueur sélectionné
 	 * @return La liste de joueurs sans le joueur
 	 */
@@ -123,7 +141,7 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * Permet de transférer la carte choisie par le joueur de l'offre du joueur où elle était pour la mettre dans le jest du joueur l'ayant prise.
 	 */
 	public void prendreCarte(Carte c) {
 		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
@@ -137,7 +155,7 @@ public class Round implements Serializable{
 	}
 	
 	/**
-	 * 
+	 * A chaque appel, permet d'avancer dans la liste des joueurs et de les faire prendre un par un une carte parmis les offres qui leur sont disponibles.
 	 */
 	public void prendreCarteSuivante() {
 		if (itJ.hasNext()) {
@@ -163,73 +181,4 @@ public class Round implements Serializable{
 			partie.nouveauRound();
 		}
 	}
-	
-	/**
-	 * Chaque joueur prend une carte et l'ajoute à son jest
-	 */
-	/*public void prendreCartes() {
-		
-		calculerOrdrePassage();
-		
-		for (int joueurIndex = 0; joueurIndex < partie.getJoueurs().size(); joueurIndex++) {
-			
-			Joueur joueur = partie.getJoueurs().get(joueurIndex);
-			Joueur joueurChoisi = null;
-			
-			terminal.afficherDivision();
-			terminal.afficherChaine("A "+joueur.getNom()+" de jouer !");
-			
-			
-			// Si le joueur n'est pas le dernier, on lui propose de choisir l'offre d'un des joueurs
-			if (joueurIndex < partie.getJoueurs().size() - 1) {
-				terminal.afficherChaine("Affichage des offres des joueurs : ");
-				
-				// Boucle à travers les joueurs restants
-				LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);
-				for (Iterator<Joueur> it = autresJoueurs.iterator(); it.hasNext(); ) {
-					// On vérifie que l'offre a bien 2 éléments
-					Joueur autre = it.next();
-					if (autre.getOffre().getCartes().size() == 2) {
-						Carte carteVisibleAutre = autre.getOffre().getCarteVisible();
-						String nomAutre = autre.getNom();
-						terminal.afficherChaine("Offre de "+nomAutre+" : [Carte cachée], "+carteVisibleAutre.toString());
-					}
-				}
-				
-				int joueurChoisiIndex = joueur.choisirJoueur();
-				
-				joueurChoisi = partie.getJoueurs().get(joueurChoisiIndex);
-				Carte carteVisible = joueurChoisi.getOffre().getCarteVisible();
-				String nomJoueur = joueurChoisi.getNom();
-				terminal.afficherChaine("Vous avez choisi l'offre de "+nomJoueur+" : [Carte cachée], "+carteVisible.toString());
-				
-			}
-			
-			//Sinon, le joueur a l'offre du joueur restant avec une offre à 2 élements
-			else {
-				
-				for (int joueurIndex2 = 0; joueurIndex2 < partie.getJoueurs().size(); joueurIndex2++) {
-					if (partie.getJoueurs().get(joueurIndex2).getOffre().getCartes().size() == 2) {
-						joueurChoisi = partie.getJoueurs().get(joueurIndex2);
-						Carte carteVisible = joueurChoisi.getOffre().getCarteVisible();
-						String nomJoueur = joueurChoisi.getNom();
-						terminal.afficherChaine("Il ne reste que l'offre de "+nomJoueur+" : [Carte cachée], "+carteVisible.toString());
-						break;
-					}
-				}
-			}
-			
-			//Le joueur a été choisi, on choisit maintenant la carte de l'offre
-			int carteChoisieVisible = joueur.choisirCarte();
-			Carte carteChoisie;
-			if (carteChoisieVisible == 1) {
-				carteChoisie = joueurChoisi.getOffre().retirerCarteFaceVisible(false);
-			} else {
-				carteChoisie = joueurChoisi.getOffre().retirerCarteFaceVisible(true);
-			}
-			joueur.getJest().addCarte(carteChoisie);
-			terminal.afficherChaine("Vous avez ajouté "+carteChoisie.toString()+" à votre jest.");
-		}
-	}*/
-
 }

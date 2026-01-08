@@ -8,7 +8,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.NouveauRoundMenu;
 
-public class NewRoundController implements Serializable {
+public class NewRoundController {
 	
 	public NewRoundController (NouveauRoundMenu menu, Partie partie) {
 		

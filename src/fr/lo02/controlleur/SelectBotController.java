@@ -11,7 +11,7 @@ import fr.lo02.ui.SelectBotMenu;
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 
-public class SelectBotController implements Serializable {
+public class SelectBotController {
 	
 	public SelectBotController(SelectBotMenu botMenu, Partie partie) {
 		

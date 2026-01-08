@@ -16,7 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 
-public class LoadSaveMenu extends JFrame implements Serializable {
+public class LoadSaveMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

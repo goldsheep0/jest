@@ -9,7 +9,8 @@ import fr.lo02.jest.enums.*;
 
 public class Carte implements Serializable{
 	
-    private Couleur couleur;
+    private static final long serialVersionUID = 1L;
+	private Couleur couleur;
     private Valeur valeur;
     private StrategyTrophee strategyTrophee;
     private boolean faceVisible;

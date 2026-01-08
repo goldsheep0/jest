@@ -21,7 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.io.Serializable;
 
-public class ScoreBoard extends JFrame implements Serializable {
+public class ScoreBoard extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

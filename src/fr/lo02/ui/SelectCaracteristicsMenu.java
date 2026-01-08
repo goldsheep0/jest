@@ -17,7 +17,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 
-public class SelectCaracteristicsMenu extends JFrame implements Serializable {
+public class SelectCaracteristicsMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

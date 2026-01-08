@@ -14,7 +14,7 @@ import fr.lo02.jest.Round;
 import fr.lo02.jest.Terminal;
 import fr.lo02.jest.enums.PartieState;
 
-public class VueTexte extends Thread implements Observer, Serializable {
+public class VueTexte extends Thread implements Observer {
 	
 	private Partie partie;
 	private Terminal terminal;

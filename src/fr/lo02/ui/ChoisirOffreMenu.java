@@ -25,7 +25,7 @@ import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 
-public class ChoisirOffreMenu extends JFrame implements Serializable {
+public class ChoisirOffreMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

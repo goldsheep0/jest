@@ -13,7 +13,7 @@ import fr.lo02.jest.*;
 import fr.lo02.jest.enums.*;
 
 @SuppressWarnings("deprecation")
-public class MainWindow extends Thread implements Observer, Serializable {
+public class MainWindow extends Thread implements Observer {
 
 	private Partie partie;
 	

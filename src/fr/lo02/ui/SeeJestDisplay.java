@@ -19,7 +19,7 @@ import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeBestJest;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 
-public class SeeJestDisplay extends JFrame implements Serializable {
+public class SeeJestDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

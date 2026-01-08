@@ -8,7 +8,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.LoadSaveMenu;
 
-public class LoadMenuController implements Serializable {
+public class LoadMenuController {
 	
 	public LoadMenuController (LoadSaveMenu menu) {
 		

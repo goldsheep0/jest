@@ -8,7 +8,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.NouvelleSauvegardeMenu;
 
-public class NewSaveController implements Serializable {
+public class NewSaveController {
 	
 	public NewSaveController (NouvelleSauvegardeMenu menu) {
 		

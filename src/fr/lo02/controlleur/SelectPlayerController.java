@@ -12,7 +12,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.EnterPlayerNamesMenu;
 
-public class SelectPlayerController implements Serializable {
+public class SelectPlayerController {
 	
 	public SelectPlayerController(EnterPlayerNamesMenu menu, Partie partie) {
 		

@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class Terminal implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private InputStream entree;
 	private PrintStream sortie;
 	
@@ -18,14 +19,6 @@ public class Terminal implements Serializable{
 	}
 	
 	public int lireEntier(){
-		/*
-		DataInputStream dos = new DataInputStream(entree);
-		int value=0;
-		try {
-			value =  dos.readInt();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 		int value = 0;
 		boolean valide = false;
 		while(!valide) {

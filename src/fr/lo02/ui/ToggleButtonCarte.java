@@ -12,7 +12,9 @@ import javax.swing.*;
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.enums.*;
 
-public class ToggleButtonCarte extends JToggleButton implements Serializable{
+public class ToggleButtonCarte extends JToggleButton{
+	
+	private static final long serialVersionUID = 1L;
 	public Carte carte;
 	public ImageIcon texture;
 	

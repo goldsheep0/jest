@@ -196,7 +196,6 @@ public class ConteneurCarte implements Serializable{
 				
 			}
 		}
-		//System.out.println(this.toStringTrophee());
 	}
 
 }

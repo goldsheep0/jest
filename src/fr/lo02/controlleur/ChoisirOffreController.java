@@ -9,7 +9,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.ui.ButtonCarte;
 import fr.lo02.ui.ChoisirOffreMenu;
 
-public class ChoisirOffreController implements Serializable {
+public class ChoisirOffreController {
 	
 	public ChoisirOffreController(ChoisirOffreMenu menu, Partie partie) {
 		

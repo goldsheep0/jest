@@ -10,7 +10,9 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.enums.*;
 
-public class AffichageCarteVisible extends JLabel implements Serializable{
+public class AffichageCarteVisible extends JLabel{
+	
+	private static final long serialVersionUID = 1L;
 	public Carte carte;
 	public ImageIcon texture;
 	

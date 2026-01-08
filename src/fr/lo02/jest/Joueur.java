@@ -6,6 +6,7 @@ import fr.lo02.jest.bots.StrategyJoueur;
 
 public class Joueur implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
 	private ConteneurCarte jest;
 	private ConteneurCarte offre;
 	private String nom;

@@ -19,7 +19,7 @@ import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class SeeTropheeDisplay extends JFrame implements Serializable {
+public class SeeTropheeDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

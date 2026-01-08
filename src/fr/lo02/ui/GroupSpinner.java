@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class GroupSpinner implements Serializable
-{
+public class GroupSpinner{
+	
     private int groupMaximum;
 
     private List<GroupSpinnerNumberModel> models = new ArrayList<GroupSpinnerNumberModel>();

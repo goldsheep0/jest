@@ -18,7 +18,7 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
-public class SauvegarderPartieMenu extends JFrame implements Serializable {
+public class SauvegarderPartieMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

@@ -20,7 +20,7 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class SeeOfferDisplay extends JFrame implements Serializable {
+public class SeeOfferDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

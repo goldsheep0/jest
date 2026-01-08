@@ -25,7 +25,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
-public class AttributionTropheesDisplay extends JFrame implements Serializable {
+public class AttributionTropheesDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

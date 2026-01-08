@@ -30,7 +30,7 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
-public class ConceptionOffreMenu extends JFrame implements Serializable {
+public class ConceptionOffreMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

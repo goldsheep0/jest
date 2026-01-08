@@ -8,7 +8,7 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.ScoreBoard;
 
-public class ScoreBoardController implements Serializable {
+public class ScoreBoardController {
 	
 	public ScoreBoardController (ScoreBoard scoreboard) {
 		

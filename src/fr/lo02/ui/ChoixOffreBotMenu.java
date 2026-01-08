@@ -30,7 +30,7 @@ import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-public class ChoixOffreBotMenu extends JFrame implements Serializable {
+public class ChoixOffreBotMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
