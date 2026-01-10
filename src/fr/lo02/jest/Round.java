@@ -6,6 +6,10 @@ import java.util.*;
 import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.PartieState;
 
+/**
+ * La classe Round contient les méthodes effectuées systématiquement à chaque Round.<br>
+ * Elle supporte la sérialisation.
+ */
 public class Round implements Serializable{
 	
 	private static final long serialVersionUID = 1L;

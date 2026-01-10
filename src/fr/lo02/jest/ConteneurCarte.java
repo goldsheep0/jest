@@ -13,25 +13,47 @@ import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeLowest;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeMajority;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeSuitMajority;
 
+/**
+ * Un conteneur de carte est toute liste de cartes avec les méthodes associées pour les manipuler.<br>
+ * Supporte la sérialisation.
+ */
 public class ConteneurCarte implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Liste des cartes du conteneur.
+	 */
 	private LinkedList<Carte> cartes;
 	
 	public ConteneurCarte() {
 		cartes = new LinkedList<Carte>();
 	}
 	
+	/**
+	 * Permet de retirer la dernière carte du conteneur et de la retourner.
+	 * @return - la dernière carte du conteneur.
+	 */
 	public Carte distribuerCarte() {
 		Carte c;
 		c = cartes.removeLast();
 		return c;
 	}
 	
+	/**
+	 * Permet de retirer une carte précise du conteneur et de la retourner.
+	 * 
+	 * @param c - la carte à retirer.
+	 * @return - la carte retirée.
+	 */
 	public Carte distribuerCarte(Carte c) {
 		cartes.remove(c);
 		return c;
 	}
 	
+	/**
+	 * Permet de mélanger la liste de carte.
+	 */
 	public void melanger() {
 		Collections.shuffle(cartes);
 	}
@@ -40,6 +62,9 @@ public class ConteneurCarte implements Serializable{
 		return cartes.isEmpty();
 	}
 	
+	/**
+	 * Renvoie le conteneur de carte sous forme d'une chaîne de caractères affichable.
+	 */
 	public String toString() {
 			
 		return this.cartes.toString();
@@ -49,10 +74,21 @@ public class ConteneurCarte implements Serializable{
 		return cartes;
 	}
 	
+	/**
+	 * Permet de rajouter une carte dans le conteneur.
+	 * @param c - la carte à rajouter dans le paquet.
+	 */
 	public void addCarte(Carte c) {
 		cartes.add(c);
 	}
 	
+	/**
+	 * Permet de retirer la première carte face visible présente dans le conteneur.<br>
+	 * Utile lorsque le conteneur est utilisée comme offre.
+	 * 
+	 * @param faceVisible
+	 * @return - null si aucune carte face visible est présente. La carte face visible sinon.
+	 */
 	public Carte retirerCarteFaceVisible(boolean faceVisible) {
 		for (int carteIndex = 0; carteIndex < cartes.size(); carteIndex++) {
 			if (cartes.get(carteIndex).estFaceVisible() == faceVisible) {
@@ -62,6 +98,13 @@ public class ConteneurCarte implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Permet de renvoyer la première carte face visible présente dans le conteneur.<br>
+	 * Utile lorsque le conteneur est utilisée comme offre.
+	 * 
+	 * @param faceVisible
+	 * @return - null si aucune carte face visible est présente. La carte face visible sinon.
+	 */
 	public Carte getCarteVisible() {
 		for (int carteIndex = 0; carteIndex < cartes.size(); carteIndex++) {
 			if (cartes.get(carteIndex).estFaceVisible()) {
@@ -71,6 +114,11 @@ public class ConteneurCarte implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Renvoie le conteneur de carte sous forme d'une chaîne de caractères affichable.<br>
+	 * Utilisée lorsque le conteneur est utilisé comme liste de trophées.<br>
+     * Rajoute une ligne pour afficher le trophée associé à chaque carte.
+	 */
 	public String toStringTrophee() {
 		
 		StringBuffer str = new StringBuffer();
@@ -88,6 +136,12 @@ public class ConteneurCarte implements Serializable{
 		
 	}
 	
+	/**
+	 * Renvoie la première carte présente dans le conteneur de la couleur passée en paramètre.
+	 * 
+	 * @param couleur - couleur à rechercher dans le conteneur.
+	 * @return - null si aucune carte de la couleur est présente. La carte sinon.
+	 */
 	public Carte hasCarte (Couleur couleur) {
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
 			Carte c = it.next();
@@ -98,6 +152,12 @@ public class ConteneurCarte implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Renvoie la première carte présente dans le conteneur de la valeur passée en paramètre.
+	 * 
+	 * @param valeur - valeur à rechercher dans le conteneur.
+	 * @return - null si aucune carte de la valeur est présente. La carte sinon.
+	 */
 	public Carte hasCarte (Valeur valeur) {
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
 			Carte c = it.next();
@@ -108,7 +168,12 @@ public class ConteneurCarte implements Serializable{
 		return null;
 	}
 	
-	@SuppressWarnings("rawtypes")
+	/**
+	 * Renvoie la première carte présente dans le conteneur avec la stratégie passée en paramètre.
+	 * 
+	 * @param start - stratégie à rechercher dans le conteneur.
+	 * @return - null si aucune carte avec la stratégie est présente. La carte sinon.
+	 */
 	public Carte hasCarte (Class strat) {
 		for (Iterator<Carte> it = cartes.iterator(); it.hasNext(); ) {
 			Carte c = it.next();
@@ -119,6 +184,9 @@ public class ConteneurCarte implements Serializable{
 		return null;
 	}
 	
+	/**
+	 * Permet d'attribuer une stratégie trophée aléatoire à chaque carte du conteneur.
+	 */
 	public void attribuerTropheesAleatoire() {
 		Iterator<Carte> it = this.cartes.iterator();
 		

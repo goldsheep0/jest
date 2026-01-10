@@ -7,12 +7,36 @@ import java.util.ArrayList;
 
 import fr.lo02.jest.enums.*;
 
+/**
+ * La classe carte représente une carte du jeu.<br>
+ * Implémente le patron strategy pour les règles de trophées.<br>
+ * Implémente le patron visitor pour les règles de calcul des points.<br>
+ * Supporte la sérialisation.
+ */
 public class Carte implements Serializable{
 	
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * Couleur de la carte.<br>
+     * Couleurs contenues dans l'enum Couleur
+     */
 	private Couleur couleur;
+	
+	/**
+	 * Valeur de la carte<br>
+	 * Valeurs contenues dans l'enum Valeur
+	 */
     private Valeur valeur;
+    
+    /**
+     * Stratégie utilisée pour le calcul de trophée de cette carte.
+     */
     private StrategyTrophee strategyTrophee;
+    
+    /**
+     * True si face visible, false sinon.
+     */
     private boolean faceVisible;
     
     /**
@@ -86,6 +110,11 @@ public class Carte implements Serializable{
 		return sb.toString();
     }  
     
+    /**
+     * Renvoie la carte sous forme de chaine de caractères affichable.<br>
+     * Utilisée lorsque la carte est utilisée comme trophée.<br>
+     * Rajoute une ligne pour afficher le trophée associé à la carte.
+     */
     public String toStringTrophee() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.toString());
@@ -93,12 +122,13 @@ public class Carte implements Serializable{
 		sb.append(this.strategyTrophee.toString());
 		return sb.toString();
     }  
-	
-    public static void main(String[]args){
-
-
-    }
     
+    /**
+     * Permet de comparer la carte avec une autre carte et de renvoyer la carte de valeur la plus haute.
+     * 
+     * @param c - la carte à comparer.
+     * @return Carte - la carte la plus haute.
+     */
     public Carte compareTo(Carte c) {
     	if (valeur.ordinal() > c.valeur.ordinal()) {
     		return this;
