@@ -1,7 +1,6 @@
 package fr.lo02.ui;
 
 import java.awt.EventQueue;
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Observable;
 import java.util.Observer;

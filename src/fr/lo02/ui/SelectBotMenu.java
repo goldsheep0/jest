@@ -14,6 +14,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 
+/**
+ * Fenêtre où l'utilisateur choisi le nombre et le type de bot qu'il souhaite inclure dans la partie.
+ */
 public class SelectBotMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/**
+ * Permet de créer un groupe de JSpinner avec un maximum partagé.
+ */
 public class GroupSpinner{
 	
     private int groupMaximum;
@@ -103,18 +106,5 @@ public class GroupSpinner{
         frame.setVisible( true );
     }
 
-    public static void main(String[] args)
-    {
-        EventQueue.invokeLater( () -> createAndShowGUI() );
-/*
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                createAndShowGUI();
-            }
-        });
-*/
-    }
 
 }

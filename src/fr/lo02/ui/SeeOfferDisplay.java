@@ -20,6 +20,9 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * Fenêtre où l'utilisateur peut voir l'offre qu'il a conçu.
+ */
 public class SeeOfferDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;

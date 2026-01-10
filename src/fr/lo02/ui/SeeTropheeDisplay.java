@@ -19,6 +19,9 @@ import java.util.LinkedList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * Fenêtre où l'utilisateur peut voir les trophées de la partie.
+ */
 public class SeeTropheeDisplay extends JFrame{
 
 	private static final long serialVersionUID = 1L;

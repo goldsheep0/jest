@@ -30,6 +30,9 @@ import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
+/**
+ * Fenêtre qui permet d'afficher le choix d'un bot parmi les offres à sa disposition.
+ */
 public class ChoixOffreBotMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

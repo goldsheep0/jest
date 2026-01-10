@@ -2,7 +2,6 @@ package fr.lo02.ui;
 
 import java.awt.EventQueue;
 import java.io.File;
-import java.io.Serializable;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JButton;
 
+/**
+ * Fenêtre où l'utilisateur peut charger une sauvegarde.
+ */
 public class LoadSaveMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

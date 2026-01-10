@@ -18,6 +18,9 @@ import javax.swing.JList;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+/**
+ * Fenêtre où l'utilisateur peut choisir une sauvegarde à écraser ou choisir d'en créer une nouvelle.
+ */
 public class SauvegarderPartieMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

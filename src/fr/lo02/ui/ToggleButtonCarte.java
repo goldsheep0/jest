@@ -12,10 +12,22 @@ import javax.swing.*;
 import fr.lo02.jest.Carte;
 import fr.lo02.jest.enums.*;
 
+/**
+ * Affichage d'une carte sous forme d'un toggle button que l'utilisateur peut rendre active (carte face cachée) ou innactive (carte face visible).<br>
+ * Utilisé lorsqu'un joueur physique construit son offre.
+ */
 public class ToggleButtonCarte extends JToggleButton{
 	
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Carte à afficher
+	 */
 	public Carte carte;
+	
+	/**
+	 * Texture de la carte face visible
+	 */
 	public ImageIcon texture;
 	
 	public Carte getCarte() {

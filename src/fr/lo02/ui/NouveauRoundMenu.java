@@ -14,6 +14,9 @@ import java.io.Serializable;
 
 import javax.swing.JButton;
 
+/**
+ * Fenêtre qui indique la création d'un nouveau round et donne l'option à l'utilisateur de sauvegardere la partie.
+ */
 public class NouveauRoundMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

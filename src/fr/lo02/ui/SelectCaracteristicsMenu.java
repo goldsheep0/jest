@@ -17,6 +17,9 @@ import javax.swing.JRadioButton;
 import javax.swing.JList;
 import javax.swing.SwingConstants;
 
+/**
+ * Fenêtre où l'utilisateur choisi la variante qu'il souhaite utiliser pendant la partie et le nombre de joueurs.
+ */
 public class SelectCaracteristicsMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

@@ -1,6 +1,5 @@
 package fr.lo02.ui;
 
-import java.io.Serializable;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -10,16 +9,43 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.enums.*;
 
+/**
+ * Classe pour afficher une carte dans l'UI.<br>
+ * Plusieurs constructeur permettent de l'afficher en temps que :<br>
+ * trophée;<br>
+ * trophée attribué à un joueur;<br>
+ * jest d'un joueur;<br>
+ * offre construite d'un joueur;<br>
+ * ou carte choisie par un joueur.
+ */
 public class AffichageCarteVisible extends JLabel{
 	
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Référence vers la carte affichée
+	 */
 	public Carte carte;
+	
+	/**
+	 * Texture à utiliser pour l'affichage de la carte.
+	 */
 	public ImageIcon texture;
 	
 	public Carte getCarte() {
 		return this.carte;
 	}
 	
+	/**
+	 * Contructeur lorsque l'affichage est utilisé pour :<br>
+	 * Afficher les trophées de la partie : mettre trophee à true et offer à false,<br>
+	 * Afficher le jest d'un joueur : mettre trophee et offer à false,<br>
+	 * Afficher l'offre construite d'un joueur : mettre trophee à false et offer à true.
+	 * 
+	 * @param carte - la carte à afficher.
+	 * @param trophee
+	 * @param offer
+	 */
 	public AffichageCarteVisible(Carte carte, boolean trophee, boolean offer) {
 		super();
 		this.carte=carte;
@@ -126,6 +152,12 @@ public class AffichageCarteVisible extends JLabel{
 		super.setIcon(this.texture);
 	}
 	
+	/**
+	 * Contructeur lorsque l'affichage est utilisé pour afficher un trophée attribué à un joueur passé en argument.
+	 * 
+	 * @param carte - la carte à afficher.
+	 * @param joueur - le joueur ayant gagné le trophée.
+	 */
 	public AffichageCarteVisible(Carte carte, Joueur joueur) {
 		super();
 		this.carte=carte;
@@ -218,6 +250,12 @@ public class AffichageCarteVisible extends JLabel{
 		super.setIcon(this.texture);
 	}
 	
+	/**
+	 * Contructeur lorsque l'affichage est utilisé pour afficher les cartes choisies ou non par un bot.
+	 * 
+	 * @param carte - la carte à afficher.
+	 * @param choisie - true si la carte est la carte sélectionnée par le bot, false sinon.
+	 */
 	public AffichageCarteVisible(Carte carte, boolean choisie) {
 		super();
 		this.carte=carte;

@@ -13,10 +13,26 @@ import fr.lo02.jest.Carte;
 import fr.lo02.jest.Joueur;
 import fr.lo02.jest.enums.*;
 
+/**
+ * Affiche une carte sous forme de bouton cliquable par l'utilisateur.<br>
+ * Utiliser lors de la sélection d'une carte dans une offre par un joueur.
+ */
 public class ButtonCarte extends JButton{
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Joueur à qui appartient la carte.
+	 */
 	public Joueur joueur;
+	
+	/**
+	 * Carte à afficher
+	 */
 	public Carte carte;
+	
+	/**
+	 * Texture de la carte
+	 */
 	public ImageIcon texture;
 	
 	public Carte getCarte() {

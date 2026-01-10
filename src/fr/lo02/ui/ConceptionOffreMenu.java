@@ -30,11 +30,22 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.awt.event.ActionEvent;
 
+/**
+ * Fenêtre où un joueur physique choisi la carte qu'il mettra face cachée dans son offre.
+ */
 public class ConceptionOffreMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	/**
+	 * Liste des cartes que le joueur peut retourner ou non.
+	 */
 	private LinkedList<ToggleButtonCarte> userChoice = new LinkedList<ToggleButtonCarte>();
+	
+	/**
+	 * Joueur dont c'est le tour.
+	 */
 	private Joueur joueur;
 	private JButton btnValiderChoix;
 	

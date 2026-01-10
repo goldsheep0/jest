@@ -25,12 +25,24 @@ import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeHighest;
 
+/**
+ * Fenêtre où les joueurs physiques choisissent une carte parmi les offres à leur disposition.
+ */
 public class ChoisirOffreMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	/**
+	 * Joueur dont c'est le tour
+	 */
 	private Joueur joueur;
+	
+	/**
+	 * Liste de carte à disposition du joueur.
+	 */
 	private LinkedList<ButtonCarte> userChoice = new LinkedList<ButtonCarte>();
+	
 	private LinkedList<JPanel> listePanel = new LinkedList<JPanel>();
 	
 	public LinkedList<ButtonCarte> getUserChoice() {return userChoice;}

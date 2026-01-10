@@ -18,6 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
+/**
+ * Fenêtre où l'utilisateur indique le nom de la sauvegarde qu'il souhaite créer.
+ */
 public class NouvelleSauvegardeMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;

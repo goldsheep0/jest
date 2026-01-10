@@ -14,11 +14,22 @@ import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+/**
+ * Menu où l'utilisateur entre le nom des joueurs physiques présent dans la partie.
+ */
 public class EnterPlayerNamesMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	
+	/**
+	 * Nombre de joueur physique dans la partie.
+	 */
 	private int nbJoueurPhysiques;
+	
+	/**
+	 * Liste des texts fields où l'utilisateur entre les noms des joueurs.
+	 */
 	private LinkedList<JTextField> listeEntrees = new LinkedList<JTextField>();
 	private JButton btnCrerPartie;
 	

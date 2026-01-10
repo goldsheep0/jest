@@ -14,6 +14,9 @@ import java.io.Serializable;
 
 import javax.swing.JButton;
 
+/**
+ * Fenêtre où l'utilisateur choisi, au début de la partie, si il souhaite charger une partie ou en créer une nouvelle.
+ */
 public class StartMenu extends JFrame{
 
 	private static final long serialVersionUID = 1L;
