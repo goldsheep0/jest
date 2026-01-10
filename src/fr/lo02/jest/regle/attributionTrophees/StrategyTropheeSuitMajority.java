@@ -11,8 +11,16 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 
+/**
+ * Stratégie trophée suit majority.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeSuitMajority implements StrategyTrophee,Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
+
+
 	public StrategyTropheeSuitMajority() {}
 	
 	
@@ -121,7 +129,7 @@ public class StrategyTropheeSuitMajority implements StrategyTrophee,Serializable
 	
 	
 	/**
-	 * Test unitaire pour la règle Trophee best jest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant. 
+	 * Test unitaire pour la règle Trophee best jest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.<br>
 	 * On peut retirer la ligne cont.melanger() pour obtenir des résultats prévisibles en fonction de l'ordre des cartes dans le paquet.
 	 * @param args
 	 */

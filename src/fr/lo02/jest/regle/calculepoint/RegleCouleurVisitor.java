@@ -1,6 +1,5 @@
 package fr.lo02.jest.regle.calculepoint;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -9,10 +8,13 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
 
-public class RegleCouleurVisitor implements Visitor,Serializable{
-	/*
-	 * l'attribut totalPoint n'a pas besoin de setter car sa valeur
-	 * n'est modifié que par les méthode de la règle.
+/**
+ * Règle de calcul des point pour les cartes en fonction de leur couleur.
+ */
+public class RegleCouleurVisitor implements Visitor{
+	
+	/**
+	 * Contient le total des points après que chaque carte du jest d'un joueur a visité cette carte.
 	 */
 	private int totalPoint;
 	
@@ -26,8 +28,8 @@ public class RegleCouleurVisitor implements Visitor,Serializable{
 	
 	
 	/**
-	 * Cette fonction permet de rajouter de la valeur au jest en fonction de la couleur des cartes présente à l'intérieur :
-	 * Pique & tréfle : ajoute sa valeur à la valeur du jest
+	 * Cette fonction permet de rajouter de la valeur au jest en fonction de la couleur des cartes présente à l'intérieur :<br>
+	 * Pique & tréfle : ajoute sa valeur à la valeur du jest<br>
 	 * Carreau : retire sa valeur à la valeur du jest
 	 * 
 	 * @param carte
@@ -54,12 +56,11 @@ public class RegleCouleurVisitor implements Visitor,Serializable{
 	}
 	
 	/**
-	 * Permet de test la classe avec différents cas qui sont :
-	 * Une carte pique : ajoute sa valeur au jest
-	 * Une carte trefle : ajoute sa valeur au jest
-	 * Une carte carreau : soustrait sa valeur au jest
-	 * 
-	 * Les coeurs et joker ne valent rien car ils sont calculés dans d'autres règles.
+	 * Permet de test la classe avec différents cas qui sont :<br>
+	 * Une carte pique : ajoute sa valeur au jest<br>
+	 * Une carte trefle : ajoute sa valeur au jest<br>
+	 * Une carte carreau : soustrait sa valeur au jest<br>
+	 * Les coeurs et joker ne valent rien car ils sont calculés dans d'autres règles.<br>
 	 * Les As ne valent qu'un point car leur règle spécifique détermine si ils n'en vaudront qu'1 ou si 4 points seront ajoutés.
 	 * @param args
 	 */

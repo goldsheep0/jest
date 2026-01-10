@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import fr.lo02.jest.Joueur;
 
+/**
+ * Interface implémentée par les stratégies de calcul d'attribution de trophées.
+ */
 public interface StrategyTrophee {
 	
 	/**

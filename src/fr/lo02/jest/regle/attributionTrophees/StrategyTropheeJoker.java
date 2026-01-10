@@ -6,6 +6,10 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
+/**
+ * Stratégie trophée joker.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeJoker implements StrategyTrophee,Serializable {
 	
 	public StrategyTropheeJoker() {}

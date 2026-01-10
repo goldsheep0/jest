@@ -6,7 +6,17 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
+/**
+ * Stratégie trophée lowest.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeLowest implements StrategyTrophee,Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Couleur où rechercher la plus petite valeur.
+	 */
 	private Couleur couleur;
 	
 	public StrategyTropheeLowest(Couleur couleur) {
@@ -24,7 +34,7 @@ public class StrategyTropheeLowest implements StrategyTrophee,Serializable {
 	}
 	
 	
-	/*
+	/**
 	 * Renvoie le joueur qui a la carte de plus faible valeur de la couleur indiquée dans son jest.
 	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {

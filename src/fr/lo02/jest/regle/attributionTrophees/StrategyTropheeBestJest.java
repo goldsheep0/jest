@@ -11,14 +11,19 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 
+/**
+ * Stratégie trophée best jest.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeBestJest implements StrategyTrophee,Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	public StrategyTropheeBestJest() {}
 	
-	
 	/**
-	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point. Le joueur ayant
-	 * la carte de plus haute valeur parmi les joueurs ex aequo l'emporte.
+	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point.<br>
+	 * Le joueur ayant la carte de plus haute valeur parmi les joueurs ex aequo l'emporte.
 	 * @param joueurExAequo
 	 * @return
 	 */
@@ -98,10 +103,8 @@ public class StrategyTropheeBestJest implements StrategyTrophee,Serializable{
 		
 	}
 	
-	
-	
 	/**
-	 * Test unitaire pour la règle Trophee best jest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant. 
+	 * Test unitaire pour la règle Trophee best jest, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.<br>
 	 * On peut retirer la ligne cont.melanger() pour obtenir des résultats prévisibles en fonction de l'ordre des cartes dans le paquet.
 	 * @param args
 	 */

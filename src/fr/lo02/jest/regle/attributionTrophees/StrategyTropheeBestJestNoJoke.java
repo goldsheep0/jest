@@ -14,8 +14,14 @@ import fr.lo02.jest.bots.StrategyJoueurPhysique;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.enums.Valeur;
 
+/**
+ * Stratégie trophée best jest no joke.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	public StrategyTropheeBestJestNoJoke() {}
 
 	public String toString() {
@@ -30,8 +36,8 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializab
 	
 	
 	/**
-	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point. Le joueur ayant
-	 * la carte de plus haute valeur parmi les joueurs ex aequo l'emporte.
+	 * Départage le cas ou des joueurs se retrouve avec le même nombre de point.<br>
+	 * Le joueur ayant la carte de plus haute valeur parmi les joueurs ex aequo l'emporte.
 	 * @param joueurExAequo
 	 * @return
 	 */
@@ -66,7 +72,7 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializab
 	}
 	
 	/**
-	 * Renvoie le joueur qui possède le meilleur jest en excluant les joueurs ayant un ou plusieurs joker dans leur jest.
+	 * Renvoie le joueur qui possède le meilleur jest en excluant les joueurs ayant un ou plusieurs joker dans leur jest.<br>
 	 * Les égalités sont gérées dans departagerJoueurExAequo().
 	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
@@ -128,7 +134,7 @@ public class StrategyTropheeBestJestNoJoke implements StrategyTrophee,Serializab
 
 
 /**
- * Test unitaire pour la règle Trophee best jest no joke, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant. 
+ * Test unitaire pour la règle Trophee best jest no joke, simule un jest pour 3 joueurs et affiche le jest du joueur gagnant.<br>
  * On peut retirer la ligne cont.melanger() pour obtenir des résultats prévisibles en fonction de l'ordre des cartes dans le paquet.
  * @param args
  */

@@ -8,14 +8,20 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
 
-public class ReglePairesNoiresVisitor implements Visitor,Serializable{
-	/*
-	 * l'attribut totalPoint n'a pas besoin de setter car sa valeur
-	 * n'est modifié que par les méthode de la règle.
+/**
+ * Règle de calcul des point pour les paires de cartes noires.
+ */
+public class ReglePairesNoiresVisitor implements Visitor{
+	
+	/**
+	 * Contient le total des points après que chaque carte du jest d'un joueur a visité cette carte.
 	 */
 	private int totalPoint;
 	
-	private HashSet<Valeur> setValeursNoiresVisitees; //Attribut maniuplé uniquement par la class
+	/**
+	 * Contient les valeurs noires trouvées par la classe et pour lesquelles une paire n'a pas encore été trouvé.
+	 */
+	private HashSet<Valeur> setValeursNoiresVisitees;
 	
 	public ReglePairesNoiresVisitor() {
 		this.totalPoint=0;
@@ -27,7 +33,7 @@ public class ReglePairesNoiresVisitor implements Visitor,Serializable{
 	}
 	
 	/**
-	 * Une paire de couleur noire rajoute 2 points à la valeur du jest
+	 * Une paire de couleur noire rajoute 2 points à la valeur du jest.
 	 * 
 	 * @param carte
 	 */
@@ -43,8 +49,8 @@ public class ReglePairesNoiresVisitor implements Visitor,Serializable{
 	}
 	
 	/**
-	 * Permet de test la classe avec différents cas :
-	 * On s'attend à ce que une paire de cartes noires (pique et trefle) rajoute 2 points au jest, par paire.
+	 * Permet de test la classe avec différents cas :<br>
+	 * On s'attend à ce que une paire de cartes noires (pique et trefle) rajoute 2 points au jest, par paire.<br>
 	 * Aucune paire ne rajoute aucun point.
 	 * 
 	 * @param args

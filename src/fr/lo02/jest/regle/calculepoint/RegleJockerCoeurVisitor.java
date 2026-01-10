@@ -1,6 +1,5 @@
 package fr.lo02.jest.regle.calculepoint;
 
-import java.io.Serializable;
 import java.util.*;
 
 import fr.lo02.jest.Carte;
@@ -8,13 +7,19 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTrophee;
 import fr.lo02.jest.regle.attributionTrophees.StrategyTropheeNull;
 
-public class RegleJockerCoeurVisitor implements Visitor,Serializable{
-	/*
-	 * l'attribut totalPoint n'a pas besoin de setter car sa valeur
-	 * n'est modifié que par les méthode de la règle.
+/**
+ * Règle de calcul des point pour les cartes de coeur.
+ */
+public class RegleJockerCoeurVisitor implements Visitor{
+	
+	/**
+	 * Contient le total des points après que chaque carte du jest d'un joueur a visité cette carte.
 	 */
 	private int totalPoint;
 	
+	/**
+	 * Contient une référence vers les cartes du jest du joueur dont on est en train de calculer les points.
+	 */
 	private LinkedList<Carte> jest;
 
 	public RegleJockerCoeurVisitor(LinkedList<Carte> jestJoueur) {
@@ -28,11 +33,10 @@ public class RegleJockerCoeurVisitor implements Visitor,Serializable{
 	
 	
 	/**
-	 * La valeur des coeur et des joker sont interdépendantes :
-	 * 
-	 * Des coeurs sans joker ne font rien.
-	 * Un joker seul ajoute 4 points au jest.
-	 * Un joker et 1,2 ou 3 coeurs soustraient la valeur des coeurs au jest.
+	 * La valeur des coeur et des joker sont interdépendantes :<br>
+	 * Des coeurs sans joker ne font rien.<br>
+	 * Un joker seul ajoute 4 points au jest.<br>
+	 * Un joker et 1,2 ou 3 coeurs soustraient la valeur des coeurs au jest.<br>
 	 * Un joker et 4 coeurs ajoutent la valeur des coeurs au jest.
 	 * 
 	 * @param carte
@@ -81,11 +85,11 @@ public class RegleJockerCoeurVisitor implements Visitor,Serializable{
 	}
 	
 	/**
-	 * Permet de test la classe avec différents cas qui sont :
-	 * Aucun joker : expected 0
-	 * Un joker, aucun coeur : expected 4
-	 * Un joker, un as : expected -5
-	 * Un joker, 1,2 ou 3 coeur : expected -valeursAjoutesDesCartes
+	 * Permet de test la classe avec différents cas qui sont :<br>
+	 * Aucun joker : expected 0<br>
+	 * Un joker, aucun coeur : expected 4<br>
+	 * Un joker, un as : expected -5<br>
+	 * Un joker, 1,2 ou 3 coeur : expected -valeursAjoutesDesCartes<br>
 	 * Un joker, les 4 coeurs : expected 10
 	 * @param args
 	 */

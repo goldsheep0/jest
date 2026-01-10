@@ -6,7 +6,16 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
+/**
+ * Stratégie trophée highest.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeHighest implements StrategyTrophee,Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Couleur où chercher la plus haute carte.
+	 */
 	private Couleur couleur;
 	
 	public StrategyTropheeHighest(Couleur couleur) {

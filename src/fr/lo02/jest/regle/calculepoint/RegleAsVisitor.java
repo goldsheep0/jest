@@ -7,18 +7,25 @@ import java.util.*;
 import fr.lo02.jest.enums.*;
 import fr.lo02.jest.regle.attributionTrophees.*;
 
-public class RegleAsVisitor implements Visitor,Serializable{
-	/*
-	 * l'attribut totalPoint n'a pas besoin de setter car sa valeur
-	 * n'est modifié que par les méthode de la règle.
+/**
+ * Règle de calcul des point pour les As.
+ */
+public class RegleAsVisitor implements Visitor{
+	
+	/**
+	 * Contient le total des points après que chaque carte du jest d'un joueur a visité cette carte.
 	 */
 	private int totalPoint;
+	
+	/**
+	 * Contient une référence vers les cartes du jest du joueur dont on est en train de calculer les points.
+	 */
 	private LinkedList<Carte> jest;
 	
 	/**
 	 * Constructeur de la classe RegleAsVisitor
 	 * 
-	 *\/!\ PAS PASSER OBJECT JEST EN ARGUMENT
+	 * /!\ NE PAS PASSER L'OBJET JEST EN ARGUMENT
 	 * @param LinkedList<Carte> Jest
 	 */
 	public RegleAsVisitor(LinkedList<Carte> jestJoueur) {
@@ -31,11 +38,9 @@ public class RegleAsVisitor implements Visitor,Serializable{
 	}
 	
 	/**
-	 * Ajoute 4 points à la valeur d'un jocker si le jocker est la seule carte de sa couleur
-	 * dans le jest. 
-	 * La règle du jeu stipule qu'un jocker vaut 5 points si il est le seul de sa couleur et 1
-	 * point sinon. On considère ici que la valeur par défaut d'un jocker est 1 avec une valeur
-	 * additionelle de 4 si il est le seul de sa couleur.
+	 * Ajoute 4 points à la valeur d'un jocker si le jocker est la seule carte de sa couleur dans le jest.<br>
+	 * La règle du jeu stipule qu'un jocker vaut 5 points si il est le seul de sa couleur et 1 point sinon.<br>
+	 * On considère ici que la valeur par défaut d'un jocker est 1 avec une valeur additionelle de 4 si il est le seul de sa couleur.
 	 * 
 	 * @param carte
 	 */
@@ -60,9 +65,9 @@ public class RegleAsVisitor implements Visitor,Serializable{
 	
 	
 	/**
-	 * Permet de test la classe avec différents cas qui sont :
-	 * Un as et aucune carte de la même couleur : +4 point sur le jest
-	 * Un as et au moins une carte de la même couleur : 0 point
+	 * Permet de test la classe avec différents cas qui sont :<br>
+	 * Un as et aucune carte de la même couleur : +4 point sur le jest<br>
+	 * Un as et au moins une carte de la même couleur : 0 point<br>
 	 * Aucun as : 0 point
 	 * @param args
 	 */

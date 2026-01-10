@@ -10,6 +10,8 @@ import fr.lo02.jest.Joueur;
  */
 public class StrategyTropheeNull implements StrategyTrophee,Serializable{
 
+	private static final long serialVersionUID = 1L;
+
 	public StrategyTropheeNull() {
 		
 	}
@@ -17,11 +19,8 @@ public class StrategyTropheeNull implements StrategyTrophee,Serializable{
 		return null;
 		
 	}
-	
-	
-	@Override
+
 	public Joueur execute(ArrayList<Joueur> joueurs) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

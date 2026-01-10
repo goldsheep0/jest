@@ -6,7 +6,16 @@ import fr.lo02.jest.enums.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.bots.*;
 
+/**
+ * Stratégie trophée majority.<br>
+ * Supporte la sérialisation.
+ */
 public class StrategyTropheeMajority implements StrategyTrophee,Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Valeur où chercher le plus grand nombre de carte.
+	 */
 	private Valeur valeur;
 	
 	public StrategyTropheeMajority(Valeur valeur) {
@@ -29,7 +38,7 @@ public class StrategyTropheeMajority implements StrategyTrophee,Serializable {
 	
 
 	/**
-	 * Renvoie le joueur qui possède le plus de carte de la valeur indiquée.
+	 * Renvoie le joueur qui possède le plus de carte de la valeur indiquée.<br>
 	 * Les égalités sont départagées en prenant la carte qui a la couleur de plus grande valeur.
 	 */
 	public Joueur execute(ArrayList<Joueur> joueurs) {
