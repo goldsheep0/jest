@@ -102,7 +102,6 @@ public class ConteneurCarte implements Serializable{
 	 * Permet de renvoyer la première carte face visible présente dans le conteneur.<br>
 	 * Utile lorsque le conteneur est utilisée comme offre.
 	 * 
-	 * @param faceVisible
 	 * @return - null si aucune carte face visible est présente. La carte face visible sinon.
 	 */
 	public Carte getCarteVisible() {
@@ -171,7 +170,7 @@ public class ConteneurCarte implements Serializable{
 	/**
 	 * Renvoie la première carte présente dans le conteneur avec la stratégie passée en paramètre.
 	 * 
-	 * @param start - stratégie à rechercher dans le conteneur.
+	 * @param strat - stratégie à rechercher dans le conteneur.
 	 * @return - null si aucune carte avec la stratégie est présente. La carte sinon.
 	 */
 	public Carte hasCarte (Class strat) {

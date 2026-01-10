@@ -26,7 +26,7 @@ public class RegleAsVisitor implements Visitor{
 	 * Constructeur de la classe RegleAsVisitor
 	 * 
 	 * /!\ NE PAS PASSER L'OBJET JEST EN ARGUMENT
-	 * @param LinkedList<Carte> Jest
+	 * @param jestJoueur
 	 */
 	public RegleAsVisitor(LinkedList<Carte> jestJoueur) {
 		this.totalPoint=0;

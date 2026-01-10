@@ -29,7 +29,7 @@ public class RegleCouleurVisitor implements Visitor{
 	
 	/**
 	 * Cette fonction permet de rajouter de la valeur au jest en fonction de la couleur des cartes présente à l'intérieur :<br>
-	 * Pique & tréfle : ajoute sa valeur à la valeur du jest<br>
+	 * Pique et tréfle : ajoute sa valeur à la valeur du jest<br>
 	 * Carreau : retire sa valeur à la valeur du jest
 	 * 
 	 * @param carte
