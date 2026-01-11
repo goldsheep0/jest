@@ -83,10 +83,10 @@ public class ConteneurCarte implements Serializable{
 	}
 	
 	/**
-	 * Permet de retirer la première carte face visible présente dans le conteneur.<br>
+	 * Permet de retirer la première carte, dont la face est comme celle passée en argument, présente dans le conteneur.<br>
 	 * Utile lorsque le conteneur est utilisée comme offre.
 	 * 
-	 * @param faceVisible
+	 * @param faceVisible - true pour la première carte face visible, false pour la première carte face cachée
 	 * @return - null si aucune carte face visible est présente. La carte face visible sinon.
 	 */
 	public Carte retirerCarteFaceVisible(boolean faceVisible) {
