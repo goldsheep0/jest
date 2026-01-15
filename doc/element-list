@@ -1,0 +1,10 @@
+module:Jest
+fr.lo02.controlleur
+fr.lo02.jest
+fr.lo02.jest.bots
+fr.lo02.jest.enums
+fr.lo02.jest.regle.attributionTrophees
+fr.lo02.jest.regle.calculepoint
+fr.lo02.texte
+fr.lo02.ui
+org.eclipse.wb.swing
