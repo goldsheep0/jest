@@ -2,12 +2,15 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.AttributionTropheesDisplay;
 
+
+/**
+ * Change l'état de la partie vers l'affichage des scores.
+ */
 public class TropheesController {
 	
 	public TropheesController (AttributionTropheesDisplay menu) {

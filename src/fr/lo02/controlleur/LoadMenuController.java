@@ -2,12 +2,15 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.LoadSaveMenu;
 
+/**
+ * Récupère l'input utilisateur et charge le fichier choisi.<br>
+ * Si aucun fichier n'est présent dans la liste, change la partie à l'état de choix des caractéristiques.
+ */
 public class LoadMenuController {
 	
 	public LoadMenuController (LoadSaveMenu menu) {

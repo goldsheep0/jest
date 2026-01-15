@@ -2,12 +2,14 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.ScoreBoard;
 
+/**
+ * Change l'état à celui de sauvegarde quand le joueur appuie sur le bouton.
+ */
 public class ScoreBoardController {
 	
 	public ScoreBoardController (ScoreBoard scoreboard) {

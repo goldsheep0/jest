@@ -1,1 +1,0 @@
-package fr.lo02.jest.bots;

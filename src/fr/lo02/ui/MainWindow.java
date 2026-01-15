@@ -11,6 +11,10 @@ import fr.lo02.controlleur.*;
 import fr.lo02.jest.*;
 import fr.lo02.jest.enums.*;
 
+/**
+ * Permet l'utilisation d'une Vue (patron MVC) graphique.<br>
+ * Crée et supprime les fenêtres de la vue en fonction de l'état de la partie.
+ */
 @SuppressWarnings("deprecation")
 public class MainWindow extends Thread implements Observer {
 
@@ -30,6 +34,10 @@ public class MainWindow extends Thread implements Observer {
 	private SauvegarderPartieMenu saveMenu;
 	private NouvelleSauvegardeMenu newSaveMenu;
 
+	/**
+	 * Crée une fenêtre avec les trophées de la partie.
+	 * @param trophees la liste des trophées de la partie.
+	 */
 	public void afficherTrophee(LinkedList<Carte> trophees) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -46,6 +54,10 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Crée une fenêtre avec les cartes du jest du joueur.
+	 * @param jest la liste des cartes du jest du joueur.
+	 */
 	public void afficherJest(LinkedList<Carte> jest) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,6 +73,10 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * [Debug only] Crée une fenêtre avec les cartes d'une offre.
+	 * @param offre la liste des cartes d'une offre.
+	 */
 	public void afficherOffre(LinkedList<Carte> offre) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -88,6 +104,11 @@ public class MainWindow extends Thread implements Observer {
 		partie = Partie.getPartie();
 	}
 	
+	/**
+	 * Affiche ou supprime une fenêtre.
+	 * @param window la fenêtre à afficher.
+	 * @param enabled affiche si true, supprime si false.
+	 */
 	public void enableWindow (JFrame window, boolean enabled) {
 		if (window != null) {
 			window.setVisible(enabled);
@@ -99,6 +120,10 @@ public class MainWindow extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Initialise une fenêtre (taille, opération, affichage).
+	 * @param window la fen^tre à afficher.
+	 */
 	public void initializeWindow (JFrame window) {
 		if (window instanceof ChoisirOffreMenu || window instanceof ChoixOffreBotMenu) {
 			window.setBounds(250, 150, 1000, 500);
@@ -109,6 +134,9 @@ public class MainWindow extends Thread implements Observer {
 		window.setVisible(true);
 	}
 	
+	/**
+	 * Lance le menu de démarrage;
+	 */
 	public void start_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -121,6 +149,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de caractéristiques.
+	 */
 	public void caracteristics_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -138,6 +169,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu des bots.
+	 */
 	public void bots_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -151,6 +185,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu des joueurs.
+	 */
 	public void players_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -164,6 +201,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de nouveau round.
+	 */
 	public void new_round_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -179,6 +219,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de création des offres.
+	 */
 	public void faire_offre_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -193,6 +236,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu du choix des offres.
+	 */
 	public void choisir_offre_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -209,6 +255,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu du choix des offres pour les bots.
+	 */
 	public void choisir_offre_bot_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -225,6 +274,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu d'attribution des trophées.
+	 */
 	public void trophees_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -240,6 +292,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de visionnage des scores.
+	 */
 	public void scoreboard_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -253,6 +308,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de chargement d'une partie.
+	 */
 	public void load_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -267,6 +325,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de sauvegarde (choix du fichier) d'une partie.
+	 */
 	public void save_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -281,6 +342,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 	
+	/**
+	 * Lance le menu de sauvegarde (l'utilisateur entre le nom du fichier) d'une partie.
+	 */
 	public void new_save_menu() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -294,6 +358,9 @@ public class MainWindow extends Thread implements Observer {
 		});
 	}
 
+	/**
+	 * Mise à jour des fenêtres, lorsque la Partie change d'état.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		

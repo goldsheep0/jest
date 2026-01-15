@@ -2,15 +2,13 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
-
-import javax.swing.*;
-
-import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.SelectBotMenu;
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 
+/**
+ * Crée des bots en fonction du nombre et du type choisi par l'utilisateur.
+ */
 public class SelectBotController {
 	
 	public SelectBotController(SelectBotMenu botMenu, Partie partie) {

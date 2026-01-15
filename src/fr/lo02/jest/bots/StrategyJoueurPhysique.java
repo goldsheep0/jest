@@ -11,6 +11,9 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.Round;
 import fr.lo02.jest.Terminal;
 
+/**
+ * Stratégie du joueur physique. Cette classe permet de récupérer les inputs utilisateurs textuels pour la conception et le choix des offres.
+ */
 public class StrategyJoueurPhysique implements StrategyJoueur,Serializable {
 	
 	private Joueur joueur;
@@ -26,6 +29,9 @@ public class StrategyJoueurPhysique implements StrategyJoueur,Serializable {
 		this.joueur = j;
 	}
 
+	/**
+	 * Récupère la carte que le joueur veut retourner.
+	 */
 	public int executeRealiserOffre() {
 		Terminal terminal = Partie.getPartie().getTerminal();
 		terminal.afficherDivision();
@@ -39,6 +45,9 @@ public class StrategyJoueurPhysique implements StrategyJoueur,Serializable {
 		return saisie - 1;
 	}
 
+	/**
+	 * Récupère le joueur adverse qui a l'offre choisie.
+	 */
 	public int executeChoisirJoueur() {
 		// Boucle à travers les joueurs restants
 		LinkedList<Joueur> autresJoueurs = Round.getAutresJoueurs(joueur);

@@ -2,7 +2,6 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import javax.swing.JList;
 
@@ -10,6 +9,10 @@ import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.SauvegarderPartieMenu;
 
+/**
+ * Sauvegarde la partie à l'emplacement séléectionné, ou<br>
+ * Change l'état de la partie à celui d'entrée du nom de fichier de sauvegarde.
+ */
 public class SaveController {
 	
 	public SaveController (SauvegarderPartieMenu menu) {

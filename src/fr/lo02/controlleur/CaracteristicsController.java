@@ -2,15 +2,16 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import javax.swing.*;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
-import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.SelectCaracteristicsMenu;
 
+/**
+ * Permet de set les caractéristiques (nombre de joueurs, variante) de la partie en fonction des inputs utilisateurs.
+ */
 public class CaracteristicsController {
 	
 	public CaracteristicsController(SelectCaracteristicsMenu menu, Partie partie) {

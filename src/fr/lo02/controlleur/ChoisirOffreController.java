@@ -2,13 +2,15 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.LinkedList;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.ui.ButtonCarte;
 import fr.lo02.ui.ChoisirOffreMenu;
 
+/**
+ * Permet de récupérer la carte choisie par le joueur et de la lui transférer.
+ */
 public class ChoisirOffreController {
 	
 	public ChoisirOffreController(ChoisirOffreMenu menu, Partie partie) {

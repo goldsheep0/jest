@@ -2,16 +2,16 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.swing.JTextField;
 
 import fr.lo02.jest.Partie;
-import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.EnterPlayerNamesMenu;
 
+/**
+ * Permet d'ajouter les joueurs avec les noms entrés par l'utilisateur.
+ */
 public class SelectPlayerController {
 	
 	public SelectPlayerController(EnterPlayerNamesMenu menu, Partie partie) {

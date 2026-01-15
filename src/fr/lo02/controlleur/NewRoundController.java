@@ -2,12 +2,16 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.NouveauRoundMenu;
 
+/**
+ * Récupère l'input utilisateur pour soit :<br>
+ * - Changer l'état de la partie à celui de sauvegarde.<br>
+ * - Changer l'état de la partie à celui de conception des offres.
+ */
 public class NewRoundController {
 	
 	public NewRoundController (NouveauRoundMenu menu, Partie partie) {

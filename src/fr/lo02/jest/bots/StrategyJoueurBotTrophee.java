@@ -11,6 +11,10 @@ import fr.lo02.jest.Round;
 import fr.lo02.jest.enums.Couleur;
 import fr.lo02.jest.regle.attributionTrophees.*;
 
+/**
+ * Stratégie du bot "trophée". Il cherche à récupérer un des trophées.<br>
+ * Lors de la création de l'offre, il met face cachée la carte qui a le plus de valeur pour le trophée cible.
+ */
 public class StrategyJoueurBotTrophee implements StrategyJoueur,Serializable {
 	
 	private Joueur joueur;
@@ -27,8 +31,8 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur,Serializable {
 	}
 
 	/**
-	 * Le Bot Trophee montre la carte ayant de la valeur pour le trophée choisi
-	 * @return L'index de la carte montrée
+	 * Le Bot Trophee retourne la carte ayant de la valeur pour le trophée choisi
+	 * @return L'index de la carte retournée
 	 */
 	public int executeRealiserOffre() {
 		
@@ -68,6 +72,10 @@ public class StrategyJoueurBotTrophee implements StrategyJoueur,Serializable {
 		
 	}
 	
+	/**
+	 * Récupère la meilleure carte de l'offre du bot
+	 * @return l'index de la meilleure carte de l'offre
+	 */
 	private int getHighestCard() {
 		if (joueur.getOffre().getCartes().get(0).compareTo(joueur.getOffre().getCartes().get(1)).equals(joueur.getOffre().getCartes().get(1))) {
 			return 1;

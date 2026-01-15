@@ -9,6 +9,10 @@ import fr.lo02.jest.Joueur;
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.Round;
 
+/**
+ * Stratégie du bot "bourrin" : il cherche à récupérer le plus de cartes valant un grand nombre de points.<br>
+ * Il met face cachée la carte qui vaut le plus de point lors de la création de l'offre.
+ */
 public class StrategyJoueurBotBourrin implements StrategyJoueur,Serializable{
 	
 	private Joueur joueur;

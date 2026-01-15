@@ -2,15 +2,16 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import fr.lo02.jest.*;
-import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.ConceptionOffreMenu;
 import fr.lo02.ui.ToggleButtonCarte;
 
+/**
+ * Permet de récupérer l'input du joueur pour retourner la carte choisie.
+ */
 public class ConceptionOffreController {
 	
 	public ConceptionOffreController(ConceptionOffreMenu menu, Partie partie) {
@@ -20,7 +21,6 @@ public class ConceptionOffreController {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Joueur joueur = partie.getJoueurFocus();
 				Carte carteRetournee = null;
 				LinkedList<ToggleButtonCarte> userChoice = menu.getUserChoice();
 				for (Iterator<ToggleButtonCarte> it = userChoice.iterator(); it.hasNext(); ) {

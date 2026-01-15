@@ -1,6 +1,5 @@
 package fr.lo02.texte;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -14,6 +13,12 @@ import fr.lo02.jest.Round;
 import fr.lo02.jest.Terminal;
 import fr.lo02.jest.enums.PartieState;
 
+/**
+ * Permet une Vue (patron MVC) textuelle alternative à la vue graphique.<br>
+ * Permet la récupération d'inputs utilisateurs et l'envoi à la partie.<br>
+ * Techniquement, le contrôleur textuel est inclus dans cette classe.
+ */
+@SuppressWarnings("deprecation")
 public class VueTexte extends Thread implements Observer {
 	
 	private Partie partie;
@@ -26,6 +31,9 @@ public class VueTexte extends Thread implements Observer {
 		next = false;
 	}
 	
+	/**
+	 * Lance un menu textuel de départ.
+	 */
 	public void start_menu() {
 		next = false;
 		terminal.afficherChaine("Bienvenue au jeu de Jest !");
@@ -41,10 +49,16 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de chargement. Pas implémenté, car le chargement ne marche pas en l'état.
+	 */
 	public void load_menu() {
 		
 	}
 	
+	/**
+	 * Lance un menu textuel de choix des caractéristiques de la partie.
+	 */
 	public void caracteristics_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -68,6 +82,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de choix des bots.
+	 */
 	public void bots_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -96,6 +113,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de choix des noms des joueurs.
+	 */
 	public void players_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -112,6 +132,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de nouveau round.
+	 */
 	public void new_round_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -128,6 +151,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de création d'offres.
+	 */
 	public void faire_offre_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -147,6 +173,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 	
+	/**
+	 * Lance un menu textuel de choix des offres.
+	 */
 	public void choisir_offre_menu() {
 		next = false;
 		Joueur joueur = partie.getJoueurFocus();
@@ -187,9 +216,11 @@ public class VueTexte extends Thread implements Observer {
 		partie.getRound().prendreCarteSuivante();
 	}
 	
+	/**
+	 * Lance un menu textuel de choix des offres pour les bots.
+	 */
 	public void choisir_offre_bot_menu() {
 		next = false;
-		LinkedList<Joueur> listeJoueur = Round.getAutresJoueurs(partie.getJoueurFocus());
 		Joueur target = null;
 		for (Iterator<Joueur> it = partie.getJoueurs().iterator(); it.hasNext(); ) {
 			Joueur j = it.next();
@@ -211,6 +242,9 @@ public class VueTexte extends Thread implements Observer {
 		partie.getRound().prendreCarteSuivante();
 	}
 	
+	/**
+	 * Lance un menu textuel de l'attribution des trophées.
+	 */
 	public void trophees_menu() {
 		next = false;
 		terminal.afficherDivision();
@@ -245,6 +279,9 @@ public class VueTexte extends Thread implements Observer {
 		}
 	}
 
+	/**
+	 * Mise à jour quand la partie change d'état.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		

@@ -2,12 +2,14 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
 import fr.lo02.ui.NouvelleSauvegardeMenu;
 
+/**
+ * Crée une nouvelle sauvegarde à partir du nom de fichier entré par l'utilisateur.
+ */
 public class NewSaveController {
 	
 	public NewSaveController (NouvelleSauvegardeMenu menu) {

@@ -2,15 +2,16 @@ package fr.lo02.controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.Serializable;
 
 import javax.swing.*;
 
 import fr.lo02.jest.Partie;
 import fr.lo02.jest.enums.PartieState;
-import fr.lo02.ui.MainWindow;
 import fr.lo02.ui.StartMenu;
 
+/**
+ * Change l'état de la partie en fonction de si l'utilisateur choisir de charger une partie ou d'en commencer une nouvelle.
+ */
 public class StartMenuBoutons {
 	
 	public StartMenuBoutons(StartMenu startMenu, Partie partie) {
